@@ -64,7 +64,7 @@ class MultiStepStep extends TestRunnerStep {
           result = '\n-\t${step['id']}';
         }
         return result;
-      }),
+      }).toList(),
     };
   }
 }
