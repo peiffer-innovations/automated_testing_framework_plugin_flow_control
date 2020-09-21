@@ -68,4 +68,20 @@ void main() {
     expect(availStep.type, TestableType.value_requestable);
     expect(availStep.widgetless, false);
   });
+
+  test('multi_step', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'multi_step',
+    );
+
+    expect(availStep.form.runtimeType, MultiStepForm);
+    expect(
+        availStep.help, TestFlowControlTranslations.atf_flow_help_multi_step);
+    expect(availStep.id, 'multi_step');
+    expect(
+        availStep.title, TestFlowControlTranslations.atf_flow_title_multi_step);
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
 }
