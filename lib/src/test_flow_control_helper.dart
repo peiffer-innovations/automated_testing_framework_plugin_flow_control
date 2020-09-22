@@ -81,7 +81,7 @@ class TestFlowControlHelper {
           widgetless: true,
           type: null,
         ),
-        testRunnerStepBuilder: ConditionalStep.fromDynamic,
+        testRunnerStepBuilder: AssertVariableValueStep.fromDynamic,
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
