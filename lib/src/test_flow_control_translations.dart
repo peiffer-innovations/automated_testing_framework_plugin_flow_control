@@ -11,14 +11,14 @@ class TestFlowControlTranslations {
     value: 'Variable Key',
   );
 
-  static const atf_flow_form_multi_step_name = TranslationEntry(
-    key: 'atf_flow_form_multi_step_name',
-    value: 'MultiStep Name',
-  );
-
   static const atf_flow_form_multi_step_empty = TranslationEntry(
     key: 'atf_flow_form_multi_step_empty',
     value: 'You need to add some Test Steps',
+  );
+
+  static const atf_flow_form_multi_step_name = TranslationEntry(
+    key: 'atf_flow_form_multi_step_name',
+    value: 'MultiStep Name',
   );
 
   static const atf_flow_form_when_false = TranslationEntry(
