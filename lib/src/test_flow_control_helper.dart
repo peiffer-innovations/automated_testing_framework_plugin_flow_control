@@ -81,7 +81,7 @@ class TestFlowControlHelper {
           widgetless: true,
           type: null,
         ),
-        testRunnerStepBuilder: ConditionalStep.fromDynamic,
+        testRunnerStepBuilder: AssertVariableValueStep.fromDynamic,
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
@@ -123,6 +123,19 @@ class TestFlowControlHelper {
           widgetless: false,
         ),
         testRunnerStepBuilder: CopyValueToVariableStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: MultiStepForm(),
+          help: TestFlowControlTranslations.atf_flow_help_multi_step,
+          id: 'multi_step',
+          keys: const {'name', 'steps'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_multi_step,
+          type: null,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: MultiStepStep.fromDynamic,
       ),
     ]);
   }
