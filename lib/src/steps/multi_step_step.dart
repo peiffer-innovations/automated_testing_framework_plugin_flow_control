@@ -1,6 +1,9 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
+import 'package:logging/logging.dart';
 import 'package:meta/meta.dart';
 
+/// Test step that groups different [TestStep] to be executed
+/// as a block.
 class MultiStepStep extends TestRunnerStep {
   MultiStepStep({
     this.name,
@@ -10,6 +13,15 @@ class MultiStepStep extends TestRunnerStep {
   final String name;
   final List<dynamic> steps;
 
+  /// Creates an instance from a JSON-like map structure.  This expects the
+  /// following format:
+  ///
+  /// ```json
+  /// {
+  ///   "name": <String>,
+  ///   "steps": <List>
+  /// }
+  /// ```
   static MultiStepStep fromDynamic(dynamic map) {
     MultiStepStep result;
 
@@ -29,6 +41,8 @@ class MultiStepStep extends TestRunnerStep {
     return result;
   }
 
+  /// Executes the step. This will iterate through the List of steps
+  /// and will await the execution of each one.
   @override
   Future<void> execute({
     TestReport report,
@@ -38,6 +52,8 @@ class MultiStepStep extends TestRunnerStep {
       'MultiStep: Starting execution of $name',
       tester: tester,
     );
+    Logger logger = Logger('TestController');
+
     for (var rawStep in steps) {
       var stepMap = tester.resolveVariable(rawStep);
       var step = tester.registry.getRunnerStep(
@@ -45,20 +61,33 @@ class MultiStepStep extends TestRunnerStep {
         values: stepMap['values'],
       );
 
-      if (step == null) {
-        log(
-          'MultiStep: step: [${stepMap['id']}] -- no step',
-          tester: tester,
+      String error;
+
+      try {
+        if (step == null) {
+          log(
+            'MultiStep $name: step: [${stepMap['id']}] -- no step',
+            tester: tester,
+          );
+        } else {
+          log(
+            'MultiStep $name: step: [${stepMap['id']}] -- executing step',
+            tester: tester,
+          );
+          await step.execute(
+            report: report,
+            tester: tester,
+          );
+        }
+      } catch (e, stack) {
+        logger.severe(
+          'Error running test step: ${stepMap['id']} as part of MultiStep $name',
+          e,
+          stack,
         );
-      } else {
-        log(
-          'MultiStep: step: [${stepMap['id']}] -- executing step',
-          tester: tester,
-        );
-        await step.execute(
-          report: report,
-          tester: tester,
-        );
+        error = '$e';
+      } finally {
+        report?.endStep(error);
       }
     }
     log(
@@ -67,6 +96,8 @@ class MultiStepStep extends TestRunnerStep {
     );
   }
 
+  /// Converts this to a JSON compatible map.  For a description of the format,
+  /// see [fromDynamic].
   @override
   Map<String, dynamic> toJson() {
     return {
