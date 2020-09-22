@@ -129,7 +129,7 @@ class TestFlowControlHelper {
           form: MultiStepForm(),
           help: TestFlowControlTranslations.atf_flow_help_multi_step,
           id: 'multi_step',
-          keys: const {},
+          keys: const {'steps'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_multi_step,
           type: null,
