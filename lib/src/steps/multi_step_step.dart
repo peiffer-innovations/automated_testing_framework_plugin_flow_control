@@ -52,7 +52,7 @@ class MultiStepStep extends TestRunnerStep {
       'MultiStep: Starting execution of $name',
       tester: tester,
     );
-    Logger logger = Logger('TestController');
+    var logger = Logger('TestController');
 
     for (var rawStep in steps) {
       var stepMap = tester.resolveVariable(rawStep);
@@ -60,8 +60,6 @@ class MultiStepStep extends TestRunnerStep {
         id: stepMap['id'],
         values: stepMap['values'],
       );
-
-      String error;
 
       try {
         if (step == null) {
@@ -85,9 +83,7 @@ class MultiStepStep extends TestRunnerStep {
           e,
           stack,
         );
-        error = '$e';
-      } finally {
-        report?.endStep(error);
+        rethrow;
       }
     }
     log(
