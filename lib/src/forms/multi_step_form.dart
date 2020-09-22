@@ -11,7 +11,6 @@ class MultiStepForm extends TestStepForm {
     Map<String, dynamic> values, {
     bool minify = false,
   }) {
-    // TODO: MultiStep Form
     /// If this line is removed, [values] will still have a reference to the
     /// original [steps] List, so modifying that here will modify it in the
     /// [TestStep] without confirmation.
@@ -27,6 +26,12 @@ class MultiStepForm extends TestStepForm {
         buildValuesSection(
           context,
           [
+            buildEditText(
+              context: context,
+              id: 'name',
+              label: TestFlowControlTranslations.atf_flow_form_multi_step_name,
+              values: values,
+            ),
             _StepsEditor(
               values: values,
             )
@@ -75,45 +80,59 @@ class _StepsEditorState extends State<_StepsEditor> {
       children: [
         Container(
           height: 300,
+          width: double.infinity,
           decoration: BoxDecoration(
             border: Border.all(
               color: IconTheme.of(context).color,
             ),
           ),
-          child: ListView.builder(
-            itemCount: steps.length,
-            itemBuilder: (context, index) {
-              return Row(
-                key: UniqueKey(),
-                children: [
-                  Flexible(
-                    child: TestStepPicker(
-                      label: translator.translate(
-                        TestFlowControlTranslations.atf_flow_form_inner_step,
-                      ),
-                      onStepChanged: (step) {
-                        widget.values['steps'][index] = step?.toJson();
-                        setState(() {
-                          steps[index] = step;
-                        });
-                      },
-                      step: steps[index],
+          child: steps.isEmpty
+              ? Center(
+                  child: Text(
+                    translator.translate(
+                      TestFlowControlTranslations
+                          .atf_flow_form_multi_step_empty,
+                    ),
+                    style: TextStyle(
+                      color: Colors.white.withOpacity(0.6),
                     ),
                   ),
-                  IconButton(
-                    icon: Icon(Icons.delete),
-                    onPressed: () {
-                      (widget.values['steps'] as List).removeAt(index);
-                      setState(() {
-                        steps.removeAt(index);
-                      });
-                    },
-                  ),
-                ],
-              );
-            },
-            controller: scrollController,
-          ),
+                )
+              : ListView.builder(
+                  itemCount: steps.length,
+                  itemBuilder: (context, index) {
+                    return Row(
+                      key: UniqueKey(),
+                      children: [
+                        Flexible(
+                          child: TestStepPicker(
+                            label: translator.translate(
+                              TestFlowControlTranslations
+                                  .atf_flow_form_inner_step,
+                            ),
+                            onStepChanged: (step) {
+                              widget.values['steps'][index] = step?.toJson();
+                              setState(() {
+                                steps[index] = step;
+                              });
+                            },
+                            step: steps[index],
+                          ),
+                        ),
+                        IconButton(
+                          icon: Icon(Icons.delete),
+                          onPressed: () {
+                            (widget.values['steps'] as List).removeAt(index);
+                            setState(() {
+                              steps.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                  controller: scrollController,
+                ),
         ),
         Divider(
           color: IconTheme.of(context).color,
