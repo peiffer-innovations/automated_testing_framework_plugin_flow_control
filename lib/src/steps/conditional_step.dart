@@ -88,7 +88,7 @@ class ConditionalStep extends TestRunnerStep {
         'conditional: result: [$result] -- executing step',
         tester: tester,
       );
-      step.execute(
+      await step.execute(
         report: report,
         tester: tester,
       );

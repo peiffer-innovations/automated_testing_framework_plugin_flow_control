@@ -42,7 +42,7 @@ void main() async {
     );
   }
 
-  List<String> allTests = List<String>.from(
+  var allTests = List<String>.from(
     json.decode(
       await rootBundle.loadString(
         'assets/all_tests.json',

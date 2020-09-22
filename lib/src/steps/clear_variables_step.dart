@@ -28,7 +28,7 @@ class ClearVariablesStep extends TestRunnerStep {
     @required TestReport report,
     @required TestController tester,
   }) async {
-    var name = "clear_variables()";
+    var name = 'clear_variables()';
     log(
       name,
       tester: tester,
