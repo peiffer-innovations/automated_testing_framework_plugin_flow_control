@@ -1,6 +1,7 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:automated_testing_framework_plugin_flow_control/automated_testing_framework_plugin_flow_control.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:static_translations/static_translations.dart';
 
 class MultiStepForm extends TestStepForm {
@@ -53,12 +54,14 @@ class _StepsEditor extends StatefulWidget {
 }
 
 class _StepsEditorState extends State<_StepsEditor> {
+  ScrollController scrollController;
   List<TestStep> steps = [];
   Translator translator;
 
   @override
   void initState() {
     super.initState();
+    scrollController = ScrollController();
     widget.values['steps'] ??= [];
     steps = (widget.values['steps'] as List)
         .map((rawStep) => TestStep.fromDynamic(rawStep))
@@ -70,24 +73,46 @@ class _StepsEditorState extends State<_StepsEditor> {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
-          height: 200,
+        Container(
+          height: 300,
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: IconTheme.of(context).color,
+            ),
+          ),
           child: ListView.builder(
             itemCount: steps.length,
             itemBuilder: (context, index) {
-              return TestStepPicker(
-                label: translator.translate(
-                  TestFlowControlTranslations.atf_flow_form_inner_step,
-                ),
-                onStepChanged: (step) {
-                  widget.values['steps'][index] = step?.toJson();
-                  setState(() {
-                    steps[index] = step;
-                  });
-                },
-                step: steps[index],
+              return Row(
+                key: UniqueKey(),
+                children: [
+                  Flexible(
+                    child: TestStepPicker(
+                      label: translator.translate(
+                        TestFlowControlTranslations.atf_flow_form_inner_step,
+                      ),
+                      onStepChanged: (step) {
+                        widget.values['steps'][index] = step?.toJson();
+                        setState(() {
+                          steps[index] = step;
+                        });
+                      },
+                      step: steps[index],
+                    ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.delete),
+                    onPressed: () {
+                      (widget.values['steps'] as List).removeAt(index);
+                      setState(() {
+                        steps.removeAt(index);
+                      });
+                    },
+                  ),
+                ],
               );
             },
+            controller: scrollController,
           ),
         ),
         Divider(
@@ -95,17 +120,14 @@ class _StepsEditorState extends State<_StepsEditor> {
         ),
         IconButton(
           onPressed: () {
+            (widget.values['steps'] as List).add(null);
             setState(() {
-              /*steps.add(
-                TestStepPicker(
-                  label: translator.translate(
-                    TestTranslations.atf_no_test_step,
-                  ),
-                  onStepChanged: (step) {},
-                  step: TestStep.fromDynamic(
-                      widget.values['steps'][steps.length]),
-                ),
-              );*/
+              steps.add(null);
+            });
+            SchedulerBinding.instance.addPostFrameCallback((_) {
+              scrollController.jumpTo(
+                scrollController.position.maxScrollExtent,
+              );
             });
           },
           icon: Icon(Icons.add),
