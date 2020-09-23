@@ -10,6 +10,7 @@
   * [conditional](#conditional)
   * [copy_value_to_variable](#copy_value_to_variable)
   * [expect_failure](#expect_failure)
+  * [fail](#fail)
 
 
 ## Introduction
@@ -199,5 +200,32 @@ Key            | Type    | Required | Supports Variable | Description
 Key    | Type   | Required | Supports Variable | Description
 -------|--------|----------|-------------------|-------------
 `step` | Map    | Yes      | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
+
+
+---
+
+### fail
+
+**How it Works**
+
+1. Fails the step with the optional `message`.
+
+**Example**
+
+```json
+{
+  "id": "fail",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "message": "Well... crap... :("
+  }
+}
+```
+
+**Values**
+
+Key       | Type   | Required | Supports Variable | Description
+----------|--------|----------|-------------------|-------------
+`message` | String | Yes      | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
 
 

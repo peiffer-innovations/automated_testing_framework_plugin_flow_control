@@ -1,3 +1,8 @@
+## [1.0.2+1] - September 22nd, 2020
+
+* Added missing `fail` step to the [Steps](https://github.com/peiffer-innovations/automated_testing_framework_plugin_flow_control/blob/main/documentation/STEPS.md) doc
+
+
 ## [1.0.2] - September 22nd, 2020
 
 * Fixed bug with `assert_variable_value` and the form
