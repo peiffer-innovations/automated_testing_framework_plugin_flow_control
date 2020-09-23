@@ -29,6 +29,7 @@ Test Step IDs                                     | Description
 [conditional](#conditional)                       | Conditionally executes a step based on the `value` of a `variableName`.
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
 [expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
+[fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
 
 
 ---
