@@ -227,6 +227,6 @@ Key    | Type   | Required | Supports Variable | Description
 
 Key       | Type   | Required | Supports Variable | Description
 ----------|--------|----------|-------------------|-------------
-`message` | String | Yes      | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
+`message` | String | Yes      | Yes               | The optional message to fail with.
 
 
