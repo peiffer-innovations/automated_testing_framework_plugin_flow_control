@@ -68,4 +68,20 @@ void main() {
     expect(availStep.type, TestableType.value_requestable);
     expect(availStep.widgetless, false);
   });
+
+  test('expect_failure', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'expect_failure',
+    );
+
+    expect(availStep.form.runtimeType, ExpectFailureForm);
+    expect(availStep.help,
+        TestFlowControlTranslations.atf_flow_help_expect_failure);
+    expect(availStep.id, 'expect_failure');
+    expect(availStep.title,
+        TestFlowControlTranslations.atf_flow_title_expect_failure);
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
 }

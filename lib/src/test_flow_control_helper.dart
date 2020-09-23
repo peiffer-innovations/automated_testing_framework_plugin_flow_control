@@ -81,7 +81,7 @@ class TestFlowControlHelper {
           widgetless: true,
           type: null,
         ),
-        testRunnerStepBuilder: ConditionalStep.fromDynamic,
+        testRunnerStepBuilder: AssertVariableValueStep.fromDynamic,
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
@@ -123,6 +123,30 @@ class TestFlowControlHelper {
           widgetless: false,
         ),
         testRunnerStepBuilder: CopyValueToVariableStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: ExpectFailureForm(),
+          help: TestFlowControlTranslations.atf_flow_help_expect_failure,
+          id: 'expect_failure',
+          keys: const {'step'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_expect_failure,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: ExpectFailureStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: FailForm(),
+          help: TestFlowControlTranslations.atf_flow_help_fail,
+          id: 'fail',
+          keys: const {'message'},
+          quickAddValues: {},
+          title: TestFlowControlTranslations.atf_flow_title_fail,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: FailStep.fromDynamic,
       ),
     ]);
   }

@@ -1,3 +1,12 @@
+## [1.0.2] - September 22nd, 2020
+
+* Fixed bug with `assert_variable_value` and the form
+* Updated `conditional` to call the new `TestController.executeStep` to ensure the correct sub-step is logged and tracked
+* Updating to latest framework
+* Added `expect_failure` step to support negative tests
+* Added `fail` step to support failing with specific messages
+
+
 ## [1.0.1] - September 21st, 2020
 
 * Updating to latest framework

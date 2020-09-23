@@ -69,7 +69,7 @@ class AssertVariableValueStep extends TestRunnerStep {
     );
 
     var match = false;
-    var actual = tester.resolveVariable(variableName);
+    var actual = tester.resolveVariable('{{$variableName}}');
     if (equals == (actual?.toString() == value)) {
       match = true;
     }

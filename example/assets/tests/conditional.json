@@ -1,6 +1,7 @@
 {
   "active": true,
   "name": "Conditional",
+  "suiteName": "Flow Control",
   "steps": [{
       "id": "tap",
       "values": {

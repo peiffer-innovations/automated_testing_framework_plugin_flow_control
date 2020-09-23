@@ -1,6 +1,7 @@
 {
   "active": true,
   "name": "Conditional Extended",
+  "suiteName": "Flow Control",
   "steps": [{
       "id": "set_variable",
       "values": {

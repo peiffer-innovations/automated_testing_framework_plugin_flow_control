@@ -1,0 +1,64 @@
+{
+  "active": true,
+  "name": "Failures",
+  "steps": [{
+      "id": "set_variable",
+      "values": {
+        "type": "String",
+        "variableName": "test",
+        "value": "1"
+      }
+    },
+    {
+      "id": "assert_variable_value",
+      "values": {
+        "value": "1",
+        "variableName": "test"
+      }
+    },
+    {
+      "id": "expect_failure",
+      "values": {
+        "step": {
+          "id": "assert_variable_value",
+          "values": {
+            "key": "test",
+            "value": "2",
+            "variableName": "test"
+          }
+        }
+      }
+    },
+    {
+      "id": "expect_failure",
+      "values": {
+        "step": {
+          "id": "expect_failure",
+          "values": {
+            "step": {
+              "id": "assert_variable_value",
+              "values": {
+                "key": "test",
+                "value": "1",
+                "variableName": "test"
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "expect_failure",
+      "values": {
+        "step": {
+          "id": "fail",
+          "values": {
+            "message": "I'm gonna fail!!!"
+          }
+        }
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "version": 0
+}

@@ -6,6 +6,16 @@ class TestFlowControlTranslations {
     value: 'Variable Key',
   );
 
+  static const atf_flow_form_message = TranslationEntry(
+    key: 'atf_flow_form_message',
+    value: 'Message',
+  );
+
+  static const atf_flow_form_step = TranslationEntry(
+    key: 'atf_flow_form_step',
+    value: 'Step',
+  );
+
   static const atf_flow_form_when_false = TranslationEntry(
     key: 'atf_flow_form_when_false',
     value: 'False Step',
@@ -38,6 +48,17 @@ class TestFlowControlTranslations {
     value: 'Copies the value from the given Testable to a variable.',
   );
 
+  static const atf_flow_help_expect_failure = TranslationEntry(
+    key: 'atf_flow_help_expect_failure',
+    value:
+        'Expects that the sub-step results in a failed result.  Otherwise, this step itself will fail.',
+  );
+
+  static const atf_flow_help_fail = TranslationEntry(
+    key: 'atf_flow_help_fail',
+    value: 'Fails a test with an optional message.',
+  );
+
   static const atf_flow_title_assert_variable_value = TranslationEntry(
     key: 'atf_flow_title_assert_variable_value',
     value: 'Assert Variable Value',
@@ -56,5 +77,15 @@ class TestFlowControlTranslations {
   static const atf_flow_title_copy_value_to_variable = TranslationEntry(
     key: 'atf_flow_title_copy_value_to_variable',
     value: 'Copy Value to Variable',
+  );
+
+  static const atf_flow_title_expect_failure = TranslationEntry(
+    key: 'atf_flow_title_expect_failure',
+    value: 'Expect Failure',
+  );
+
+  static const atf_flow_title_fail = TranslationEntry(
+    key: 'atf_flow_title_fail',
+    value: 'Fail',
   );
 }

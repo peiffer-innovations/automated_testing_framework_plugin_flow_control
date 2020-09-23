@@ -9,6 +9,7 @@
   * [clear_variables](#clear_variables)
   * [conditional](#conditional)
   * [copy_value_to_variable](#copy_value_to_variable)
+  * [expect_failure](#expect_failure)
 
 
 ## Introduction
@@ -26,6 +27,7 @@ Test Step IDs                                     | Description
 [clear_variables](#clear_variables)               | Clears all the variables from the `TestController`.
 [conditional](#conditional)                       | Conditionally executes a step based on the `value` of a `variableName`.
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
+[expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
 
 
 ---
@@ -129,8 +131,8 @@ Key            | Type   | Required | Supports Variable | Description
 ---------------|--------|----------|-------------------|-------------
 `value`        | String | No       | Yes               | The value to compare the `variableName`'s value to.
 `variableName` | String | Yes      | Yes               | The `variableName` to get the value for.
-`whenFalse`    | Map    | No       | No                | The step to execute when the value on the step and the `variableName`'s values are not equal.
-`whenTrue`     | Map    | No       | No                | The step to execute when the value on the step and the `variableName`'s values are equal.
+`whenFalse`    | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are not equal.
+`whenTrue`     | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
 
 
 ---
@@ -164,3 +166,38 @@ Key            | Type    | Required | Supports Variable | Description
 `testableId`   | String  | Yes      | Yes               | The `id` of the `Testable` to evaluate the value.
 `timeout`      | integer | No       | Yes               | Number of seconds the step will wait for the `Testable` widget to be available on the widget tree.
 `variableName` | String  | Yes      | No                | The value to evaluate against.
+
+
+---
+
+### expect_failure
+
+**How it Works**
+
+1. Executes the `step`.
+2. Passes if, and only if, the `step` results in a failure.
+
+**Example**
+
+```json
+{
+  "id": "expect_failure",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "step": {
+      "id": "failing_test_step",
+      "values": {
+        "testStep": "values"
+      }
+    }
+  }
+}
+```
+
+**Values**
+
+Key    | Type   | Required | Supports Variable | Description
+-------|--------|----------|-------------------|-------------
+`step` | Map    | Yes      | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
+
+

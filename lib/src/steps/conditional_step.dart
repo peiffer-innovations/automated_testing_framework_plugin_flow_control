@@ -24,13 +24,13 @@ class ConditionalStep extends TestRunnerStep {
   /// {
   ///   "value": <String>,
   ///   "variableName": <String>,
-  ///   "whenFalse": <Map>,
-  ///   "whenTrue": <Map>
+  ///   "whenFalse": <TestStep>,
+  ///   "whenTrue": <TestStep>
   /// }
   /// ```
   ///
   /// See also:
-  /// * [Conditional.fromDynamic]
+  /// * [TestStep.fromDynamic]
   static ConditionalStep fromDynamic(dynamic map) {
     ConditionalStep result;
 
@@ -69,13 +69,10 @@ class ConditionalStep extends TestRunnerStep {
 
     var result = value == tester.resolveVariable('{{$variableName}}');
 
-    TestRunnerStep step;
+    TestStep step;
     var resultStep = result == true ? whenTrue : whenFalse;
     if (resultStep != null) {
-      step = tester.registry.getRunnerStep(
-        id: resultStep['id'],
-        values: resultStep['values'],
-      );
+      step = TestStep.fromDynamic(resultStep);
     }
 
     if (step == null) {
@@ -88,9 +85,9 @@ class ConditionalStep extends TestRunnerStep {
         'conditional: result: [$result] -- executing step',
         tester: tester,
       );
-      await step.execute(
+      await tester.executeStep(
         report: report,
-        tester: tester,
+        step: step,
       );
     }
   }
