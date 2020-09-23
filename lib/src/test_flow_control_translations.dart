@@ -1,6 +1,11 @@
 import 'package:static_translations/static_translations.dart';
 
 class TestFlowControlTranslations {
+  static const atf_flow_form_inner_step = TranslationEntry(
+    key: 'atf_flow_form_inner_step',
+    value: 'An inner Step',
+  );
+
   static const atf_flow_form_key = TranslationEntry(
     key: 'atf_flow_form_key',
     value: 'Variable Key',
@@ -14,6 +19,16 @@ class TestFlowControlTranslations {
   static const atf_flow_form_step = TranslationEntry(
     key: 'atf_flow_form_step',
     value: 'Step',
+  );
+
+  static const atf_flow_form_multi_step_empty = TranslationEntry(
+    key: 'atf_flow_form_multi_step_empty',
+    value: 'You need to add some Test Steps',
+  );
+
+  static const atf_flow_form_multi_step_name = TranslationEntry(
+    key: 'atf_flow_form_multi_step_name',
+    value: 'MultiStep Name',
   );
 
   static const atf_flow_form_when_false = TranslationEntry(
@@ -59,6 +74,11 @@ class TestFlowControlTranslations {
     value: 'Fails a test with an optional message.',
   );
 
+  static const atf_flow_help_multi_step = TranslationEntry(
+    key: 'atf_flow_help_multi_step',
+    value: 'A group of test steps to be executed. It can contain zero tests.',
+  );
+
   static const atf_flow_title_assert_variable_value = TranslationEntry(
     key: 'atf_flow_title_assert_variable_value',
     value: 'Assert Variable Value',
@@ -87,5 +107,10 @@ class TestFlowControlTranslations {
   static const atf_flow_title_fail = TranslationEntry(
     key: 'atf_flow_title_fail',
     value: 'Fail',
+  );
+
+  static const atf_flow_title_multi_step = TranslationEntry(
+    key: 'atf_flow_title_multi_step',
+    value: 'Multi Step',
   );
 }

@@ -148,6 +148,19 @@ class TestFlowControlHelper {
         ),
         testRunnerStepBuilder: FailStep.fromDynamic,
       ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: MultiStepForm(),
+          help: TestFlowControlTranslations.atf_flow_help_multi_step,
+          id: 'multi_step',
+          keys: const {'name', 'steps'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_multi_step,
+          type: null,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: MultiStepStep.fromDynamic,
+      ),
     ]);
   }
 }
