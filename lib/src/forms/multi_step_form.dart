@@ -2,9 +2,19 @@ import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:automated_testing_framework_plugin_flow_control/automated_testing_framework_plugin_flow_control.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:json_class/json_class.dart';
 import 'package:static_translations/static_translations.dart';
 
 class MultiStepForm extends TestStepForm {
+  const MultiStepForm();
+
+  @override
+  bool get supportsMinified => true;
+
+  @override
+  TranslationEntry get title =>
+      TestFlowControlTranslations.atf_flow_title_multi_step;
+
   @override
   Widget buildForm(
     BuildContext context,
@@ -40,13 +50,6 @@ class MultiStepForm extends TestStepForm {
       ],
     );
   }
-
-  @override
-  bool get supportsMinified => true;
-
-  @override
-  TranslationEntry get title =>
-      TestFlowControlTranslations.atf_flow_title_multi_step;
 }
 
 class _StepsEditor extends StatefulWidget {
@@ -59,19 +62,20 @@ class _StepsEditor extends StatefulWidget {
 }
 
 class _StepsEditorState extends State<_StepsEditor> {
-  ScrollController scrollController;
-  List<TestStep> steps = [];
-  Translator translator;
+  ScrollController _scrollController;
+  List<TestStep> _steps;
+  Translator _translator;
 
   @override
   void initState() {
     super.initState();
-    scrollController = ScrollController();
-    widget.values['steps'] ??= [];
-    steps = (widget.values['steps'] as List)
-        .map((rawStep) => TestStep.fromDynamic(rawStep))
-        .toList();
-    translator = Translator.of(context);
+    _scrollController = ScrollController();
+    _steps = JsonClass.fromDynamicList(
+          widget.values['steps'],
+          (map) => TestStep.fromDynamic(map),
+        ) ??
+        [];
+    _translator = Translator.of(context);
   }
 
   @override
@@ -86,10 +90,10 @@ class _StepsEditorState extends State<_StepsEditor> {
               color: IconTheme.of(context).color,
             ),
           ),
-          child: steps.isEmpty
+          child: _steps.isEmpty
               ? Center(
                   child: Text(
-                    translator.translate(
+                    _translator.translate(
                       TestFlowControlTranslations
                           .atf_flow_form_multi_step_empty,
                     ),
@@ -99,24 +103,23 @@ class _StepsEditorState extends State<_StepsEditor> {
                   ),
                 )
               : ListView.builder(
-                  itemCount: steps.length,
+                  itemCount: _steps.length,
                   itemBuilder: (context, index) {
                     return Row(
                       key: UniqueKey(),
                       children: [
                         Flexible(
                           child: TestStepPicker(
-                            label: translator.translate(
-                              TestFlowControlTranslations
-                                  .atf_flow_form_inner_step,
+                            label: _translator.translate(
+                              TestFlowControlTranslations.atf_flow_form_step,
                             ),
                             onStepChanged: (step) {
                               widget.values['steps'][index] = step?.toJson();
                               setState(() {
-                                steps[index] = step;
+                                _steps[index] = step;
                               });
                             },
-                            step: steps[index],
+                            step: _steps[index],
                           ),
                         ),
                         IconButton(
@@ -124,14 +127,14 @@ class _StepsEditorState extends State<_StepsEditor> {
                           onPressed: () {
                             (widget.values['steps'] as List).removeAt(index);
                             setState(() {
-                              steps.removeAt(index);
+                              _steps.removeAt(index);
                             });
                           },
                         ),
                       ],
                     );
                   },
-                  controller: scrollController,
+                  controller: _scrollController,
                 ),
         ),
         Divider(
@@ -141,11 +144,11 @@ class _StepsEditorState extends State<_StepsEditor> {
           onPressed: () {
             (widget.values['steps'] as List).add(null);
             setState(() {
-              steps.add(null);
+              _steps.add(null);
             });
             SchedulerBinding.instance.addPostFrameCallback((_) {
-              scrollController.jumpTo(
-                scrollController.position.maxScrollExtent,
+              _scrollController.jumpTo(
+                _scrollController.position.maxScrollExtent,
               );
             });
           },

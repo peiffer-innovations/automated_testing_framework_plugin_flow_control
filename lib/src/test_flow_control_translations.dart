@@ -1,11 +1,6 @@
 import 'package:static_translations/static_translations.dart';
 
 class TestFlowControlTranslations {
-  static const atf_flow_form_inner_step = TranslationEntry(
-    key: 'atf_flow_form_inner_step',
-    value: 'An inner Step',
-  );
-
   static const atf_flow_form_key = TranslationEntry(
     key: 'atf_flow_form_key',
     value: 'Variable Key',
@@ -23,7 +18,7 @@ class TestFlowControlTranslations {
 
   static const atf_flow_form_multi_step_empty = TranslationEntry(
     key: 'atf_flow_form_multi_step_empty',
-    value: 'You need to add some Test Steps',
+    value: 'There are currently no Steps as part of this multi_step',
   );
 
   static const atf_flow_form_multi_step_name = TranslationEntry(
