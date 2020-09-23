@@ -11,6 +11,7 @@
   * [copy_value_to_variable](#copy_value_to_variable)
   * [expect_failure](#expect_failure)
   * [fail](#fail)
+  * [multi_step](#multi_step)
 
 
 ## Introduction
@@ -30,6 +31,7 @@ Test Step IDs                                     | Description
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
 [expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
 [fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
+[multi_step](#multi_step)                         | Groups different test steps to be executed.
 
 
 ---
@@ -228,5 +230,45 @@ Key    | Type   | Required | Supports Variable | Description
 Key       | Type   | Required | Supports Variable | Description
 ----------|--------|----------|-------------------|-------------
 `message` | String | Yes      | Yes               | The optional message to fail with.
+
+
+---
+
+### multi_step
+
+**How it Works**
+
+1. Groups different test steps to be executed.
+
+**Example**
+
+```json
+{
+  "id": "multi_step",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "name": "<optional_string>",
+    "steps": [
+      {
+        "id": "go_back",
+        "values": {}
+      },
+      {
+        "id": "tap",
+        "values": {
+          "testableId": "other_testable_widget"
+        }
+      }
+    ]
+  }
+}
+```
+
+**Values**
+
+Key       | Type   | Required | Supports Variable | Description
+----------|--------|----------|-------------------|-------------
+`name`    | String | No       | No                | The optional name of the `multi_step` step.
+`steps`   | List   | Yes      | Only on each step | The list of steps to be executed as part of the same group.
 
 

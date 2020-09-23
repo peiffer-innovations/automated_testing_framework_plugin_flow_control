@@ -1,5 +1,5 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:logging/logging.dart';
+import 'package:json_class/json_class.dart';
 import 'package:meta/meta.dart';
 
 /// Test step that groups different [TestStep] to be executed
@@ -19,9 +19,12 @@ class MultiStepStep extends TestRunnerStep {
   /// ```json
   /// {
   ///   "name": <String>,
-  ///   "steps": <List>
+  ///   "steps": <List<TestStep>>
   /// }
   /// ```
+  ///
+  /// See also:
+  /// * [TestStep.fromDynamic]
   static MultiStepStep fromDynamic(dynamic map) {
     MultiStepStep result;
 
@@ -49,45 +52,32 @@ class MultiStepStep extends TestRunnerStep {
     TestController tester,
   }) async {
     log(
-      'MultiStep: Starting execution of $name',
+      'multi_step: Starting execution of $name',
       tester: tester,
     );
-    var logger = Logger('TestController');
 
     for (var rawStep in steps) {
       var stepMap = tester.resolveVariable(rawStep);
-      var step = tester.registry.getRunnerStep(
-        id: stepMap['id'],
-        values: stepMap['values'],
-      );
+      var step = TestStep.fromDynamic(stepMap);
 
-      try {
-        if (step == null) {
-          log(
-            'MultiStep $name: step: [${stepMap['id']}] -- no step',
-            tester: tester,
-          );
-        } else {
-          log(
-            'MultiStep $name: step: [${stepMap['id']}] -- executing step',
-            tester: tester,
-          );
-          await step.execute(
-            report: report,
-            tester: tester,
-          );
-        }
-      } catch (e, stack) {
-        logger.severe(
-          'Error running test step: ${stepMap['id']} as part of MultiStep $name',
-          e,
-          stack,
+      if (step == null) {
+        log(
+          'multi_step $name: step: [${stepMap['id']}] -- no step',
+          tester: tester,
         );
-        rethrow;
+      } else {
+        log(
+          'multi_step $name: step: [${stepMap['id']}] -- executing step',
+          tester: tester,
+        );
+        await tester.executeStep(
+          report: report,
+          step: step,
+        );
       }
     }
     log(
-      'MultiStep: Finished execution of $name',
+      'multi_step: Finished execution of $name',
       tester: tester,
     );
   }
@@ -98,13 +88,7 @@ class MultiStepStep extends TestRunnerStep {
   Map<String, dynamic> toJson() {
     return {
       'name': name,
-      'steps': steps.map((step) {
-        var result = step;
-        if (step is Map) {
-          result = '\n-\t${step['id']}';
-        }
-        return result;
-      }).toList(),
+      'steps': JsonClass.toJsonList(steps),
     };
   }
 }
