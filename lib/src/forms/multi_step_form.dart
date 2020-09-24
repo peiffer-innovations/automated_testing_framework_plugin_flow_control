@@ -103,7 +103,6 @@ class _StepsEditorState extends State<_StepsEditor> {
                     ),
                     style: TextStyle(
                       color: Theme.of(context).hintColor,
-                      //color: Colors.white.withOpacity(0.6),
                     ),
                     textAlign: TextAlign.center,
                   ),
