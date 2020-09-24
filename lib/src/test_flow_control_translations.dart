@@ -16,6 +16,16 @@ class TestFlowControlTranslations {
     value: 'Step',
   );
 
+  static const atf_flow_form_multi_step_empty = TranslationEntry(
+    key: 'atf_flow_form_multi_step_empty',
+    value: 'There are currently no Steps as part of this multi_step',
+  );
+
+  static const atf_flow_form_multi_step_debug_label = TranslationEntry(
+    key: 'atf_flow_form_multi_step_debug_label',
+    value: 'Debug Label',
+  );
+
   static const atf_flow_form_when_false = TranslationEntry(
     key: 'atf_flow_form_when_false',
     value: 'False Step',
@@ -59,6 +69,11 @@ class TestFlowControlTranslations {
     value: 'Fails a test with an optional message.',
   );
 
+  static const atf_flow_help_multi_step = TranslationEntry(
+    key: 'atf_flow_help_multi_step',
+    value: 'A group of test steps to be executed. It can contain zero tests.',
+  );
+
   static const atf_flow_title_assert_variable_value = TranslationEntry(
     key: 'atf_flow_title_assert_variable_value',
     value: 'Assert Variable Value',
@@ -87,5 +102,10 @@ class TestFlowControlTranslations {
   static const atf_flow_title_fail = TranslationEntry(
     key: 'atf_flow_title_fail',
     value: 'Fail',
+  );
+
+  static const atf_flow_title_multi_step = TranslationEntry(
+    key: 'atf_flow_title_multi_step',
+    value: 'Multi Step',
   );
 }
