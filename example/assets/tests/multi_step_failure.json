@@ -1,6 +1,6 @@
 {
   "active": true,
-  "name": "MultiStep",
+  "name": "MultiStep Failure",
   "steps": [
     {
       "id": "tap",
@@ -13,7 +13,7 @@
       "id": "multi_step",
       "image": null,
       "values": {
-        "name": "MultiStep with error",
+        "debugLabel": "MultiStep with error",
         "steps": [
           {
             "id": "scroll_until_visible",
