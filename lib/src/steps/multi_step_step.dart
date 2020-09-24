@@ -6,11 +6,11 @@ import 'package:meta/meta.dart';
 /// as a block.
 class MultiStepStep extends TestRunnerStep {
   MultiStepStep({
-    this.name,
+    this.debugLabel,
     @required this.steps,
   }) : assert(steps != null);
 
-  final String name;
+  final String debugLabel;
   final List<dynamic> steps;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
@@ -18,7 +18,7 @@ class MultiStepStep extends TestRunnerStep {
   ///
   /// ```json
   /// {
-  ///   "name": <String>,
+  ///   "debugLabel": <String>,
   ///   "steps": <List<TestStep>>
   /// }
   /// ```
@@ -29,11 +29,11 @@ class MultiStepStep extends TestRunnerStep {
     MultiStepStep result;
 
     if (map != null) {
-      var name = map['name'] ?? 'Default MultiStep';
+      var debugLabel = map['debugLabel'] ?? 'Default MultiStep';
       List stepsList = map['steps'] is List ? map['steps'] : [map['steps']];
 
       result = MultiStepStep(
-        name: name,
+        debugLabel: debugLabel,
         steps: stepsList
           ..removeWhere(
             (step) => step == null,
@@ -52,7 +52,7 @@ class MultiStepStep extends TestRunnerStep {
     TestController tester,
   }) async {
     log(
-      'multi_step: Starting execution of $name',
+      'multi_step: Starting execution of $debugLabel',
       tester: tester,
     );
 
@@ -62,12 +62,12 @@ class MultiStepStep extends TestRunnerStep {
 
       if (step == null) {
         log(
-          'multi_step $name: step: [${stepMap['id']}] -- no step',
+          'multi_step $debugLabel: step: [${stepMap['id']}] -- no step',
           tester: tester,
         );
       } else {
         log(
-          'multi_step $name: step: [${stepMap['id']}] -- executing step',
+          'multi_step $debugLabel: step: [${stepMap['id']}] -- executing step',
           tester: tester,
         );
         await tester.executeStep(
@@ -77,7 +77,7 @@ class MultiStepStep extends TestRunnerStep {
       }
     }
     log(
-      'multi_step: Finished execution of $name',
+      'multi_step: Finished execution of $debugLabel',
       tester: tester,
     );
   }
@@ -87,7 +87,7 @@ class MultiStepStep extends TestRunnerStep {
   @override
   Map<String, dynamic> toJson() {
     return {
-      'name': name,
+      'debugLabel': debugLabel,
       'steps': JsonClass.toJsonList(steps),
     };
   }

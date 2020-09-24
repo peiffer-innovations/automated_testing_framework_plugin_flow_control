@@ -247,7 +247,7 @@ Key       | Type   | Required | Supports Variable | Description
   "id": "multi_step",
   "image": "<optional_base_64_image>",
   "values": {
-    "name": "<optional_string>",
+    "debugLabel": "<optional_string>",
     "steps": [
       {
         "id": "go_back",
@@ -266,9 +266,9 @@ Key       | Type   | Required | Supports Variable | Description
 
 **Values**
 
-Key       | Type   | Required | Supports Variable | Description
-----------|--------|----------|-------------------|-------------
-`name`    | String | No       | No                | The optional name of the `multi_step` step.
-`steps`   | List   | Yes      | Only on each step | The list of steps to be executed as part of the same group.
+Key         | Type   | Required | Supports Variable | Description
+----------  |--------|----------|-------------------|-------------
+`debugLabel`| String | No       | No                | The optional debug label of the `multi_step` step.
+`steps`     | List   | Yes      | Only on each step | The list of steps to be executed as part of the same group.
 
 

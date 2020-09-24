@@ -21,9 +21,9 @@ class TestFlowControlTranslations {
     value: 'There are currently no Steps as part of this multi_step',
   );
 
-  static const atf_flow_form_multi_step_name = TranslationEntry(
-    key: 'atf_flow_form_multi_step_name',
-    value: 'MultiStep Name',
+  static const atf_flow_form_multi_step_debug_label = TranslationEntry(
+    key: 'atf_flow_form_multi_step_debug_label',
+    value: 'Debug Label',
   );
 
   static const atf_flow_form_when_false = TranslationEntry(

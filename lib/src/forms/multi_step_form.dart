@@ -36,15 +36,19 @@ class MultiStepForm extends TestStepForm {
         buildValuesSection(
           context,
           [
-            buildEditText(
-              context: context,
-              id: 'name',
-              label: TestFlowControlTranslations.atf_flow_form_multi_step_name,
-              values: values,
-            ),
+            if (minify != true) ...[
+              buildEditText(
+                context: context,
+                id: 'debugLabel',
+                label: TestFlowControlTranslations
+                    .atf_flow_form_multi_step_debug_label,
+                values: values,
+              ),
+              SizedBox(height: 16.0),
+            ],
             _StepsEditor(
               values: values,
-            )
+            ),
           ],
         ),
       ],
@@ -83,7 +87,7 @@ class _StepsEditorState extends State<_StepsEditor> {
     return Column(
       children: [
         Container(
-          height: 300,
+          height: 300.0,
           width: double.infinity,
           decoration: BoxDecoration(
             border: Border.all(
@@ -98,8 +102,10 @@ class _StepsEditorState extends State<_StepsEditor> {
                           .atf_flow_form_multi_step_empty,
                     ),
                     style: TextStyle(
-                      color: Colors.white.withOpacity(0.6),
+                      color: Theme.of(context).hintColor,
+                      //color: Colors.white.withOpacity(0.6),
                     ),
+                    textAlign: TextAlign.center,
                   ),
                 )
               : ListView.builder(
