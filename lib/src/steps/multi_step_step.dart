@@ -52,7 +52,7 @@ class MultiStepStep extends TestRunnerStep {
     TestController tester,
   }) async {
     log(
-      'multi_step: Starting execution of $debugLabel',
+      "multi_step('$debugLabel')",
       tester: tester,
     );
 
@@ -62,12 +62,12 @@ class MultiStepStep extends TestRunnerStep {
 
       if (step == null) {
         log(
-          'multi_step $debugLabel: step: [${stepMap['id']}] -- no step',
+          "multi_step('$debugLabel') step: [${stepMap['id']}] -- no step",
           tester: tester,
         );
       } else {
         log(
-          'multi_step $debugLabel: step: [${stepMap['id']}] -- executing step',
+          "multi_step('$debugLabel') step: [${stepMap['id']}] -- executing step",
           tester: tester,
         );
         await tester.executeStep(
@@ -77,7 +77,7 @@ class MultiStepStep extends TestRunnerStep {
       }
     }
     log(
-      'multi_step: Finished execution of $debugLabel',
+      "multi_step('$debugLabel') -- finished execution",
       tester: tester,
     );
   }
