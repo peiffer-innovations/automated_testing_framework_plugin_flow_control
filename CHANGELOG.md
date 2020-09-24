@@ -1,4 +1,4 @@
-## [1.0.3] - September 23th, 2020
+## [1.0.3] - September 23rd, 2020
 
 * Added `multi_step` step support.
 
