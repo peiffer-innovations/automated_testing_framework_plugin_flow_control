@@ -3,5 +3,6 @@
   "assets/tests/conditional_extended.json",
   "assets/tests/failures.json",
   "assets/tests/multi_step.json",
-  "assets/tests/multi_step_failure.json"
+  "assets/tests/multi_step_failure.json",
+  "assets/tests/retry_on_failure.json"
 ]

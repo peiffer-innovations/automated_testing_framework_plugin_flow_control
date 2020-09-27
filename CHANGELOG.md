@@ -1,3 +1,10 @@
+## [1.0.4] - September 27th, 2020
+
+* Fixed a bug in `expect_failure`.
+* Added `increment_value` step.
+* Added `retry_on_failure` step.
+
+
 ## [1.0.3] - September 23rd, 2020
 
 * Added `multi_step` step support.

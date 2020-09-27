@@ -66,7 +66,11 @@ class ExpectFailureStep extends TestRunnerStep {
         await runnerStep.preStepSleep(tester.delays.preStep);
       }
 
-      report?.startStep(testStep);
+      report?.startStep(
+        testStep,
+        subStep: true,
+      );
+      var failureEncountered = false;
       try {
         try {
           await runnerStep.execute(
@@ -80,13 +84,15 @@ class ExpectFailureStep extends TestRunnerStep {
         if (tester.delays.postStep.inMilliseconds > 0) {
           await runnerStep.postStepSleep(tester.delays.preStep);
         }
-
-        throw Exception('expect_failure: failing lack of exception');
       } catch (e) {
+        failureEncountered = true;
         log(
           'expect_failure: Expected exception encountered: $e',
           tester: tester,
         );
+      }
+      if (failureEncountered != true) {
+        throw Exception('expect_failure: failing lack of exception');
       }
     }
   }

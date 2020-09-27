@@ -35,7 +35,6 @@ class CopyValueToVariableStep extends TestRunnerStep {
   /// ```
   ///
   /// See also:
-  /// * [JsonClass.parseBool]
   /// * [JsonClass.parseDurationFromSeconds]
   static CopyValueToVariableStep fromDynamic(dynamic map) {
     CopyValueToVariableStep result;

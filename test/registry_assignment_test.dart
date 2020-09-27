@@ -84,6 +84,22 @@ void main() {
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
+
+  test('increment_value', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'increment_value',
+    );
+
+    expect(availStep.form.runtimeType, IncrementValueForm);
+    expect(availStep.help,
+        TestFlowControlTranslations.atf_flow_help_increment_value);
+    expect(availStep.id, 'increment_value');
+    expect(availStep.title,
+        TestFlowControlTranslations.atf_flow_title_increment_value);
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
   test('multi_step', () {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(

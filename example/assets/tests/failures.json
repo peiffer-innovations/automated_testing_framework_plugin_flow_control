@@ -57,6 +57,18 @@
           }
         }
       }
+    },
+    {
+      "id": "expect_failure",
+      "values": {
+        "step": {
+          "id": "set_value",
+          "values": {
+            "variableName": "failVar",
+            "value": "I should fail"
+          }
+        }
+      }
     }
   ],
   "suiteName": "Flow Control",

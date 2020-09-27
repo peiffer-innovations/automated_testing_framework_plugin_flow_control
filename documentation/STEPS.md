@@ -11,7 +11,9 @@
   * [copy_value_to_variable](#copy_value_to_variable)
   * [expect_failure](#expect_failure)
   * [fail](#fail)
+  * [increment_value](#increment_value)
   * [multi_step](#multi_step)
+  * [retry_on_failure](#retry_on_failure)
 
 
 ## Introduction
@@ -31,7 +33,9 @@ Test Step IDs                                     | Description
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
 [expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
 [fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
+[increment_value](#increment_value)               | Increments a particular `variableName` by a defined `increment`.
 [multi_step](#multi_step)                         | Groups different test steps to be executed.
+[retry_on_failure](#retry_on_failure)             | Retries the `step` if it fails up to `retryCount` times.
 
 
 ---
@@ -234,6 +238,38 @@ Key       | Type   | Required | Supports Variable | Description
 
 ---
 
+
+### increment_value
+
+**How it Works**
+
+1. Looks for a variable with the given `variableName`.
+2. If found, attempts to increment that value by `increment` (or 1 if not set).
+3. If not found, or the current value cannot be parsed to an int, sets the value to `0`.
+
+**Example**
+
+```json
+{
+  "id": "increment_value",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "increment": 1,
+    "variableName": "myVariableName"
+  }
+}
+```
+
+**Values**
+
+Key            | Type    | Required | Supports Variable | Description
+---------------|---------|----------|-------------------|-------------
+`increment`    | integer | No       | Yes               | The value to increment with, defaults to 1 if not set.
+`variableName` | String  | Yes      | Yes               | The variable to increment.  If it doesn't exist, is is not currently parsable as an `int`, it will be reset to 0 and further calls to the `increment_value` will start incrementing it.
+
+
+---
+
 ### multi_step
 
 **How it Works**
@@ -270,5 +306,42 @@ Key         | Type   | Required | Supports Variable | Description
 ----------  |--------|----------|-------------------|-------------
 `debugLabel`| String | No       | No                | The optional debug label of the `multi_step` step.
 `steps`     | List   | Yes      | Only on each step | The list of steps to be executed as part of the same group.
+
+
+---
+
+### retry_on_failure
+
+**How it Works**
+
+1. Retries a `step` up to `retryCount`.
+2. Will retry only if `step` fails.
+3. Passes if, and only if, the `step` passes at least once.
+
+**Example**
+
+```json
+{
+  "id": "retry_on_failure",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "retryCount": "<int>",
+    "step": {
+      "id": "assert_variable_value",
+      "values": {
+        "variableName": "_retryNum",
+        "value": "5"
+      }
+    }    
+  }
+}
+```
+
+**Values**
+
+Key         | Type   | Required | Supports Variable | Description
+----------  |--------|----------|-------------------|-------------
+`retryCount`| int    | No       | Yes               | Number of times to retry the `step` if it fails.
+`step`      | Map    | Yes      | Yes               | The step to execute, and potentially retry.
 
 

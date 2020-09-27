@@ -88,6 +88,7 @@ class ConditionalStep extends TestRunnerStep {
       await tester.executeStep(
         report: report,
         step: step,
+        subStep: true,
       );
     }
   }

@@ -1,6 +1,11 @@
 import 'package:static_translations/static_translations.dart';
 
 class TestFlowControlTranslations {
+  static const atf_flow_form_increment = TranslationEntry(
+    key: 'atf_flow_form_increment',
+    value: 'Increment',
+  );
+
   static const atf_flow_form_key = TranslationEntry(
     key: 'atf_flow_form_key',
     value: 'Variable Key',
@@ -24,6 +29,11 @@ class TestFlowControlTranslations {
   static const atf_flow_form_multi_step_debug_label = TranslationEntry(
     key: 'atf_flow_form_multi_step_debug_label',
     value: 'Debug Label',
+  );
+
+  static const atf_flow_form_retry_count = TranslationEntry(
+    key: 'atf_flow_form_retry_count',
+    value: 'Retry Count',
   );
 
   static const atf_flow_form_when_false = TranslationEntry(
@@ -69,9 +79,20 @@ class TestFlowControlTranslations {
     value: 'Fails a test with an optional message.',
   );
 
+  static const atf_flow_help_increment_value = TranslationEntry(
+    key: 'atf_flow_help_increment_value',
+    value: 'Increments the variable name by the given increment value',
+  );
+
   static const atf_flow_help_multi_step = TranslationEntry(
     key: 'atf_flow_help_multi_step',
     value: 'A group of test steps to be executed. It can contain zero tests.',
+  );
+
+  static const atf_flow_help_retry_on_failure = TranslationEntry(
+    key: 'atf_flow_help_retry_on_failure',
+    value:
+        'Expects that the sub-step results in a failed result.  Otherwise, this step itself will fail.',
   );
 
   static const atf_flow_title_assert_variable_value = TranslationEntry(
@@ -104,8 +125,18 @@ class TestFlowControlTranslations {
     value: 'Fail',
   );
 
+  static const atf_flow_title_increment_value = TranslationEntry(
+    key: 'atf_flow_title_increment_value',
+    value: 'Increment Value',
+  );
+
   static const atf_flow_title_multi_step = TranslationEntry(
     key: 'atf_flow_title_multi_step',
     value: 'Multi Step',
+  );
+
+  static const atf_flow_title_retry_on_failure = TranslationEntry(
+    key: 'atf_flow_title_retry_on_failure',
+    value: 'Retry on Failure',
   );
 }

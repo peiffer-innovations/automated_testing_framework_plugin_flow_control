@@ -150,6 +150,18 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: IncrementValueForm(),
+          help: TestFlowControlTranslations.atf_flow_help_increment_value,
+          id: 'increment_value',
+          keys: const {'increment', 'variableName'},
+          quickAddValues: {},
+          title: TestFlowControlTranslations.atf_flow_title_increment_value,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: IncrementValueStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: MultiStepForm(),
           help: TestFlowControlTranslations.atf_flow_help_multi_step,
           id: 'multi_step',
@@ -160,6 +172,19 @@ class TestFlowControlHelper {
           widgetless: true,
         ),
         testRunnerStepBuilder: MultiStepStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: RetryOnFailureForm(),
+          help: TestFlowControlTranslations.atf_flow_help_retry_on_failure,
+          id: 'retry_on_failure',
+          keys: const {'retryCount', 'step'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_retry_on_failure,
+          type: null,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: RetryOnFailureStep.fromDynamic,
       ),
     ]);
   }
