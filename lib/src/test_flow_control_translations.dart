@@ -79,6 +79,12 @@ class TestFlowControlTranslations {
     value: 'Fails a test with an optional message.',
   );
 
+  static const atf_flow_help_include_test = TranslationEntry(
+    key: 'atf_flow_help_include_test',
+    value:
+        'Includes all the steps from one test given its name and suite. The test can be searched through all suites setting suite to null.',
+  );
+
   static const atf_flow_help_increment_value = TranslationEntry(
     key: 'atf_flow_help_increment_value',
     value: 'Increments the variable name by the given increment value',
@@ -128,6 +134,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_increment_value = TranslationEntry(
     key: 'atf_flow_title_increment_value',
     value: 'Increment Value',
+  );
+
+  static const atf_flow_title_include_test = TranslationEntry(
+    key: 'atf_flow_title_include_test',
+    value: 'Include Test',
   );
 
   static const atf_flow_title_multi_step = TranslationEntry(
