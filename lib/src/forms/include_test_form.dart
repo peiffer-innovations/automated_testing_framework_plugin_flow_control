@@ -25,6 +25,7 @@ class IncludeTestForm extends TestStepForm {
           buildHelpSection(
             context,
             TestFlowControlTranslations.atf_flow_help_include_test,
+            minify: minify,
           ),
         buildValuesSection(
           context,
@@ -33,6 +34,7 @@ class IncludeTestForm extends TestStepForm {
               values: values,
             ),
           ],
+          minify: minify,
         ),
       ],
     );
