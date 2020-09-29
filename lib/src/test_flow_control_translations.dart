@@ -16,11 +16,6 @@ class TestFlowControlTranslations {
     value: 'Message',
   );
 
-  static const atf_flow_form_step = TranslationEntry(
-    key: 'atf_flow_form_step',
-    value: 'Step',
-  );
-
   static const atf_flow_form_multi_step_empty = TranslationEntry(
     key: 'atf_flow_form_multi_step_empty',
     value: 'There are currently no Steps as part of this multi_step',
@@ -34,6 +29,11 @@ class TestFlowControlTranslations {
   static const atf_flow_form_retry_count = TranslationEntry(
     key: 'atf_flow_form_retry_count',
     value: 'Retry Count',
+  );
+
+  static const atf_flow_form_step = TranslationEntry(
+    key: 'atf_flow_form_step',
+    value: 'Step',
   );
 
   static const atf_flow_form_suite_name = TranslationEntry(
@@ -141,14 +141,14 @@ class TestFlowControlTranslations {
     value: 'Fail',
   );
 
-  static const atf_flow_title_increment_value = TranslationEntry(
-    key: 'atf_flow_title_increment_value',
-    value: 'Increment Value',
-  );
-
   static const atf_flow_title_include_test = TranslationEntry(
     key: 'atf_flow_title_include_test',
     value: 'Include Test',
+  );
+
+  static const atf_flow_title_increment_value = TranslationEntry(
+    key: 'atf_flow_title_increment_value',
+    value: 'Increment Value',
   );
 
   static const atf_flow_title_multi_step = TranslationEntry(

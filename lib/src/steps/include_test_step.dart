@@ -1,6 +1,7 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:meta/meta.dart';
 
+/// Test step that allows to execute all the steps from another [Test].
 class IncludeTestStep extends TestRunnerStep {
   IncludeTestStep({
     this.suiteName,
@@ -10,6 +11,18 @@ class IncludeTestStep extends TestRunnerStep {
   final String suiteName;
   final String testName;
 
+  /// Creates an instance from a JSON-like map structure.  This expects the
+  /// following format:
+  ///
+  /// ```json
+  /// {
+  ///   "suiteName": <String>,
+  ///   "testName": <String>
+  /// }
+  /// ```
+  ///
+  /// See also:
+  /// * [TestStep.fromDynamic]
   static IncludeTestStep fromDynamic(dynamic map) {
     IncludeTestStep result;
 
@@ -23,6 +36,12 @@ class IncludeTestStep extends TestRunnerStep {
     return result;
   }
 
+  /// Executes the step. This will first load all the tests through the
+  /// [TestController] and then will filter the first [PendingTest] with the
+  /// same [testName]. If there is at least one [PendingTest] that fit, this
+  /// will iterate through the test's list of steps and will await the
+  /// execution of each one. If not, this will throw an [Exception], failing the
+  /// step.
   @override
   Future<void> execute({
     TestReport report,
@@ -46,7 +65,8 @@ class IncludeTestStep extends TestRunnerStep {
       var test = await pendingTest.loader.load(ignoreImages: true);
       for (var step in test.steps) {
         log(
-          "include_test('$testName', '$suiteName') step: [${step.id}] -- executing step",
+          "include_test('$testName', '$suiteName') "
+          'step: [${step.id}] -- executing step',
           tester: tester,
         );
         await tester.executeStep(
@@ -57,11 +77,14 @@ class IncludeTestStep extends TestRunnerStep {
       }
     } else {
       throw Exception(
-        'include_test: unable to find the test $testName ${suiteName == null ? 'in any suite' : 'in suite $suiteName'}.',
+        'include_test: unable to find the test $testName '
+        '${suiteName == null ? 'in any suite' : 'in suite $suiteName'}.',
       );
     }
   }
 
+  /// Converts this to a JSON compatible map.  For a description of the format,
+  /// see [fromDynamic].
   @override
   Map<String, dynamic> toJson() {
     return {

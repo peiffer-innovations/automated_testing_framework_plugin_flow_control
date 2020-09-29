@@ -49,59 +49,66 @@ class _TestEditor extends StatefulWidget {
 }
 
 class _TestEditorState extends State<_TestEditor> {
-  List<PendingTest> availableTests = [];
-  TextEditingController suiteController = TextEditingController();
-  TextEditingController testController = TextEditingController();
-  Translator translator;
+  List<PendingTest> _availableTests;
+  TextEditingController _suiteController;
+  TextEditingController _testController;
+  Translator _translator;
 
   @override
   void initState() {
     super.initState();
-    _setAvailableTests();
+    _initAvailableTests();
     _initTextControllers();
-    translator = Translator.of(context);
+    _translator = Translator.of(context);
   }
 
   @override
   void dispose() {
-    suiteController.dispose();
-    testController.dispose();
+    _suiteController.dispose();
+    _testController.dispose();
     super.dispose();
   }
 
-  Future<void> _setAvailableTests() async {
+  Future<void> _initAvailableTests() async {
+    _availableTests = [];
     var runner = TestRunner.of(context);
     var tests = await runner.controller.loadTests(context);
     tests.forEach(
-      (test) => availableTests.add(test),
+      (test) => _availableTests.add(test),
     );
   }
 
   void _initTextControllers() {
-    suiteController.text = widget.values['suiteName'];
-    suiteController.addListener(() {
+    _suiteController = TextEditingController();
+    _suiteController.text = widget.values['suiteName'];
+    _suiteController.addListener(() {
       _updateValues(
         widget.values,
-        suiteName: suiteController.text,
+        suiteName: _suiteController.text,
       );
     });
 
-    testController.text = widget.values['testName'];
-    testController.addListener(() {
+    _testController = TextEditingController();
+    _testController.text = widget.values['testName'];
+    _testController.addListener(() {
       _updateValues(
         widget.values,
-        testName: testController.text,
+        testName: _testController.text,
       );
     });
   }
 
   List<PendingTest> _getSuggestionsFrom({
-    int limit = 3,
+    int limit = 4,
     @required String testName,
   }) {
-    var result = availableTests
+    var result = _availableTests
         .where(
-          (test) => test.name.toLowerCase().contains(testName.toLowerCase()),
+          (test) {
+            return test.name.toLowerCase().contains(
+                  testName.toLowerCase(),
+                );
+          },
         )
         .take(limit)
         .toList();
@@ -121,16 +128,16 @@ class _TestEditorState extends State<_TestEditor> {
 
   @override
   Widget build(BuildContext context) {
-    var translatedSuiteName = translator.translate(
+    var translatedSuiteName = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_suite_name,
     );
-    var translatedTestName = translator.translate(
+    var translatedTestName = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_test_name,
     );
     return Column(
       children: [
         TextFormField(
-          controller: suiteController,
+          controller: _suiteController,
           decoration: InputDecoration(
             labelText: translatedSuiteName,
           ),
@@ -140,19 +147,23 @@ class _TestEditorState extends State<_TestEditor> {
           hideOnEmpty: true,
           itemBuilder: (context, test) {
             return ListTile(
-              title: Text('$translatedTestName: ${test.name}'),
-              subtitle: Text('$translatedSuiteName: ${test.suiteName ?? ''}'),
+              title: Text(
+                '$translatedTestName: ${test.name}',
+              ),
+              subtitle: Text(
+                '$translatedSuiteName: ${test.suiteName ?? ''}',
+              ),
             );
           },
           onSuggestionSelected: (test) {
-            suiteController.text = test.suiteName;
-            testController.text = test.name;
+            _suiteController.text = test.suiteName;
+            _testController.text = test.name;
           },
           suggestionsCallback: (editedTestName) {
             return _getSuggestionsFrom(testName: editedTestName);
           },
           textFieldConfiguration: TextFieldConfiguration(
-            controller: testController,
+            controller: _testController,
             decoration: InputDecoration(
               labelText: translatedTestName,
             ),
