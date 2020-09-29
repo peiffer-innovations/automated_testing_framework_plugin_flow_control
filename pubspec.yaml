@@ -2,7 +2,7 @@ name: automated_testing_framework_plugin_flow_control
 description: Library to use provide flow control test steps to the Automated Testing Framework.
 homepage: https://github.com/peiffer-innovations/automated_testing_framework_plugin_flow_control
 
-version: 1.0.4
+version: 1.0.5
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
