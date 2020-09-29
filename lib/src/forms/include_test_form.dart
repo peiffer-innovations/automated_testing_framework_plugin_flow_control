@@ -50,13 +50,34 @@ class _TestEditor extends StatefulWidget {
 
 class _TestEditorState extends State<_TestEditor> {
   List<PendingTest> availableTests = [];
-  TextEditingController testController = TextEditingController();
   TextEditingController suiteController = TextEditingController();
+  TextEditingController testController = TextEditingController();
+  Translator translator;
 
   @override
   void initState() {
     super.initState();
-    _getAvailableTests();
+    _setAvailableTests();
+    _initTextControllers();
+    translator = Translator.of(context);
+  }
+
+  @override
+  void dispose() {
+    suiteController.dispose();
+    testController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _setAvailableTests() async {
+    var runner = TestRunner.of(context);
+    var tests = await runner.controller.loadTests(context);
+    tests.forEach(
+      (test) => availableTests.add(test),
+    );
+  }
+
+  void _initTextControllers() {
     suiteController.text = widget.values['suiteName'];
     suiteController.addListener(() {
       _updateValues(
@@ -64,6 +85,7 @@ class _TestEditorState extends State<_TestEditor> {
         suiteName: suiteController.text,
       );
     });
+
     testController.text = widget.values['testName'];
     testController.addListener(() {
       _updateValues(
@@ -71,59 +93,6 @@ class _TestEditorState extends State<_TestEditor> {
         testName: testController.text,
       );
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        TextFormField(
-          controller: suiteController,
-          decoration: InputDecoration(
-            labelText: 'Suite Name', //TODO: Use translations
-          ),
-        ),
-        TypeAheadFormField(
-          autovalidate: true,
-          hideOnEmpty: true,
-          itemBuilder: (context, test) {
-            return ListTile(
-              //TODO: Use translations
-              title: Text('Test: ${test.name}'),
-              subtitle: Text('Suite: ${test.suiteName ?? ''}'),
-            );
-          },
-          onSuggestionSelected: (test) {
-            suiteController.text = test.suiteName;
-            testController.text = test.name;
-          },
-          suggestionsCallback: (testName) {
-            return _getSuggestionsFrom(testName: testName);
-          },
-          textFieldConfiguration: TextFieldConfiguration(
-            controller: testController,
-            decoration: InputDecoration(
-              labelText: 'Test Name', //TODO: Use translations
-            ),
-          ),
-          validator: (testName) => Validator(
-            validators: [RequiredValidator()],
-          ).validate(
-            context: context,
-            label: 'Test Name', //TODO: Use translations
-            value: testName,
-          ),
-        ),
-      ],
-    );
-  }
-
-  Future<void> _getAvailableTests() async {
-    var runner = TestRunner.of(context);
-    var tests = await runner.controller.loadTests(context);
-    tests.forEach(
-      (test) => availableTests.add(test),
-    );
   }
 
   List<PendingTest> _getSuggestionsFrom({
@@ -148,5 +117,55 @@ class _TestEditorState extends State<_TestEditor> {
         suiteName?.isNotEmpty != true ? values['suiteName'] : suiteName;
     values['testName'] =
         testName?.isNotEmpty != true ? values['testName'] : testName;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    var translatedSuiteName = translator.translate(
+      TestFlowControlTranslations.atf_flow_form_suite_name,
+    );
+    var translatedTestName = translator.translate(
+      TestFlowControlTranslations.atf_flow_form_test_name,
+    );
+    return Column(
+      children: [
+        TextFormField(
+          controller: suiteController,
+          decoration: InputDecoration(
+            labelText: translatedSuiteName,
+          ),
+        ),
+        TypeAheadFormField(
+          autovalidate: true,
+          hideOnEmpty: true,
+          itemBuilder: (context, test) {
+            return ListTile(
+              title: Text('$translatedTestName: ${test.name}'),
+              subtitle: Text('$translatedSuiteName: ${test.suiteName ?? ''}'),
+            );
+          },
+          onSuggestionSelected: (test) {
+            suiteController.text = test.suiteName;
+            testController.text = test.name;
+          },
+          suggestionsCallback: (editedTestName) {
+            return _getSuggestionsFrom(testName: editedTestName);
+          },
+          textFieldConfiguration: TextFieldConfiguration(
+            controller: testController,
+            decoration: InputDecoration(
+              labelText: translatedTestName,
+            ),
+          ),
+          validator: (editedTestName) => Validator(
+            validators: [RequiredValidator()],
+          ).validate(
+            context: context,
+            label: translatedTestName,
+            value: editedTestName,
+          ),
+        ),
+      ],
+    );
   }
 }

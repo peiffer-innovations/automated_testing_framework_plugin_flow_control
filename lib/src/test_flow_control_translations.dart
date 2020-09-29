@@ -36,6 +36,16 @@ class TestFlowControlTranslations {
     value: 'Retry Count',
   );
 
+  static const atf_flow_form_suite_name = TranslationEntry(
+    key: 'atf_flow_form_suite_name',
+    value: 'Suite Name',
+  );
+
+  static const atf_flow_form_test_name = TranslationEntry(
+    key: 'atf_flow_form_test_name',
+    value: 'Test Name',
+  );
+
   static const atf_flow_form_when_false = TranslationEntry(
     key: 'atf_flow_form_when_false',
     value: 'False Step',
@@ -82,7 +92,7 @@ class TestFlowControlTranslations {
   static const atf_flow_help_include_test = TranslationEntry(
     key: 'atf_flow_help_include_test',
     value:
-        'Includes all the steps from one test given its name and suite. The test can be searched through all suites setting suite to null.',
+        'Includes all the steps from one test given its name and suite. The test will be searched through all suites when Suite Name is empty.',
   );
 
   static const atf_flow_help_increment_value = TranslationEntry(
