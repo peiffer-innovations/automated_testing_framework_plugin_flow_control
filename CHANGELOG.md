@@ -1,3 +1,8 @@
+## [1.0.5] - September 29th, 2020
+
+* Added `include_test` step support.
+
+
 ## [1.0.4] - September 27th, 2020
 
 * Fixed a bug in `expect_failure`.

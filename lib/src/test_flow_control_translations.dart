@@ -16,11 +16,6 @@ class TestFlowControlTranslations {
     value: 'Message',
   );
 
-  static const atf_flow_form_step = TranslationEntry(
-    key: 'atf_flow_form_step',
-    value: 'Step',
-  );
-
   static const atf_flow_form_multi_step_empty = TranslationEntry(
     key: 'atf_flow_form_multi_step_empty',
     value: 'There are currently no Steps as part of this multi_step',
@@ -34,6 +29,21 @@ class TestFlowControlTranslations {
   static const atf_flow_form_retry_count = TranslationEntry(
     key: 'atf_flow_form_retry_count',
     value: 'Retry Count',
+  );
+
+  static const atf_flow_form_step = TranslationEntry(
+    key: 'atf_flow_form_step',
+    value: 'Step',
+  );
+
+  static const atf_flow_form_suite_name = TranslationEntry(
+    key: 'atf_flow_form_suite_name',
+    value: 'Suite Name',
+  );
+
+  static const atf_flow_form_test_name = TranslationEntry(
+    key: 'atf_flow_form_test_name',
+    value: 'Test Name',
   );
 
   static const atf_flow_form_when_false = TranslationEntry(
@@ -77,6 +87,12 @@ class TestFlowControlTranslations {
   static const atf_flow_help_fail = TranslationEntry(
     key: 'atf_flow_help_fail',
     value: 'Fails a test with an optional message.',
+  );
+
+  static const atf_flow_help_include_test = TranslationEntry(
+    key: 'atf_flow_help_include_test',
+    value:
+        'Includes all the steps from one test given its name and suite. The test will be searched through all suites when Suite Name is empty.',
   );
 
   static const atf_flow_help_increment_value = TranslationEntry(
@@ -123,6 +139,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_fail = TranslationEntry(
     key: 'atf_flow_title_fail',
     value: 'Fail',
+  );
+
+  static const atf_flow_title_include_test = TranslationEntry(
+    key: 'atf_flow_title_include_test',
+    value: 'Include Test',
   );
 
   static const atf_flow_title_increment_value = TranslationEntry(
