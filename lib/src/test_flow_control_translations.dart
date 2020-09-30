@@ -46,6 +46,11 @@ class TestFlowControlTranslations {
     value: 'Test Name',
   );
 
+  static const atf_flow_form_test_version = TranslationEntry(
+    key: 'atf_flow_form_test_version',
+    value: 'Test Version',
+  );
+
   static const atf_flow_form_when_false = TranslationEntry(
     key: 'atf_flow_form_when_false',
     value: 'False Step',
