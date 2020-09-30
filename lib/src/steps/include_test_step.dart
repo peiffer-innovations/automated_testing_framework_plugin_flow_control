@@ -1,4 +1,7 @@
+import 'dart:math' as math;
+
 import 'package:automated_testing_framework/automated_testing_framework.dart';
+import 'package:json_class/json_class.dart';
 import 'package:meta/meta.dart';
 
 /// Test step that allows to execute all the steps from another [Test].
@@ -6,10 +9,12 @@ class IncludeTestStep extends TestRunnerStep {
   IncludeTestStep({
     this.suiteName,
     @required this.testName,
+    this.testVersion,
   }) : assert(testName != null);
 
   final String suiteName;
   final String testName;
+  final String testVersion;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -17,7 +22,8 @@ class IncludeTestStep extends TestRunnerStep {
   /// ```json
   /// {
   ///   "suiteName": <String>,
-  ///   "testName": <String>
+  ///   "testName": <String>,
+  ///   "testVersion": <int>
   /// }
   /// ```
   ///
@@ -30,25 +36,36 @@ class IncludeTestStep extends TestRunnerStep {
       result = IncludeTestStep(
         suiteName: map['suiteName'],
         testName: map['testName'],
+        testVersion: map['testVersion'],
       );
     }
 
     return result;
   }
 
-  /// Executes the step. This will first load all the tests through the
-  /// [TestController] and then will filter the first [PendingTest] with the
-  /// same [testName]. If there is at least one [PendingTest] that fit, this
-  /// will iterate through the test's list of steps and will await the
-  /// execution of each one. If not, this will throw an [Exception], failing the
-  /// step.
+  /// Executes the step. This will first load all the tests belonging to
+  /// [suiteName] through the [TestController] and then will filter the first
+  /// [PendingTest] with the same [testName] and [testVersion]. Also, if
+  /// [testVersion] is null the filter will look up for the highest existent
+  /// version of the [testName]. If there is at least one [PendingTest] that
+  /// fit, this will iterate through the test's list of steps and will await
+  /// the execution of each one. If not, this will throw an [Exception],
+  /// failing the step.
   @override
   Future<void> execute({
     TestReport report,
     TestController tester,
   }) async {
+    String suiteName = tester.resolveVariable(this.suiteName);
+    String testName = tester.resolveVariable(this.testName);
+    var testVersion = JsonClass.parseInt(
+      tester.resolveVariable(this.testVersion),
+    );
+
+    var name = "include_test('$testName', '$testVersion', '$suiteName')";
+
     log(
-      "include_test('$testName', '$suiteName')",
+      name,
       tester: tester,
     );
 
@@ -56,8 +73,21 @@ class IncludeTestStep extends TestRunnerStep {
       null,
       suiteName: suiteName,
     );
-    var pendingTest = suiteTests.firstWhere(
-      (element) => element.name == testName,
+
+    var namedTests = <PendingTest>[];
+    int version;
+
+    suiteTests.forEach((test) {
+      if (test.name == testName) {
+        namedTests.add(test);
+        version = math.max(test.version, version ?? -1);
+      }
+    });
+
+    version = testVersion ?? version;
+
+    var pendingTest = namedTests.firstWhere(
+      (test) => test.version == version,
       orElse: () => null,
     );
 
@@ -65,8 +95,7 @@ class IncludeTestStep extends TestRunnerStep {
       var test = await pendingTest.loader.load(ignoreImages: true);
       for (var step in test.steps) {
         log(
-          "include_test('$testName', '$suiteName') "
-          'step: [${step.id}] -- executing step',
+          '$name step: [${step.id}] -- executing step',
           tester: tester,
         );
         await tester.executeStep(
@@ -77,7 +106,8 @@ class IncludeTestStep extends TestRunnerStep {
       }
     } else {
       throw Exception(
-        'include_test: unable to find the test $testName '
+        'include_test: unable to find the test '
+        '$testName with version $version '
         '${suiteName == null ? 'in any suite' : 'in suite $suiteName'}.',
       );
     }
@@ -90,6 +120,7 @@ class IncludeTestStep extends TestRunnerStep {
     return {
       'suiteName': suiteName,
       'testName': testName,
+      'testVersion': testVersion,
     };
   }
 }

@@ -54,6 +54,7 @@ class _TestEditorState extends State<_TestEditor> {
   List<PendingTest> _availableTests;
   TextEditingController _suiteController;
   TextEditingController _testController;
+  TextEditingController _versionController;
   Translator _translator;
 
   @override
@@ -98,22 +99,45 @@ class _TestEditorState extends State<_TestEditor> {
         testName: _testController.text,
       );
     });
+
+    _versionController = TextEditingController();
+    _versionController.text = widget.values['testVersion'];
+    _versionController.addListener(() {
+      _updateValues(
+        widget.values,
+        testVersion: _versionController.text,
+      );
+    });
   }
 
   List<PendingTest> _getSuggestionsFrom({
     int limit = 4,
-    @required String testName,
+    @required String editedTestName,
   }) {
-    var result = _availableTests
-        .where(
-          (test) {
-            return test.name.toLowerCase().contains(
-                  testName.toLowerCase(),
-                );
-          },
-        )
-        .take(limit)
-        .toList();
+    var highestVersions = <String, PendingTest>{};
+    var patternInText = ({
+      @required String pattern,
+      @required String text,
+    }) =>
+        text.toLowerCase().contains(
+              pattern.toLowerCase(),
+            );
+
+    _availableTests.forEach((test) {
+      if (patternInText(pattern: editedTestName, text: test.name)) {
+        var key = '${test.name}-${test.suiteName}';
+        highestVersions.putIfAbsent(
+          key,
+          () => test,
+        );
+
+        if (highestVersions[key].version < test.version) {
+          highestVersions[key] = test;
+        }
+      }
+    });
+
+    var result = highestVersions.values.take(limit).toList();
     return result;
   }
 
@@ -121,11 +145,14 @@ class _TestEditorState extends State<_TestEditor> {
     Map<String, dynamic> values, {
     String suiteName,
     String testName,
+    String testVersion,
   }) {
     values['suiteName'] =
         suiteName?.isNotEmpty != true ? values['suiteName'] : suiteName;
     values['testName'] =
         testName?.isNotEmpty != true ? values['testName'] : testName;
+    values['testVersion'] =
+        testVersion?.isNotEmpty != true ? values['testVersion'] : testVersion;
   }
 
   @override
@@ -135,6 +162,9 @@ class _TestEditorState extends State<_TestEditor> {
     );
     var translatedTestName = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_test_name,
+    );
+    var translatedTestVersion = _translator.translate(
+      TestFlowControlTranslations.atf_flow_form_test_version,
     );
     return Column(
       children: [
@@ -147,23 +177,30 @@ class _TestEditorState extends State<_TestEditor> {
         TypeAheadFormField(
           autovalidate: true,
           hideOnEmpty: true,
-          itemBuilder: (context, test) {
-            return ListTile(
-              title: Text(
-                '$translatedTestName: ${test.name}',
-              ),
-              subtitle: Text(
-                '$translatedSuiteName: ${test.suiteName ?? ''}',
-              ),
-            );
-          },
+          itemBuilder: (context, test) => ListTile(
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  '$translatedSuiteName: ${test.suiteName ?? ''}',
+                ),
+                Text(
+                  '$translatedTestVersion: ${test.version}',
+                ),
+              ],
+            ),
+            title: Text(
+              '$translatedTestName: ${test.name}',
+            ),
+          ),
           onSuggestionSelected: (test) {
             _suiteController.text = test.suiteName;
             _testController.text = test.name;
+            _versionController.text = test.version.toString();
           },
-          suggestionsCallback: (editedTestName) {
-            return _getSuggestionsFrom(testName: editedTestName);
-          },
+          suggestionsCallback: (editedTestName) => _getSuggestionsFrom(
+            editedTestName: editedTestName,
+          ),
           textFieldConfiguration: TextFieldConfiguration(
             controller: _testController,
             decoration: InputDecoration(
@@ -176,6 +213,12 @@ class _TestEditorState extends State<_TestEditor> {
             context: context,
             label: translatedTestName,
             value: editedTestName,
+          ),
+        ),
+        TextFormField(
+          controller: _versionController,
+          decoration: InputDecoration(
+            labelText: translatedTestVersion,
           ),
         ),
       ],

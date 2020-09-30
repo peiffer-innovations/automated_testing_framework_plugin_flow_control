@@ -153,7 +153,7 @@ class TestFlowControlHelper {
           form: IncludeTestForm(),
           help: TestFlowControlTranslations.atf_flow_help_include_test,
           id: 'include_test',
-          keys: const {'suiteName', 'testName'},
+          keys: const {'suiteName', 'testName', 'testVersion'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_include_test,
           widgetless: true,
