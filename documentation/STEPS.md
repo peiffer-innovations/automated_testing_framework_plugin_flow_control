@@ -34,7 +34,7 @@ Test Step IDs                                     | Description
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
 [expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
 [fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
-[include_test](#include_test)                     | Import and execute all the steps from another test given its name and its suite
+[include_test](#include_test)                     | Import and execute all the steps from another test given its name, version and suite.
 [increment_value](#increment_value)               | Increments a particular `variableName` by a defined `increment`.
 [multi_step](#multi_step)                         | Groups different test steps to be executed.
 [retry_on_failure](#retry_on_failure)             | Retries the `step` if it fails up to `retryCount` times.
@@ -244,7 +244,7 @@ Key       | Type   | Required | Supports Variable | Description
 
 **How it Works**
 
-1. Import and execute all the steps from another test given its name and its suite
+1. Import and execute all the steps from another test given its name, version and suite.
 
 **Example**
 
@@ -255,16 +255,18 @@ Key       | Type   | Required | Supports Variable | Description
   "values": {
     "suiteName": "<optional_string>",
     "testName": "myTestName",
+    "testVersion": "<optional_int>"
   }
 }
 ```
 
 **Values**
 
-Key         | Type   | Required | Supports Variable | Description
-----------  |--------|----------|-------------------|-------------
-`suiteName` | String | No       | No                | The optional suite to which the `testName` belongs.
-`testName`  | String | Yes      | No                | The name of the test to import.
+Key          | Type    | Required | Supports Variable | Description
+-------------|---------|----------|-------------------|-------------
+`suiteName`  | String  | No       | Yes               | The optional suite to which the `testName` belongs.
+`testName`   | String  | Yes      | Yes               | The name of the test to import.
+`testVersion`| integer | No       | Yes               | The optional version of the `testName`. If omitted, the version will be set to the highest available.
 
 
 ---

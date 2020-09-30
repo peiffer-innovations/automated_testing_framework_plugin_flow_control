@@ -43,12 +43,14 @@ class IncludeTestStep extends TestRunnerStep {
     return result;
   }
 
-  /// Executes the step. This will first load all the tests through the
-  /// [TestController] and then will filter the first [PendingTest] with the
-  /// same [testName]. If there is at least one [PendingTest] that fit, this
-  /// will iterate through the test's list of steps and will await the
-  /// execution of each one. If not, this will throw an [Exception], failing the
-  /// step.
+  /// Executes the step. This will first load all the tests belonging to
+  /// [suiteName] through the [TestController] and then will filter the first
+  /// [PendingTest] with the same [testName] and [testVersion]. Also, if
+  /// [testVersion] is null the filter will look up for the highest existent
+  /// version of the [testName]. If there is at least one [PendingTest] that
+  /// fit, this will iterate through the test's list of steps and will await
+  /// the execution of each one. If not, this will throw an [Exception],
+  /// failing the step.
   @override
   Future<void> execute({
     TestReport report,
