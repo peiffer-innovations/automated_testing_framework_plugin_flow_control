@@ -11,11 +11,6 @@ class TestFlowControlTranslations {
     value: 'Message',
   );
 
-  static const atf_flow_form_name = TranslationEntry(
-    key: 'atf_flow_form_name',
-    value: 'Variable Name',
-  );
-
   static const atf_flow_form_step = TranslationEntry(
     key: 'atf_flow_form_step',
     value: 'Step',
