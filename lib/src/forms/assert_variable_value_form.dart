@@ -35,7 +35,7 @@ class AssertVariableValueForm extends TestStepForm {
             buildEditText(
               context: context,
               id: 'variableName',
-              label: TestFlowControlTranslations.atf_flow_form_key,
+              label: TestFlowControlTranslations.atf_flow_form_name,
               validators: [
                 RequiredValidator(),
               ],
