@@ -6,11 +6,6 @@ class TestFlowControlTranslations {
     value: 'Increment',
   );
 
-  static const atf_flow_form_key = TranslationEntry(
-    key: 'atf_flow_form_key',
-    value: 'Variable Key',
-  );
-
   static const atf_flow_form_message = TranslationEntry(
     key: 'atf_flow_form_message',
     value: 'Message',

@@ -3,6 +3,11 @@
 * Added `include_test` step support.
 
 
+## [1.0.4+1] - October 1st, 2020
+
+* Changed "Variable Key" to the more correct "Variable Name".
+
+
 ## [1.0.4] - September 27th, 2020
 
 * Fixed a bug in `expect_failure`.
