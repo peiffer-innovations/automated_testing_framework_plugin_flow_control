@@ -1,3 +1,8 @@
+## [1.0.5+1] - October 3rd, 2020
+
+* Fixed deprecated warning introduced with Flutter 1.22.
+
+
 ## [1.0.5] - September 29th, 2020
 
 * Added `include_test` step support.
