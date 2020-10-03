@@ -1,3 +1,8 @@
+## [1.0.5] - September 29th, 2020
+
+* Added `include_test` step support.
+
+
 ## [1.0.4+1] - October 1st, 2020
 
 * Changed "Variable Key" to the more correct "Variable Name".

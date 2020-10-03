@@ -150,6 +150,18 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: IncludeTestForm(),
+          help: TestFlowControlTranslations.atf_flow_help_include_test,
+          id: 'include_test',
+          keys: const {'suiteName', 'testName', 'testVersion'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_include_test,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: IncludeTestStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: IncrementValueForm(),
           help: TestFlowControlTranslations.atf_flow_help_increment_value,
           id: 'increment_value',

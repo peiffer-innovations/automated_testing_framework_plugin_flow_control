@@ -85,6 +85,24 @@ void main() {
     expect(availStep.widgetless, true);
   });
 
+  test('include_test', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'include_test',
+    );
+
+    expect(availStep.form.runtimeType, IncludeTestForm);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_include_test,
+    );
+    expect(availStep.id, 'include_test');
+    expect(availStep.title,
+        TestFlowControlTranslations.atf_flow_title_include_test);
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
+
   test('increment_value', () {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(

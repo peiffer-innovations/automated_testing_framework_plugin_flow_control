@@ -50,6 +50,7 @@ class MultiStepForm extends TestStepForm {
               values: values,
             ),
           ],
+          minify: minify,
         ),
       ],
     );
