@@ -1,3 +1,8 @@
+## [1.0.6+1] - October 8th, 2020
+
+* Added live web example to README.
+
+
 ## [1.0.6] - October 8th, 2020
 
 * Added `iterate` and `repeat_until` steps + examples.
