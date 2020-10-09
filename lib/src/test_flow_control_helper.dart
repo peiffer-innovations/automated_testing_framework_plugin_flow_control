@@ -152,6 +152,18 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: ForEachTestableForm(),
+          help: TestFlowControlTranslations.atf_flow_help_for_each_testable,
+          id: 'for_each_testable',
+          keys: const {'regEx', 'step', 'variableName'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_for_each_testable,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: ForEachTestableStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: IncludeTestForm(),
           help: TestFlowControlTranslations.atf_flow_help_include_test,
           id: 'include_test',

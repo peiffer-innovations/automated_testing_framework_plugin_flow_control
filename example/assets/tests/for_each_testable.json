@@ -1,0 +1,28 @@
+{
+  "active": true,
+  "name": "For Each Testable",
+  "steps": [
+    {
+      "id": "tap",
+      "values": {
+        "testableId": "test_page_Numbers"
+      }
+    },
+    {
+      "id": "for_each_testable",
+      "values": {
+        "regEx": "(.*)[05]$",
+        "step": {
+          "id": "scroll_until_visible",
+          "values": {
+            "increment": "200",
+            "testableId": "{{id}}"
+          }
+        },
+        "variableName": "id"
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "version": 1
+}

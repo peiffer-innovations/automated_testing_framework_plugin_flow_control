@@ -1,3 +1,8 @@
+## [1.0.7] - October 9th, 2020
+
+* Added `for_each_testable` step.
+
+
 ## [1.0.6+2] - October 8th, 2020
 
 * Dependency updates + fix on the `iterate` test.

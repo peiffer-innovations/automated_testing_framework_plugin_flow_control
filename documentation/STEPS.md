@@ -11,6 +11,7 @@
   * [copy_value_to_variable](#copy_value_to_variable)
   * [expect_failure](#expect_failure)
   * [fail](#fail)
+  * [for_each_testable](#for_each_testable)
   * [include_test](#include_test)
   * [increment_value](#increment_value)
   * [iterate](#iterate)
@@ -36,6 +37,7 @@ Test Step IDs                                     | Description
 [copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
 [expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
 [fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
+[for_each_testable](#for_each_testable)           | Iterates through each `Testable` on the active widget tree, sets the id to `variableName` and then executes the associated `step`.
 [include_test](#include_test)                     | Import and execute all the steps from another test given its name, version and suite.
 [increment_value](#increment_value)               | Increments a particular `variableName` by a defined `increment`.
 [iterate](#iterate)                               | Iterates from `start` to `end` - 1 executing the `step` each time.
@@ -240,6 +242,45 @@ Key    | Type   | Required | Supports Variable | Description
 Key       | Type   | Required | Supports Variable | Description
 ----------|--------|----------|-------------------|-------------
 `message` | String | Yes      | Yes               | The optional message to fail with.
+
+
+---
+
+
+### for_each_testable
+
+**How it Works**
+
+1. Locates every active `Testable` with an `id` that matches the `regEx`.
+2. Iterates through each entity found in step 1, sets the value of `variableName`, or "_testableId" if omitted, to the `id` of the current `Testable`.
+3. Executes the `step`.
+
+**Example**
+
+```json
+{
+  "id": "for_each_testable",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "regEx": ".*",
+    "step": {
+      "id": "step_for_testable",
+      "values": {
+        "testStep": "values"
+      }
+    },
+    "variableName": "myVariableName"
+  }
+}
+```
+
+**Values**
+
+Key            | Type    | Required | Supports Variable | Description
+---------------|---------|----------|-------------------|-------------
+`regEx`        | String  | Yes      | Yes               | The pattern to use when matching `Testable` widget id's.
+`step`         | Map     | Yes      | Yes               | The `TestStep` to execute for each matched `Testable`.
+`variableName` | String  | Yes      | Yes               | The variable to store the current id of the current `Testable` in before executing the `step`.
 
 
 ---

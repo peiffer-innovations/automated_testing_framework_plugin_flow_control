@@ -4,8 +4,9 @@ import 'package:json_class/json_class.dart';
 import 'package:meta/meta.dart';
 
 /// Test step that iterates from [start] to [end] - 1 and executes [step] with
-/// each iteration.  If set, tihs stores the current value in [variableName] and
-/// will use `_current` if [variableName] is not set.
+/// each iteration.  If set, tihs stores the current value in
+/// [counterVariableName] and will use `_repeatNum` if [counterVariableName] is
+/// not set.
 class RepeatUntilStep extends TestRunnerStep {
   RepeatUntilStep({
     @required this.counterVariableName,

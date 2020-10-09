@@ -41,6 +41,11 @@ class TestFlowControlTranslations {
     value: 'Debug Label',
   );
 
+  static const atf_flow_form_matching_reg_ex = TranslationEntry(
+    key: 'atf_flow_form_matching_reg_ex',
+    value: 'Matching RegEx',
+  );
+
   static const atf_flow_form_retry_count = TranslationEntry(
     key: 'atf_flow_form_retry_count',
     value: 'Retry Count',
@@ -114,6 +119,12 @@ class TestFlowControlTranslations {
     value: 'Fails a test with an optional message.',
   );
 
+  static const atf_flow_help_for_each_testable = TranslationEntry(
+    key: 'atf_flow_help_for_each_testable',
+    value:
+        'Iterates through each active testable on the tree that matches the set RegEx pattern, sets that testable id in the given variable name, and then executes the associated step.',
+  );
+
   static const atf_flow_help_include_test = TranslationEntry(
     key: 'atf_flow_help_include_test',
     value:
@@ -176,6 +187,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_fail = TranslationEntry(
     key: 'atf_flow_title_fail',
     value: 'Fail',
+  );
+
+  static const atf_flow_title_for_each_testable = TranslationEntry(
+    key: 'atf_flow_title_for_each_testable',
+    value: 'For Each Testable',
   );
 
   static const atf_flow_title_include_test = TranslationEntry(
