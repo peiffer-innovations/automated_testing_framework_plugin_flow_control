@@ -118,6 +118,20 @@ void main() {
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
+
+  test('iterate', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'iterate',
+    );
+
+    expect(availStep.form.runtimeType, IterateForm);
+    expect(availStep.help, TestFlowControlTranslations.atf_flow_help_iterate);
+    expect(availStep.id, 'iterate');
+    expect(availStep.title, TestFlowControlTranslations.atf_flow_title_iterate);
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
   test('multi_step', () {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(

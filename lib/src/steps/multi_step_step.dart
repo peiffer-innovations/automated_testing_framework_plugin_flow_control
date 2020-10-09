@@ -56,18 +56,19 @@ class MultiStepStep extends TestRunnerStep {
       tester: tester,
     );
 
+    var stepNum = 0;
     for (var rawStep in steps) {
       var stepMap = tester.resolveVariable(rawStep);
       var step = TestStep.fromDynamic(stepMap);
 
       if (step == null) {
         log(
-          "multi_step('$debugLabel') step: [${stepMap['id']}] -- no step",
+          "multi_step('$debugLabel') step: [${stepMap['id']}] [${100 * stepNum ~/ steps.length}%] -- no step",
           tester: tester,
         );
       } else {
         log(
-          "multi_step('$debugLabel') step: [${stepMap['id']}] -- executing step",
+          "multi_step('$debugLabel') step: [${stepMap['id']}] [${100 * stepNum ~/ steps.length}%] -- executing step",
           tester: tester,
         );
         await tester.executeStep(
@@ -76,6 +77,7 @@ class MultiStepStep extends TestRunnerStep {
           subStep: true,
         );
       }
+      stepNum++;
     }
     log(
       "multi_step('$debugLabel') -- finished execution",

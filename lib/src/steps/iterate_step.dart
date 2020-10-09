@@ -1,0 +1,122 @@
+import 'package:automated_testing_framework/automated_testing_framework.dart';
+import 'package:flutter/material.dart';
+import 'package:json_class/json_class.dart';
+import 'package:meta/meta.dart';
+
+/// Test step that iterates from [start] to [end] - 1 and executes [step] with
+/// each iteration.  If set, tihs stores the current value in [variableName] and
+/// will use `_iterateNum` if [variableName] is not set.
+class IterateStep extends TestRunnerStep {
+  IterateStep({
+    @required this.end,
+    @required this.start,
+    @required this.step,
+    @required this.variableName,
+  })  : assert(end != null),
+        assert(step != null);
+
+  /// The ending value.
+  final dynamic end;
+
+  /// The starting value.
+  final dynamic start;
+
+  /// The step to execute with each iteration.
+  final dynamic step;
+
+  /// The variable name.
+  final String variableName;
+
+  /// Creates an instance from a JSON-like map structure.  This expects the
+  /// following format:
+  ///
+  /// ```json
+  /// {
+  ///   "end": <number>,
+  ///   "start": <String>,
+  ///   "step": <TestStep>,
+  ///   "variableName": <String>,
+  /// }
+  /// ```
+  ///
+  /// See also:
+  /// * [TestStep.fromDynamic]
+  static IterateStep fromDynamic(dynamic map) {
+    IterateStep result;
+
+    if (map != null) {
+      result = IterateStep(
+        end: map['end'],
+        start: map['start'],
+        step: map['step'],
+        variableName: map['variableName'],
+      );
+    }
+
+    return result;
+  }
+
+  /// Executes the step.  This will iterate from [start] to [end] - 1 and place
+  /// the current value inside of [variableName] (or `_iterateNum` if not set).
+  /// The [step] will be executed with each iteration.
+  @override
+  Future<void> execute({
+    @required TestReport report,
+    @required TestController tester,
+  }) async {
+    var end = JsonClass.parseInt(tester.resolveVariable(this.end));
+    var start = JsonClass.parseInt(tester.resolveVariable(this.start), 0);
+    var step = tester.resolveVariable(this.step);
+    String variableName =
+        tester.resolveVariable(this.variableName) ?? '_iterateNum';
+
+    assert(end != null);
+    assert(end > start);
+
+    var name = "iterate('$start', '$end', '$variableName')";
+    log(
+      name,
+      tester: tester,
+    );
+
+    var testStep = TestStep.fromDynamic(step);
+    if (testStep == null) {
+      throw Exception('iterate: failing due to no sub-step');
+    }
+
+    for (var i = start; i < end; i++) {
+      var name = "iterate('$start', '$end', '$variableName', '$i')";
+      log(
+        name,
+        tester: tester,
+      );
+      tester.setVariable(
+        value: i,
+        variableName: variableName,
+      );
+
+      await tester.executeStep(
+        report: report,
+        step: testStep,
+        subStep: true,
+      );
+    }
+  }
+
+  /// Overidden to ignore the delay
+  @override
+  Future<void> postStepSleep(Duration duration) async {}
+
+  /// Overidden to ignore the delay
+  @override
+  Future<void> preStepSleep(Duration duration) async {}
+
+  /// Converts this to a JSON compatible map.  For a description of the format,
+  /// see [fromDynamic].
+  @override
+  Map<String, dynamic> toJson() => {
+        'end': end,
+        'start': start,
+        'variableName': variableName,
+      };
+}

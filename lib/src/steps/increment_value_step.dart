@@ -40,7 +40,7 @@ class IncrementValueStep extends TestRunnerStep {
 
   /// Executes the step.  This will look for the variable named [variableName],
   /// get the value as an int.  If the [increment] cannot be parsed as an [int]
-  ///
+  /// then this will default to using 1.
   @override
   Future<void> execute({
     @required TestReport report,

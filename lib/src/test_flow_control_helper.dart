@@ -176,6 +176,18 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: IterateForm(),
+          help: TestFlowControlTranslations.atf_flow_help_iterate,
+          id: 'iterate',
+          keys: const {'end', 'start', 'step', 'variableName'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_iterate,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: IterateStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: MultiStepForm(),
           help: TestFlowControlTranslations.atf_flow_help_multi_step,
           id: 'multi_step',
@@ -186,6 +198,25 @@ class TestFlowControlHelper {
           widgetless: true,
         ),
         testRunnerStepBuilder: MultiStepStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: RepeatUntilForm(),
+          help: TestFlowControlTranslations.atf_flow_help_repeat_until,
+          id: 'repeat_until',
+          keys: const {
+            'counterVariableName',
+            'maxIterations',
+            'step',
+            'value',
+            'variableName'
+          },
+          quickAddValues: null,
+          title: TestFlowControlTranslations.atf_flow_title_repeat_until,
+          type: null,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: RepeatUntilStep.fromDynamic,
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(

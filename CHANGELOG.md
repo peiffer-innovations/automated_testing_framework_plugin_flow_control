@@ -1,3 +1,8 @@
+## [1.0.6] - October 8th, 2020
+
+* Added `iterate` and `repeat_until` steps + examples.
+
+
 ## [1.0.5+1] - October 3rd, 2020
 
 * Fixed deprecated warning introduced with Flutter 1.22.

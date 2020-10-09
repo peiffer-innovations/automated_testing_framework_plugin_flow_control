@@ -13,7 +13,9 @@
   * [fail](#fail)
   * [include_test](#include_test)
   * [increment_value](#increment_value)
+  * [iterate](#iterate)
   * [multi_step](#multi_step)
+  * [repeat_until](#repeat_until)
   * [retry_on_failure](#retry_on_failure)
 
 
@@ -36,7 +38,9 @@ Test Step IDs                                     | Description
 [fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
 [include_test](#include_test)                     | Import and execute all the steps from another test given its name, version and suite.
 [increment_value](#increment_value)               | Increments a particular `variableName` by a defined `increment`.
+[iterate](#iterate)                               | Iterates from `start` to `end` - 1 executing the `step` each time.
 [multi_step](#multi_step)                         | Groups different test steps to be executed.
+[repeat_until](#repeat_until)                     | Repeats the `step` until the `variableName` equals the `value`.
 [retry_on_failure](#retry_on_failure)             | Retries the `step` if it fails up to `retryCount` times.
 
 
@@ -303,6 +307,48 @@ Key            | Type    | Required | Supports Variable | Description
 
 ---
 
+
+### iterate
+
+**How it Works**
+
+1. Starts with the `start` value, or `0` if not set.
+2. Iterates until `end` - 1.
+3. Executes the `step` with each iteration.
+4. Stores the current iteration value in `variableName` or `_iterateNum` if not set.
+
+**Example**
+
+```json
+{
+  "id": "iterate",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "end": 5,
+    "start": 0,
+    "step": {
+      "id": "iterating_test_step",
+      "values": {
+        "testStep": "values"
+      }
+    },
+    "variableName": "myVariableName"
+  }
+}
+```
+
+**Values**
+
+Key            | Type    | Required | Supports Variable | Description
+---------------|---------|----------|-------------------|-------------
+`end`          | integer | Yes      | Yes               | The ending value.
+`start`        | integer | No       | Yes               | The starting value. Defaults to `0`.
+`step`         | Map     | Yes      | Yes               | The step to execute with each iteration.
+`variableName` | String  | Yes      | Yes               | The variable to to store the current increment value.  Defaults to `_iterateNum`.
+
+
+---
+
 ### multi_step
 
 **How it Works**
@@ -339,6 +385,49 @@ Key         | Type   | Required | Supports Variable | Description
 ----------  |--------|----------|-------------------|-------------
 `debugLabel`| String | No       | No                | The optional debug label of the `multi_step` step.
 `steps`     | List   | Yes      | Only on each step | The list of steps to be executed as part of the same group.
+
+
+---
+
+
+### repeat_until
+
+**How it Works**
+
+1. Executes the `step` until the `variableName` equals the given `value`.
+2. If `maxIterations` is set, this step will fail if it executes `maxIterations` times.
+3. Stores the current iteration counter in `counterVariableName` or `_repeatNumber` if not set.
+
+**Example**
+
+```json
+{
+  "id": "repeat_until",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "counterVariableName": "myCounterVariable",
+    "maxIterations": 100,
+    "step": {
+      "id": "repeating_test_step",
+      "values": {
+        "testStep": "values"
+      }
+    },
+    "value": "myEndingValue",
+    "variableName": "myVariableName"
+  }
+}
+```
+
+**Values**
+
+Key                   | Type    | Required | Supports Variable | Description
+----------------------|---------|----------|-------------------|-------------
+`counterVariableName` | String  | Yes      | Yes               | The variable to to store the current increment value.  Defaults to `_repeatNum`.  Zero based.
+`maxIterations`       | integer | No       | Yes               | The maximum number of iterations before aborting and failing.
+`step`                | Map     | Yes      | Yes               | The step to execute with each iteration.
+`value`               | String  | Yes      | Yes               | The value to look for to stop the iterations.
+`variableName`        | String  | Yes      | Yes               | The variable to read while looking for `value`.
 
 
 ---

@@ -30,8 +30,10 @@ void main() {
 
 The following table defines the reserved variables provided by the plugin that can be by appropriate tests:
 
-Name        | Type      | Example | Description
-------------|-----------|---------|-------------
-`_retryNum` | `int`     | `1`     | The number of retries the `retry_on_failure` step is currently on.  This value is only updated by the `retry_on_failure` step.
+Name          | Type      | Example | Description
+--------------|-----------|---------|-------------
+`_iterateNum` | `int`     | `1`     | The current iteration number from `iterate`.
+`_repeatNum`  | `int`     | `1`     | The current iteration number from `repeat_until`.
+`_retryNum`   | `int`     | `1`     | The number of retries the `retry_on_failure` step is currently on.  This value is only updated by the `retry_on_failure` step.
 
 

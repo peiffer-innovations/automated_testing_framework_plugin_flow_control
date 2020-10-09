@@ -1,9 +1,29 @@
 import 'package:static_translations/static_translations.dart';
 
 class TestFlowControlTranslations {
+  static const atf_flow_error_start_less_end = TranslationEntry(
+    key: 'atf_flow_error_start_less_end',
+    value: 'Start must be less than end.',
+  );
+
+  static const atf_flow_form_counter_variable_name = TranslationEntry(
+    key: 'atf_flow_form_counter_variable_name',
+    value: 'Counter Variable Name',
+  );
+
+  static const atf_flow_form_end = TranslationEntry(
+    key: 'atf_flow_form_end',
+    value: 'End',
+  );
+
   static const atf_flow_form_increment = TranslationEntry(
     key: 'atf_flow_form_increment',
     value: 'Increment',
+  );
+
+  static const atf_flow_form_max_iterations = TranslationEntry(
+    key: 'atf_flow_form_max_iterations',
+    value: 'Max Iterations',
   );
 
   static const atf_flow_form_message = TranslationEntry(
@@ -24,6 +44,11 @@ class TestFlowControlTranslations {
   static const atf_flow_form_retry_count = TranslationEntry(
     key: 'atf_flow_form_retry_count',
     value: 'Retry Count',
+  );
+
+  static const atf_flow_form_start = TranslationEntry(
+    key: 'atf_flow_form_start',
+    value: 'Start',
   );
 
   static const atf_flow_form_step = TranslationEntry(
@@ -97,12 +122,24 @@ class TestFlowControlTranslations {
 
   static const atf_flow_help_increment_value = TranslationEntry(
     key: 'atf_flow_help_increment_value',
-    value: 'Increments the variable name by the given increment value',
+    value: 'Increments the variable name by the given increment value.',
+  );
+
+  static const atf_flow_help_iterate = TranslationEntry(
+    key: 'atf_flow_help_iterate',
+    value:
+        'Iterates from the starting value to the end - 1.  Stores the current value in the counter variable name.  Calls the step with each iteration.',
   );
 
   static const atf_flow_help_multi_step = TranslationEntry(
     key: 'atf_flow_help_multi_step',
     value: 'A group of test steps to be executed. It can contain zero tests.',
+  );
+
+  static const atf_flow_help_repeat_until = TranslationEntry(
+    key: 'atf_flow_help_repeat_until',
+    value:
+        'Repeats the step until the value in the set variable name equals the required value.  Optionally allows a maximum number of repeats before aborting and failing.  Also optionally allows a counter variable name to be provided to store the current iteration number.',
   );
 
   static const atf_flow_help_retry_on_failure = TranslationEntry(
@@ -151,9 +188,19 @@ class TestFlowControlTranslations {
     value: 'Increment Value',
   );
 
+  static const atf_flow_title_iterate = TranslationEntry(
+    key: 'atf_flow_title_iterate',
+    value: 'Iterate',
+  );
+
   static const atf_flow_title_multi_step = TranslationEntry(
     key: 'atf_flow_title_multi_step',
     value: 'Multi Step',
+  );
+
+  static const atf_flow_title_repeat_until = TranslationEntry(
+    key: 'atf_flow_title_repeat_until',
+    value: 'Repeat Until',
   );
 
   static const atf_flow_title_retry_on_failure = TranslationEntry(
