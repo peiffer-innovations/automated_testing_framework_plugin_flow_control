@@ -1,0 +1,51 @@
+{
+  "active": true,
+  "name": "Retry on Failure",
+  "steps": [{
+      "id": "retry_on_failure",
+      "values": {
+        "retryCount": "5",
+        "step": {
+          "id": "assert_variable_value",
+          "values": {
+            "variableName": "_retryNum",
+            "value": "0"
+          }
+        }
+      }
+    },
+    {
+      "id": "retry_on_failure",
+      "values": {
+        "retryCount": "5",
+        "step": {
+          "id": "assert_variable_value",
+          "values": {
+            "variableName": "_retryNum",
+            "value": "4"
+          }
+        }
+      }
+    },
+    {
+      "id": "expect_failure",
+      "values": {
+        "step": {
+          "id": "retry_on_failure",
+          "values": {
+            "retryCount": "5",
+            "step": {
+              "id": "assert_variable_value",
+              "values": {
+                "variableName": "_retryNum",
+                "value": "6"
+              }
+            }
+          }
+        }
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "version": 1
+}
