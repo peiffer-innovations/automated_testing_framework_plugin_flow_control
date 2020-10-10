@@ -1,3 +1,8 @@
+## [1.0.7+1] - October 10th, 2020
+
+* Fix to allow for non-string values in `assert_variable_value`.
+
+
 ## [1.0.7] - October 9th, 2020
 
 * Added `for_each_testable` step.

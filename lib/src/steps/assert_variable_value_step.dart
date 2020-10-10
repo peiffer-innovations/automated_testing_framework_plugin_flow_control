@@ -58,7 +58,7 @@ class AssertVariableValueStep extends TestRunnerStep {
     @required TestReport report,
     @required TestController tester,
   }) async {
-    String value = tester.resolveVariable(this.value);
+    var value = tester.resolveVariable(this.value)?.toString();
     String variableName = tester.resolveVariable(this.variableName);
     assert(variableName?.isNotEmpty == true);
 
