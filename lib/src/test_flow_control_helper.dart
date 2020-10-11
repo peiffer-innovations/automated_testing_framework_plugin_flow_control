@@ -128,6 +128,20 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: ExecuteVariableFunctionForm(),
+          help: TestFlowControlTranslations
+              .atf_flow_help_execute_variable_function,
+          id: 'execute_variable_function',
+          keys: const {'resultVariableName', 'variableName'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations
+              .atf_flow_title_execute_variable_function,
+          widgetless: true,
+        ),
+        testRunnerStepBuilder: ExecuteVariableFunctionStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: ExpectFailureForm(),
           help: TestFlowControlTranslations.atf_flow_help_expect_failure,
           id: 'expect_failure',

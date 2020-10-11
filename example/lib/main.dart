@@ -62,12 +62,18 @@ void main() async {
 
   runApp(App(
     options: TestExampleOptions(
-      autorun: kProfileMode,
-      enabled: true,
-      gestures: gestures,
-      testReader: AssetTestStore(testAssets: allTests).testReader,
-      testWidgetsEnabled: true,
-      testWriter: ClipboardTestStore.testWriter,
-    ),
+        autorun: kProfileMode,
+        enabled: true,
+        gestures: gestures,
+        testReader: AssetTestStore(testAssets: allTests).testReader,
+        testWidgetsEnabled: true,
+        testWriter: ClipboardTestStore.testWriter,
+        variables: {
+          'fun42': (_, __) async => 42,
+          'funDelayed': (_, __) async {
+            await Future.delayed(Duration(seconds: 5));
+            return 'delayed';
+          }
+        }),
   ));
 }

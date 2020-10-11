@@ -1,0 +1,36 @@
+{
+  "active": true,
+  "name": "Execute Variable Function",
+  "steps": [
+    {
+      "id": "execute_variable_function",
+      "values": {
+        "variableName": "fun42",
+        "resultVariableName": "result"
+      }
+    },
+    {
+      "id": "assert_variable_value",
+      "values": {
+        "variableName": "result",
+        "value": "42"
+      }
+    },
+    {
+      "id": "execute_variable_function",
+      "values": {
+        "variableName": "funDelayed"
+      }
+    },
+    {
+      "id": "assert_variable_value",
+      "values": {
+        "variableName": "_functionResult",
+        "value": "delayed"
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "timestamp": 1602455417754,
+  "version": 1
+}

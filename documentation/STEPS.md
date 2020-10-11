@@ -9,6 +9,7 @@
   * [clear_variables](#clear_variables)
   * [conditional](#conditional)
   * [copy_value_to_variable](#copy_value_to_variable)
+  * [execute_variable_function](#execute_variable_function)
   * [expect_failure](#expect_failure)
   * [fail](#fail)
   * [for_each_testable](#for_each_testable)
@@ -29,21 +30,22 @@ This plugin provides a few new [Test Steps](https://github.com/peiffer-innovatio
 
 ## Test Step Summary
 
-Test Step IDs                                     | Description
---------------------------------------------------|-------------
-[assert_variable_value](#assert_variable_value)   | Asserts the value on the on a `variableName` equals the `value`.
-[clear_variables](#clear_variables)               | Clears all the variables from the `TestController`.
-[conditional](#conditional)                       | Conditionally executes a step based on the `value` of a `variableName`.
-[copy_value_to_variable](#copy_value_to_variable) | Copies the value from the `Testable` to the `variableName`.
-[expect_failure](#expect_failure)                 | Passes if, and only if, the sub-step throws an error / fails.
-[fail](#fail)                                     | Fails the step and, if set, passes along the optional `message`.
-[for_each_testable](#for_each_testable)           | Iterates through each `Testable` on the active widget tree, sets the id to `variableName` and then executes the associated `step`.
-[include_test](#include_test)                     | Import and execute all the steps from another test given its name, version and suite.
-[increment_value](#increment_value)               | Increments a particular `variableName` by a defined `increment`.
-[iterate](#iterate)                               | Iterates from `start` to `end` - 1 executing the `step` each time.
-[multi_step](#multi_step)                         | Groups different test steps to be executed.
-[repeat_until](#repeat_until)                     | Repeats the `step` until the `variableName` equals the `value`.
-[retry_on_failure](#retry_on_failure)             | Retries the `step` if it fails up to `retryCount` times.
+Test Step IDs                                           | Description
+--------------------------------------------------------|-------------
+[assert_variable_value](#assert_variable_value)         | Asserts the value on the on a `variableName` equals the `value`.
+[clear_variables](#clear_variables)                     | Clears all the variables from the `TestController`.
+[conditional](#conditional)                             | Conditionally executes a step based on the `value` of a `variableName`.
+[copy_value_to_variable](#copy_value_to_variable)       | Copies the value from the `Testable` to the `variableName`.
+[execute_variable_function](#execute_variable_function) | Locates the `TestVariableFunction` in the `TestController` using `variableName`, executes it, and stores the result in `resultVariableName`.
+[expect_failure](#expect_failure)                       | Passes if, and only if, the sub-step throws an error / fails.
+[fail](#fail)                                           | Fails the step and, if set, passes along the optional `message`.
+[for_each_testable](#for_each_testable)                 | Iterates through each `Testable` on the active widget tree, sets the id to `variableName` and then executes the associated `step`.
+[include_test](#include_test)                           | Import and execute all the steps from another test given its name, version and suite.
+[increment_value](#increment_value)                     | Increments a particular `variableName` by a defined `increment`.
+[iterate](#iterate)                                     | Iterates from `start` to `end` - 1 executing the `step` each time.
+[multi_step](#multi_step)                               | Groups different test steps to be executed.
+[repeat_until](#repeat_until)                           | Repeats the `step` until the `variableName` equals the `value`.
+[retry_on_failure](#retry_on_failure)                   | Retries the `step` if it fails up to `retryCount` times.
 
 
 ---
@@ -182,6 +184,37 @@ Key            | Type    | Required | Supports Variable | Description
 `testableId`   | String  | Yes      | Yes               | The `id` of the `Testable` to evaluate the value.
 `timeout`      | integer | No       | Yes               | Number of seconds the step will wait for the `Testable` widget to be available on the widget tree.
 `variableName` | String  | Yes      | No                | The value to evaluate against.
+
+
+---
+
+### execute_variable_function
+
+**How it Works**
+
+1. Gets the `TestVariableFunction` from the `TestController` using the `variableName`.  Fails if not found.
+2. Executes the function and stores the result in `resultVariableName`, or `_functionResult` if not defined.
+
+**Example**
+
+```json
+{
+  "id": "execute_variable_function",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "resultVariableName": "outputVariableName",
+    "variableName": "functionVariableName"
+    }
+  }
+}
+```
+
+**Values**
+
+Key                  | Type   | Required | Supports Variable | Description
+---------------------|--------|----------|-------------------|-------------
+`resultVariableName` | String | No       | Yes               | The variable to store the result of the executed function.  Will be `_functionResult` if omitted.
+`variableName`       | String | Yes      | No                | The variable name to look for the `TestVariableFunction` to execute.
 
 
 ---

@@ -12,11 +12,15 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, AssertVariableValueForm);
-    expect(availStep.help,
-        TestFlowControlTranslations.atf_flow_help_assert_variable_value);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_assert_variable_value,
+    );
     expect(availStep.id, 'assert_variable_value');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_assert_variable_value);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_assert_variable_value,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -28,11 +32,15 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, ClearVariablesForm);
-    expect(availStep.help,
-        TestFlowControlTranslations.atf_flow_help_clear_variables);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_clear_variables,
+    );
     expect(availStep.id, 'clear_variables');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_clear_variables);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_clear_variables,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -45,10 +53,14 @@ void main() {
 
     expect(availStep.form.runtimeType, ConditionalForm);
     expect(
-        availStep.help, TestFlowControlTranslations.atf_flow_help_conditional);
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_conditional,
+    );
     expect(availStep.id, 'conditional');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_conditional);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_conditional,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -60,13 +72,37 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, CopyValueToVariableForm);
-    expect(availStep.help,
-        TestFlowControlTranslations.atf_flow_help_copy_value_to_variable);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_copy_value_to_variable,
+    );
     expect(availStep.id, 'copy_value_to_variable');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_copy_value_to_variable);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_copy_value_to_variable,
+    );
     expect(availStep.type, TestableType.value_requestable);
     expect(availStep.widgetless, false);
+  });
+
+  test('execute_variable_function', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'execute_variable_function',
+    );
+
+    expect(availStep.form.runtimeType, ExecuteVariableFunctionForm);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_execute_variable_function,
+    );
+    expect(availStep.id, 'execute_variable_function');
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_execute_variable_function,
+    );
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
   });
 
   test('expect_failure', () {
@@ -76,11 +112,15 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, ExpectFailureForm);
-    expect(availStep.help,
-        TestFlowControlTranslations.atf_flow_help_expect_failure);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_expect_failure,
+    );
     expect(availStep.id, 'expect_failure');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_expect_failure);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_expect_failure,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -97,8 +137,10 @@ void main() {
       TestFlowControlTranslations.atf_flow_help_include_test,
     );
     expect(availStep.id, 'include_test');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_include_test);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_include_test,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -110,11 +152,15 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, IncrementValueForm);
-    expect(availStep.help,
-        TestFlowControlTranslations.atf_flow_help_increment_value);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_increment_value,
+    );
     expect(availStep.id, 'increment_value');
-    expect(availStep.title,
-        TestFlowControlTranslations.atf_flow_title_increment_value);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_increment_value,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -126,9 +172,15 @@ void main() {
     );
 
     expect(availStep.form.runtimeType, IterateForm);
-    expect(availStep.help, TestFlowControlTranslations.atf_flow_help_iterate);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_iterate,
+    );
     expect(availStep.id, 'iterate');
-    expect(availStep.title, TestFlowControlTranslations.atf_flow_title_iterate);
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_iterate,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });
@@ -140,10 +192,14 @@ void main() {
 
     expect(availStep.form.runtimeType, MultiStepForm);
     expect(
-        availStep.help, TestFlowControlTranslations.atf_flow_help_multi_step);
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_multi_step,
+    );
     expect(availStep.id, 'multi_step');
     expect(
-        availStep.title, TestFlowControlTranslations.atf_flow_title_multi_step);
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_multi_step,
+    );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);
   });

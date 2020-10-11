@@ -46,6 +46,11 @@ class TestFlowControlTranslations {
     value: 'Matching RegEx',
   );
 
+  static const atf_flow_form_result_variable_name = TranslationEntry(
+    key: 'atf_flow_form_result_variable_name',
+    value: 'Result Variable Name',
+  );
+
   static const atf_flow_form_retry_count = TranslationEntry(
     key: 'atf_flow_form_retry_count',
     value: 'Retry Count',
@@ -112,6 +117,12 @@ class TestFlowControlTranslations {
     key: 'atf_flow_help_expect_failure',
     value:
         'Expects that the sub-step results in a failed result.  Otherwise, this step itself will fail.',
+  );
+
+  static const atf_flow_help_execute_variable_function = TranslationEntry(
+    key: 'atf_flow_help_execute_variable_function',
+    value:
+        'Gets the TestVariableFunction function from the given variable name, executes it, and then stores the result in the result variable name (or _functionResult if not defined).',
   );
 
   static const atf_flow_help_fail = TranslationEntry(
@@ -182,6 +193,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_expect_failure = TranslationEntry(
     key: 'atf_flow_title_expect_failure',
     value: 'Expect Failure',
+  );
+
+  static const atf_flow_title_execute_variable_function = TranslationEntry(
+    key: 'atf_flow_title_execute_variable_function',
+    value: 'Execute Variable Function',
   );
 
   static const atf_flow_title_fail = TranslationEntry(
