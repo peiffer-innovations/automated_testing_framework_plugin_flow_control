@@ -2,16 +2,16 @@ name: automated_testing_framework_plugin_flow_control
 description: Library to use provide flow control test steps to the Automated Testing Framework.
 homepage: https://github.com/peiffer-innovations/automated_testing_framework_plugin_flow_control
 
-version: 1.0.8
+version: 1.0.9
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
   automated_testing_framework: ^1.2.14
   convert: ^2.1.1
+  flutter:
+    sdk: flutter
   flutter_typeahead: ^1.8.8
   form_validation: ^1.0.1
   json_class: ^1.0.6+1

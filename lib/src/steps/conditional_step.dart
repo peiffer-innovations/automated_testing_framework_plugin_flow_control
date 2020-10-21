@@ -2,8 +2,8 @@ import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-/// Test step that asserts that the value equals (or does not equal) a specific
-/// value.
+/// Test step that will execute a sub-step based on whether the [variableName]
+/// does or does not equal [whenTrue] or [whenFalse].
 class ConditionalStep extends TestRunnerStep {
   ConditionalStep({
     this.value,
@@ -47,9 +47,9 @@ class ConditionalStep extends TestRunnerStep {
   }
 
   /// Executes the step.  This will first get the variable with from the
-  /// [TestController] using the [key].  This will compare the variable's value
-  /// to either the [conditional] or the [value] then execute the appropriate
-  /// [whenTrue] or [whenFalse] step.
+  /// [TestController] using the [variableName].  This will compare the
+  /// variable's value the [value] then execute the appropriate [whenTrue] or
+  /// [whenFalse] step.
   @override
   Future<void> execute({
     @required TestReport report,

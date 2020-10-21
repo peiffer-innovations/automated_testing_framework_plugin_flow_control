@@ -103,13 +103,28 @@ class TestFlowControlHelper {
           form: ConditionalForm(),
           help: TestFlowControlTranslations.atf_flow_help_conditional,
           id: 'conditional',
-          keys: const {'key', 'value', 'whenFalse', 'whenTrue'},
+          keys: const {'value', 'variableName', 'whenFalse', 'whenTrue'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_conditional,
           widgetless: true,
           type: null,
         ),
         testRunnerStepBuilder: ConditionalStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
+          form: ConditionalWidgetExistsForm(),
+          help: TestFlowControlTranslations
+              .atf_flow_help_conditional_widget_exists,
+          id: 'conditional_widget_exists',
+          keys: const {'testableId', 'whenFalse', 'whenTrue'},
+          quickAddValues: null,
+          title: TestFlowControlTranslations
+              .atf_flow_title_conditional_widget_exists,
+          widgetless: false,
+          type: null,
+        ),
+        testRunnerStepBuilder: ConditionalWidgetExistsStep.fromDynamic,
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(

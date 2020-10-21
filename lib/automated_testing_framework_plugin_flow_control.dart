@@ -1,6 +1,7 @@
 export 'src/forms/assert_variable_value_form.dart';
 export 'src/forms/clear_variables_form.dart';
 export 'src/forms/conditional_form.dart';
+export 'src/forms/conditional_widget_exists_form.dart';
 export 'src/forms/copy_value_to_variable_form.dart';
 export 'src/forms/execute_variable_function_form.dart';
 export 'src/forms/expect_failure_form.dart';
@@ -16,6 +17,7 @@ export 'src/forms/retry_on_failure_form.dart';
 export 'src/steps/assert_variable_value_step.dart';
 export 'src/steps/clear_variables_step.dart';
 export 'src/steps/conditional_step.dart';
+export 'src/steps/conditional_widget_exists_step.dart';
 export 'src/steps/copy_value_to_variable_step.dart';
 export 'src/steps/execute_variable_function_step.dart';
 export 'src/steps/expect_failure_step.dart';

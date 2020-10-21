@@ -8,6 +8,7 @@
   * [assert_variable_value](#assert_variable_value)
   * [clear_variables](#clear_variables)
   * [conditional](#conditional)
+  * [conditional_widget_exists](#conditional_widget_exists)
   * [copy_value_to_variable](#copy_value_to_variable)
   * [execute_variable_function](#execute_variable_function)
   * [expect_failure](#expect_failure)
@@ -35,6 +36,7 @@ Test Step IDs                                           | Description
 [assert_variable_value](#assert_variable_value)         | Asserts the value on the on a `variableName` equals the `value`.
 [clear_variables](#clear_variables)                     | Clears all the variables from the `TestController`.
 [conditional](#conditional)                             | Conditionally executes a step based on the `value` of a `variableName`.
+[conditional_widget_exists](#conditional_widget_exists) | Conditionally executes a step based whether or not the `testableId` exists on the tree.
 [copy_value_to_variable](#copy_value_to_variable)       | Copies the value from the `Testable` to the `variableName`.
 [execute_variable_function](#execute_variable_function) | Locates the `TestVariableFunction` in the `TestController` using `variableName`, executes it, and stores the result in `resultVariableName`.
 [expect_failure](#expect_failure)                       | Passes if, and only if, the sub-step throws an error / fails.
@@ -149,6 +151,49 @@ Key            | Type   | Required | Supports Variable | Description
 ---------------|--------|----------|-------------------|-------------
 `value`        | String | No       | Yes               | The value to compare the `variableName`'s value to.
 `variableName` | String | Yes      | Yes               | The `variableName` to get the value for.
+`whenFalse`    | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are not equal.
+`whenTrue`     | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
+
+
+---
+
+### conditional_widget_exists
+
+**How it Works**
+
+1. Immediate looks for the Widget with a `ValueKey` of `widgetId` on the Widget Tree.  If the Widget is a `Testable` and the `widgetId` matches the `id` of the `Testable`, that too will be a match.
+    1. If the widget exists, and `whenTrue` is set, the step defined in `whenTrue` will execute.
+    1. If they widget does not exist, and `whenFalse` is set, the step defined in `whenFalse` will execute.
+
+**Example**
+
+```json
+{
+  "id": "conditional_widget_exists",
+  "image": "<optional_base_64_image>",
+  "values": {
+    "whenFalse": {
+      "id": "test_step_id",
+      "values": {
+        "testStep": "values"
+      }
+    },
+    "whenTrue": {
+      "id": "test_step_id",
+      "values": {
+        "testStep": "values"
+      }
+    },
+    "widgetId": "myWidgetValueKeyValue"
+  }
+}
+```
+
+**Values**
+
+Key            | Type   | Required | Supports Variable | Description
+---------------|--------|----------|-------------------|-------------
+`testableId`   | String | No       | Yes               | The value in a `ValueKey` to look for on a Widget.  May also match the `id` of a `Testable`.
 `whenFalse`    | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are not equal.
 `whenTrue`     | Map    | No       | Yes               | The step to execute when the value on the step and the `variableName`'s values are equal.
 

@@ -65,6 +65,26 @@ void main() {
     expect(availStep.widgetless, true);
   });
 
+  test('conditional_widget_exists', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'conditional_widget_exists',
+    );
+
+    expect(availStep.form.runtimeType, ConditionalWidgetExistsForm);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_conditional_widget_exists,
+    );
+    expect(availStep.id, 'conditional_widget_exists');
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_conditional_widget_exists,
+    );
+    expect(availStep.type, null);
+    expect(availStep.widgetless, false);
+  });
+
   test('copy_value_to_variable', () {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(

@@ -91,6 +91,11 @@ class TestFlowControlTranslations {
     value: 'True Step',
   );
 
+  static const atf_flow_form_widget_id = TranslationEntry(
+    key: 'atf_flow_form_widget_id',
+    value: 'Widget ID',
+  );
+
   static const atf_flow_help_assert_variable_value = TranslationEntry(
     key: 'atf_flow_help_assert_variable_value',
     value:
@@ -106,6 +111,12 @@ class TestFlowControlTranslations {
     key: 'atf_flow_help_conditional',
     value:
         'Conditional that will execute the next step based on whether this evaluates to true or false.',
+  );
+
+  static const atf_flow_help_conditional_widget_exists = TranslationEntry(
+    key: 'atf_flow_help_conditional_widget_exists',
+    value:
+        'Conditional that will execute the next step based on whether the widget with the given id exists or not.  As a note, the widget id can be a Testable, but it may also be any widget with a ValueKey of the given widget id.',
   );
 
   static const atf_flow_help_copy_value_to_variable = TranslationEntry(
@@ -183,6 +194,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_conditional = TranslationEntry(
     key: 'atf_flow_title_conditional',
     value: 'Conditional',
+  );
+
+  static const atf_flow_title_conditional_widget_exists = TranslationEntry(
+    key: 'atf_flow_title_conditional_widget_exists',
+    value: 'Conditional Widget Exists',
   );
 
   static const atf_flow_title_copy_value_to_variable = TranslationEntry(

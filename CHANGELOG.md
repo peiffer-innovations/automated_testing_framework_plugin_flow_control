@@ -1,3 +1,8 @@
+## [1.0.9] - October 20th, 2020
+
+* Added `conditional_widget_exists` step.
+
+
 ## [1.0.8] - October 10th, 2020
 
 * Added `execute_variable_function` step.
