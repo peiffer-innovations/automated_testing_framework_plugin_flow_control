@@ -1,0 +1,58 @@
+{
+  "active": true,
+  "name": "Conditional Widget Exists",
+  "steps": [
+    {
+      "id": "tap",
+      "values": {
+        "testableId": "test_page_Edit Text"
+      }
+    },
+    {
+      "id": "conditional_widget_exists",
+      "values": {
+        "testableId": "edit_text_0",
+        "whenTrue": {
+          "id": "set_value",
+          "values": {
+            "type": "String",
+            "testableId": "edit_text_0",
+            "value": "Foo"
+          }
+        }
+      }
+    },
+    {
+      "id": "assert_value",
+      "values": {
+        "testableId": "edit_text_0",
+        "value": "Foo",
+        "equals": "true"
+      }
+    },
+    {
+      "id": "conditional_widget_exists",
+      "values": {
+        "testableId": "edit_text_99",
+        "whenFalse": {
+          "id": "set_variable",
+          "values": {
+            "type": "String",
+            "variableName": "bar",
+            "value": "Bar"
+          }
+        }
+      }
+    },
+    {
+      "id": "assert_variable_value",
+      "values": {
+        "value": "Bar",
+        "variableName": "bar"
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "timestamp": 1603248460343,
+  "version": 1
+}
