@@ -76,7 +76,7 @@ class TestFlowControlHelper {
           form: AssertVariableValueForm(),
           help: TestFlowControlTranslations.atf_flow_help_assert_variable_value,
           id: 'assert_variable_value',
-          keys: const {'equals', 'value', 'variableName'},
+          keys: const {'caseSensitive', 'equals', 'value', 'variableName'},
           quickAddValues: null,
           title:
               TestFlowControlTranslations.atf_flow_title_assert_variable_value,

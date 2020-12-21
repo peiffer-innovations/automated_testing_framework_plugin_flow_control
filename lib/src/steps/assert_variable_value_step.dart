@@ -7,11 +7,17 @@ import 'package:meta/meta.dart';
 /// not equal) a specific [value].
 class AssertVariableValueStep extends TestRunnerStep {
   AssertVariableValueStep({
+    @required this.caseSensitive,
     @required this.equals,
     @required this.value,
     @required this.variableName,
-  })  : assert(equals != null),
+  })  : assert(caseSensitive != null),
+        assert(equals != null),
         assert(variableName?.isNotEmpty == true);
+
+  /// Set to [true] if the comparison should be case sensitive.  Set to [false]
+  /// to allow the comparison to be case insensitive.
+  final bool caseSensitive;
 
   /// Set to [true] if the value from the [variableName] must equal the set
   /// [value].  Set to [false] if the value from the [variableName] must not
@@ -42,6 +48,9 @@ class AssertVariableValueStep extends TestRunnerStep {
 
     if (map != null) {
       result = AssertVariableValueStep(
+        caseSensitive: map['caseSensitive'] == null
+            ? true
+            : JsonClass.parseBool(map['caseSensitive']),
         equals:
             map['equals'] == null ? true : JsonClass.parseBool(map['equals']),
         value: map['value']?.toString(),
@@ -62,7 +71,8 @@ class AssertVariableValueStep extends TestRunnerStep {
     String variableName = tester.resolveVariable(this.variableName);
     assert(variableName?.isNotEmpty == true);
 
-    var name = "assert_variable_value('$variableName', '$value', '$equals')";
+    var name =
+        "assert_variable_value('$variableName', '$value', '$equals', '$caseSensitive')";
     log(
       name,
       tester: tester,
@@ -70,12 +80,16 @@ class AssertVariableValueStep extends TestRunnerStep {
 
     var match = false;
     var actual = tester.resolveVariable('{{$variableName}}');
-    if (equals == (actual?.toString() == value)) {
+    if (equals ==
+        (caseSensitive == true
+            ? (actual?.toString() == value)
+            : (actual?.toString()?.toLowerCase() ==
+                value?.toString()?.toLowerCase()))) {
       match = true;
     }
     if (match != true) {
       throw Exception(
-        'variableName: [$variableName] -- actualValue: [$actual] ${equals == true ? '!=' : '=='} [$value].',
+        'variableName: [$variableName] -- actualValue: [$actual] ${equals == true ? '!=' : '=='} [$value] (caseSensitive = [$caseSensitive]).',
       );
     }
   }

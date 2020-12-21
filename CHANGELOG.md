@@ -1,3 +1,8 @@
+## [1.0.10] - December 21st, 2020
+
+* Added `caseSensitive` option to `assert
+
+
 ## [1.0.9] - October 20th, 2020
 
 * Added `conditional_widget_exists` step.

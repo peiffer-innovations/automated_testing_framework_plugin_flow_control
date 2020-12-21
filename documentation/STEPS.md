@@ -70,6 +70,7 @@ Test Step IDs                                           | Description
   "id": "assert_variable_value",
   "image": "<optional_base_64_image>",
   "values": {
+    "caseSensitive": true,
     "equals": true,
     "value": "myExpectedValue",
     "variableName": "myVariableName"
@@ -79,11 +80,12 @@ Test Step IDs                                           | Description
 
 **Values**
 
-Key            | Type    | Required | Supports Variable | Description
----------------|---------|----------|-------------------|-------------
-`equals`       | boolean | No       | No                | Defines whether the Document's value must equal the `value` or must not equal the `value`.  Defaults to `true` if not defined.
-`value`        | String  | Yes      | Yes               | The value to evaluate against.
-`variableName` | String  | Yes      | Yes               | The `variableName` to check the value for.
+Key             | Type    | Required | Supports Variable | Description
+----------------|---------|----------|-------------------|-------------
+`caseSensitive` | boolean | No       | No                | Defines whether the `equals` comparison requires case to match or will consider two values equal if only the case differs.  Defaults to `true` if not defined.
+`equals`        | boolean | No       | No                | Defines whether the Document's value must equal the `value` or must not equal the `value`.  Defaults to `true` if not defined.
+`value`         | String  | Yes      | Yes               | The value to evaluate against.
+`variableName`  | String  | Yes      | Yes               | The `variableName` to check the value for.
 
 
 ---

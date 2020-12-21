@@ -51,6 +51,18 @@ class AssertVariableValueForm extends TestStepForm {
               ],
               values: values,
             ),
+            SizedBox(height: 16.0),
+            buildDropdown(
+              context: context,
+              defaultValue: 'true',
+              id: 'caseSensitive',
+              items: [
+                'true',
+                'false',
+              ],
+              label: TestStepTranslations.atf_form_case_sensitive,
+              values: values,
+            ),
           ],
           minify: minify,
         ),

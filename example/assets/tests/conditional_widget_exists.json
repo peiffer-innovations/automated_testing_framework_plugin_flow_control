@@ -50,6 +50,14 @@
         "value": "Bar",
         "variableName": "bar"
       }
+    },
+    {
+      "id": "assert_variable_value",
+      "values": {
+        "caseSensitive": false,
+        "value": "bar",
+        "variableName": "bar"
+      }
     }
   ],
   "suiteName": "Flow Control",
