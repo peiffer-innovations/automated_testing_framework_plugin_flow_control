@@ -1,6 +1,11 @@
+## [1.0.10+1] - December 21st, 2020
+
+* Fix to add `caseSensitive` to toJson in `assert_variable_value`.
+
+
 ## [1.0.10] - December 21st, 2020
 
-* Added `caseSensitive` option to `assert
+* Added `caseSensitive` option to `assert_variable_value`.
 
 
 ## [1.0.9] - October 20th, 2020
