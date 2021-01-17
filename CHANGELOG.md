@@ -1,3 +1,8 @@
+## [1.0.10+2] - January 17th, 2021
+
+* Dependency updates
+
+
 ## [1.0.10+1] - December 21st, 2020
 
 * Fix to add `caseSensitive` to toJson in `assert_variable_value`.

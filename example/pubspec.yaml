@@ -9,10 +9,10 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  automated_testing_framework_example: ^1.0.10
+  automated_testing_framework_example: ^1.0.12+1
   flutter:
     sdk: flutter
-  websafe_platform: ^1.0.5
+  websafe_platform: ^1.1.0
 
 dependency_overrides:
   # automated_testing_framework:
