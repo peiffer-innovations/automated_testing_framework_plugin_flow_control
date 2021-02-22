@@ -38,6 +38,7 @@ class ExpectFailureStep extends TestRunnerStep {
   /// sub-step and when executed, the sub-step throws an exception.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -62,10 +63,16 @@ class ExpectFailureStep extends TestRunnerStep {
         id: testStep.id,
         values: testStep.values,
       );
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       if (tester.delays.preStep.inMilliseconds > 0) {
         await runnerStep.preStepSleep(tester.delays.preStep);
       }
 
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       report?.startStep(
         testStep,
         subStep: true,
@@ -74,6 +81,7 @@ class ExpectFailureStep extends TestRunnerStep {
       try {
         try {
           await runnerStep.execute(
+            cancelToken: cancelToken,
             report: report,
             tester: tester,
           );
@@ -81,6 +89,9 @@ class ExpectFailureStep extends TestRunnerStep {
           report?.endStep(testStep);
         }
 
+        if (cancelToken.cancelled == true) {
+          throw Exception('[CANCELLED]: the step has been cancelled.');
+        }
         if (tester.delays.postStep.inMilliseconds > 0) {
           await runnerStep.postStepSleep(tester.delays.preStep);
         }

@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
-/// Test step that asserts that the value equals (or does not equal) a specific
-/// value.
-class ClearVariablesStep extends TestRunnerStep {
+/// Test step that will cancel the test and prevent future steps from executing.
+class CancelTestStep extends TestRunnerStep {
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
   ///
@@ -12,30 +13,35 @@ class ClearVariablesStep extends TestRunnerStep {
   /// {
   /// }
   /// ```
-  static ClearVariablesStep fromDynamic(dynamic map) {
-    ClearVariablesStep result;
+  ///
+  /// See also:
+  /// * [TestStep.fromDynamic]
+  static CancelTestStep fromDynamic(dynamic map) {
+    CancelTestStep result;
 
     if (map != null) {
-      result = ClearVariablesStep();
+      result = CancelTestStep();
     }
 
     return result;
   }
 
-  /// Executes the step.  This will
+  /// Executes the step.  This will instruct the [tester] to cancel the test.
   @override
   Future<void> execute({
     @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
-  }) async {
-    var name = 'clear_variables()';
+  }) {
+    var name = 'cancel_test()';
     log(
       name,
       tester: tester,
     );
 
-    tester.clearVariables();
+    tester.cancelRunningTests();
+
+    return Future.value(null);
   }
 
   /// Overidden to ignore the delay

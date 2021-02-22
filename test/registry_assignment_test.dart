@@ -3,8 +3,6 @@ import 'package:automated_testing_framework_plugin_flow_control/automated_testin
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  test('', () {});
-
   test('assert_variable_value', () {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
@@ -20,6 +18,26 @@ void main() {
     expect(
       availStep.title,
       TestFlowControlTranslations.atf_flow_title_assert_variable_value,
+    );
+    expect(availStep.type, null);
+    expect(availStep.widgetless, true);
+  });
+
+  test('cancel_test', () {
+    TestFlowControlHelper.registerTestSteps();
+    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+      'cancel_test',
+    );
+
+    expect(availStep.form.runtimeType, CancelTestForm);
+    expect(
+      availStep.help,
+      TestFlowControlTranslations.atf_flow_help_cancel_test,
+    );
+    expect(availStep.id, 'cancel_test');
+    expect(
+      availStep.title,
+      TestFlowControlTranslations.atf_flow_title_cancel_test,
     );
     expect(availStep.type, null);
     expect(availStep.widgetless, true);

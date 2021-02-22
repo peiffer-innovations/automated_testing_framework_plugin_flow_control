@@ -47,6 +47,7 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
   /// placed in the [resultVariableName], or `_functionResult` if omitted.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -62,6 +63,9 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
     var fun = tester.resolveVariable('{{$variableName}}');
 
     if (fun is TestVariableFunction) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       var result = await fun(
         tester,
         report,

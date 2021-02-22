@@ -87,6 +87,19 @@ class TestFlowControlHelper {
       ),
       TestStepBuilder(
         availableTestStep: AvailableTestStep(
+          form: CancelTestForm(),
+          help: TestFlowControlTranslations.atf_flow_help_cancel_test,
+          id: 'cancel_test',
+          keys: const {},
+          quickAddValues: const {},
+          title: TestFlowControlTranslations.atf_flow_title_cancel_test,
+          widgetless: true,
+          type: null,
+        ),
+        testRunnerStepBuilder: CancelTestStep.fromDynamic,
+      ),
+      TestStepBuilder(
+        availableTestStep: AvailableTestStep(
           form: ClearVariablesForm(),
           help: TestFlowControlTranslations.atf_flow_help_clear_variables,
           id: 'clear_variables',

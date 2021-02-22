@@ -102,6 +102,12 @@ class TestFlowControlTranslations {
         'Asserts the variable name does or does not contain a specific value.',
   );
 
+  static const atf_flow_help_cancel_test = TranslationEntry(
+    key: 'atf_flow_help_cancel_test',
+    value:
+        "Cancel's the current test and prevents future steps from executing.",
+  );
+
   static const atf_flow_help_clear_variables = TranslationEntry(
     key: 'atf_flow_help_clear_variables',
     value: 'Clear all the variables from the test controller.',
@@ -184,6 +190,11 @@ class TestFlowControlTranslations {
   static const atf_flow_title_assert_variable_value = TranslationEntry(
     key: 'atf_flow_title_assert_variable_value',
     value: 'Assert Variable Value',
+  );
+
+  static const atf_flow_title_cancel_test = TranslationEntry(
+    key: 'atf_flow_title_cancel_test',
+    value: 'Cancel Test',
   );
 
   static const atf_flow_title_clear_variables = TranslationEntry(

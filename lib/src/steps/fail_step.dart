@@ -36,6 +36,7 @@ class FailStep extends TestRunnerStep {
   /// Executes the step.  This will always fail.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {

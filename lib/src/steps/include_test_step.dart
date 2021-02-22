@@ -53,8 +53,9 @@ class IncludeTestStep extends TestRunnerStep {
   /// failing the step.
   @override
   Future<void> execute({
-    TestReport report,
-    TestController tester,
+    @required CancelToken cancelToken,
+    @required TestReport report,
+    @required TestController tester,
   }) async {
     String suiteName = tester.resolveVariable(this.suiteName);
     String testName = tester.resolveVariable(this.testName);
@@ -92,13 +93,20 @@ class IncludeTestStep extends TestRunnerStep {
     );
 
     if (pendingTest != null) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       var test = await pendingTest.loader.load(ignoreImages: true);
       for (var step in test.steps) {
+        if (cancelToken.cancelled == true) {
+          throw Exception('[CANCELLED]: the step has been cancelled.');
+        }
         log(
           '$name step: [${step.id}] -- executing step',
           tester: tester,
         );
         await tester.executeStep(
+          cancelToken: cancelToken,
           report: report,
           step: step,
           subStep: true,

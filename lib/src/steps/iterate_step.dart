@@ -61,6 +61,7 @@ class IterateStep extends TestRunnerStep {
   /// The [step] will be executed with each iteration.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -85,6 +86,9 @@ class IterateStep extends TestRunnerStep {
     }
 
     for (var i = start; i < end; i++) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       var name = "iterate('$start', '$end', '$variableName', '$i')";
       log(
         name,
@@ -96,6 +100,7 @@ class IterateStep extends TestRunnerStep {
       );
 
       await tester.executeStep(
+        cancelToken: cancelToken,
         report: report,
         step: testStep,
         subStep: true,

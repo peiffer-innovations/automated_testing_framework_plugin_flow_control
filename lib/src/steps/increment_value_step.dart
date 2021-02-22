@@ -43,6 +43,7 @@ class IncrementValueStep extends TestRunnerStep {
   /// then this will default to using 1.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {

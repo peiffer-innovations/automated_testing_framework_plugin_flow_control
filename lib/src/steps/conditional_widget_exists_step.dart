@@ -52,6 +52,7 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
   /// on the widget tree when this executes.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -86,6 +87,7 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
         tester: tester,
       );
       await tester.executeStep(
+        cancelToken: cancelToken,
         report: report,
         step: step,
         subStep: true,

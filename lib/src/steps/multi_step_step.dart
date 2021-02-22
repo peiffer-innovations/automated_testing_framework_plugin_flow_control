@@ -48,8 +48,9 @@ class MultiStepStep extends TestRunnerStep {
   /// and will await the execution of each one.
   @override
   Future<void> execute({
-    TestReport report,
-    TestController tester,
+    @required CancelToken cancelToken,
+    @required TestReport report,
+    @required TestController tester,
   }) async {
     log(
       "multi_step('$debugLabel')",
@@ -58,6 +59,10 @@ class MultiStepStep extends TestRunnerStep {
 
     var stepNum = 0;
     for (var rawStep in steps) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
+
       var stepMap = tester.resolveVariable(rawStep);
       var step = TestStep.fromDynamic(stepMap);
 
@@ -72,6 +77,7 @@ class MultiStepStep extends TestRunnerStep {
           tester: tester,
         );
         await tester.executeStep(
+          cancelToken: cancelToken,
           report: report,
           step: step,
           subStep: true,

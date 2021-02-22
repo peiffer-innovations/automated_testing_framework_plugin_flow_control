@@ -53,6 +53,7 @@ class ForEachTestableStep extends TestRunnerStep {
   /// if no [variableName] is set) and calls the [step].
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -76,6 +77,9 @@ class ForEachTestableStep extends TestRunnerStep {
     var regExp = RegExp(regEx);
     var testables = find.byType(Testable).evaluate();
     for (var testable in testables) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
       var key = testable?.widget?.key;
       if (key is ValueKey) {
         var id = key.value?.toString();
@@ -89,6 +93,7 @@ class ForEachTestableStep extends TestRunnerStep {
             variableName: variableName,
           );
           await tester.executeStep(
+            cancelToken: cancelToken,
             report: report,
             step: testStep,
             subStep: true,

@@ -66,6 +66,7 @@ class RepeatUntilStep extends TestRunnerStep {
   ///
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -98,6 +99,10 @@ class RepeatUntilStep extends TestRunnerStep {
     var actual = tester.resolveVariable('{{$variableName}}')?.toString();
     var iterations = 0;
     while (actual != value) {
+      if (cancelToken.cancelled == true) {
+        throw Exception('[CANCELLED]: the step has been cancelled.');
+      }
+
       tester.setVariable(
         value: iterations,
         variableName: counterVariableName,
@@ -112,6 +117,7 @@ class RepeatUntilStep extends TestRunnerStep {
       }
 
       await tester.executeStep(
+        cancelToken: cancelToken,
         report: report,
         step: testStep,
         subStep: true,

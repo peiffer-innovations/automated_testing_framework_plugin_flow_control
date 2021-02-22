@@ -52,6 +52,7 @@ class ConditionalStep extends TestRunnerStep {
   /// [whenFalse] step.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -67,7 +68,9 @@ class ConditionalStep extends TestRunnerStep {
       tester: tester,
     );
 
-    var result = value == tester.resolveVariable('{{$variableName}}');
+    var resolved = tester.resolveVariable('{{$variableName}}');
+    var result =
+        value == resolved || (value?.toString() == resolved?.toString());
 
     TestStep step;
     var resultStep = result == true ? whenTrue : whenFalse;
@@ -86,6 +89,7 @@ class ConditionalStep extends TestRunnerStep {
         tester: tester,
       );
       await tester.executeStep(
+        cancelToken: cancelToken,
         report: report,
         step: step,
         subStep: true,

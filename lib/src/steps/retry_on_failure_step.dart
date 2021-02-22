@@ -42,6 +42,7 @@ class RetryOnFailureStep extends TestRunnerStep {
   /// sub-step and when executed, the sub-step throws an exception.
   @override
   Future<void> execute({
+    @required CancelToken cancelToken,
     @required TestReport report,
     @required TestController tester,
   }) async {
@@ -59,6 +60,9 @@ class RetryOnFailureStep extends TestRunnerStep {
       throw Exception('retry_on_failure: failing due to no sub-step');
     } else {
       for (var i = 0; i < retryCount; i++) {
+        if (cancelToken.cancelled == true) {
+          throw Exception('[CANCELLED]: the step has been cancelled.');
+        }
         tester.setVariable(
           value: i,
           variableName: '_retryNum',
@@ -85,6 +89,7 @@ class RetryOnFailureStep extends TestRunnerStep {
         try {
           try {
             await runnerStep.execute(
+              cancelToken: cancelToken,
               report: report,
               tester: tester,
             );
