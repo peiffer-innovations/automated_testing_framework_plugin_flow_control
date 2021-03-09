@@ -1,6 +1,4 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that expects the sub-step to fail with an exception or else this
 /// step will fail.  Useful for negative tests.
@@ -22,8 +20,8 @@ class ExpectFailureStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static ExpectFailureStep fromDynamic(dynamic map) {
-    ExpectFailureStep result;
+  static ExpectFailureStep? fromDynamic(dynamic map) {
+    ExpectFailureStep? result;
 
     if (map != null) {
       result = ExpectFailureStep(
@@ -38,9 +36,9 @@ class ExpectFailureStep extends TestRunnerStep {
   /// sub-step and when executed, the sub-step throws an exception.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var step = tester.resolveVariable(this.step);
 
@@ -62,7 +60,7 @@ class ExpectFailureStep extends TestRunnerStep {
       var runnerStep = tester.registry.getRunnerStep(
         id: testStep.id,
         values: testStep.values,
-      );
+      )!;
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
@@ -73,7 +71,7 @@ class ExpectFailureStep extends TestRunnerStep {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      report?.startStep(
+      report.startStep(
         testStep,
         subStep: true,
       );
@@ -86,7 +84,7 @@ class ExpectFailureStep extends TestRunnerStep {
             tester: tester,
           );
         } finally {
-          report?.endStep(testStep);
+          report.endStep(testStep);
         }
 
         if (cancelToken.cancelled == true) {

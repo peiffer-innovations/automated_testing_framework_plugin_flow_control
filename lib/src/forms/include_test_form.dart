@@ -16,7 +16,7 @@ class IncludeTestForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     return Column(
@@ -42,20 +42,20 @@ class IncludeTestForm extends TestStepForm {
 }
 
 class _TestEditor extends StatefulWidget {
-  _TestEditor({@required this.values});
+  _TestEditor({required this.values});
 
-  final Map<String, dynamic> values;
+  final Map<String, dynamic>? values;
 
   @override
   _TestEditorState createState() => _TestEditorState();
 }
 
 class _TestEditorState extends State<_TestEditor> {
-  List<PendingTest> _availableTests;
-  TextEditingController _suiteController;
-  TextEditingController _testController;
-  TextEditingController _versionController;
-  Translator _translator;
+  late List<PendingTest> _availableTests;
+  TextEditingController? _suiteController;
+  TextEditingController? _testController;
+  TextEditingController? _versionController;
+  late Translator _translator;
 
   @override
   void initState() {
@@ -67,57 +67,57 @@ class _TestEditorState extends State<_TestEditor> {
 
   @override
   void dispose() {
-    _suiteController.dispose();
-    _testController.dispose();
+    _suiteController!.dispose();
+    _testController!.dispose();
     super.dispose();
   }
 
   Future<void> _initAvailableTests() async {
     _availableTests = [];
-    var runner = TestRunner.of(context);
-    var tests = await runner.controller.loadTests(context);
-    tests.forEach(
+    var runner = TestRunner.of(context)!;
+    var tests = await runner.controller!.loadTests(context);
+    tests?.forEach(
       (test) => _availableTests.add(test),
     );
   }
 
   void _initTextControllers() {
     _suiteController = TextEditingController();
-    _suiteController.text = widget.values['suiteName'];
-    _suiteController.addListener(() {
+    _suiteController!.text = widget.values!['suiteName'];
+    _suiteController!.addListener(() {
       _updateValues(
-        widget.values,
-        suiteName: _suiteController.text,
+        widget.values!,
+        suiteName: _suiteController!.text,
       );
     });
 
     _testController = TextEditingController();
-    _testController.text = widget.values['testName'];
-    _testController.addListener(() {
+    _testController!.text = widget.values!['testName'];
+    _testController!.addListener(() {
       _updateValues(
-        widget.values,
-        testName: _testController.text,
+        widget.values!,
+        testName: _testController!.text,
       );
     });
 
     _versionController = TextEditingController();
-    _versionController.text = widget.values['testVersion'];
-    _versionController.addListener(() {
+    _versionController!.text = widget.values!['testVersion'];
+    _versionController!.addListener(() {
       _updateValues(
-        widget.values,
-        testVersion: _versionController.text,
+        widget.values!,
+        testVersion: _versionController!.text,
       );
     });
   }
 
   List<PendingTest> _getSuggestionsFrom({
     int limit = 4,
-    @required String editedTestName,
+    required String editedTestName,
   }) {
     var highestVersions = <String, PendingTest>{};
     var patternInText = ({
-      @required String pattern,
-      @required String text,
+      required String pattern,
+      required String text,
     }) =>
         text.toLowerCase().contains(
               pattern.toLowerCase(),
@@ -131,7 +131,7 @@ class _TestEditorState extends State<_TestEditor> {
           () => test,
         );
 
-        if (highestVersions[key].version < test.version) {
+        if (highestVersions[key]!.version < test.version) {
           highestVersions[key] = test;
         }
       }
@@ -143,9 +143,9 @@ class _TestEditorState extends State<_TestEditor> {
 
   void _updateValues(
     Map<String, dynamic> values, {
-    String suiteName,
-    String testName,
-    String testVersion,
+    String? suiteName,
+    String? testName,
+    String? testVersion,
   }) {
     values['suiteName'] =
         suiteName?.isNotEmpty != true ? values['suiteName'] : suiteName;
@@ -178,7 +178,7 @@ class _TestEditorState extends State<_TestEditor> {
           // ignore: deprecated_member_use
           autovalidate: true,
           hideOnEmpty: true,
-          itemBuilder: (context, test) => ListTile(
+          itemBuilder: (context, dynamic test) => ListTile(
             subtitle: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -194,10 +194,10 @@ class _TestEditorState extends State<_TestEditor> {
               '$translatedTestName: ${test.name}',
             ),
           ),
-          onSuggestionSelected: (test) {
-            _suiteController.text = test.suiteName;
-            _testController.text = test.name;
-            _versionController.text = test.version.toString();
+          onSuggestionSelected: (dynamic test) {
+            _suiteController!.text = test.suiteName;
+            _testController!.text = test.name;
+            _versionController!.text = test.version.toString();
           },
           suggestionsCallback: (editedTestName) => _getSuggestionsFrom(
             editedTestName: editedTestName,

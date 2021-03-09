@@ -1,18 +1,16 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that iterates from [start] to [end] - 1 and executes [step] with
 /// each iteration.  If set, tihs stores the current value in [variableName] and
 /// will use `_iterateNum` if [variableName] is not set.
 class IterateStep extends TestRunnerStep {
   IterateStep({
-    @required this.end,
-    @required this.start,
-    @required this.step,
-    @required this.variableName,
-  })  : assert(end != null),
+    required this.end,
+    required this.start,
+    required this.step,
+    required this.variableName,
+  })   : assert(end != null),
         assert(step != null);
 
   /// The ending value.
@@ -25,7 +23,7 @@ class IterateStep extends TestRunnerStep {
   final dynamic step;
 
   /// The variable name.
-  final String variableName;
+  final String? variableName;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -41,8 +39,8 @@ class IterateStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static IterateStep fromDynamic(dynamic map) {
-    IterateStep result;
+  static IterateStep? fromDynamic(dynamic map) {
+    IterateStep? result;
 
     if (map != null) {
       result = IterateStep(
@@ -61,17 +59,16 @@ class IterateStep extends TestRunnerStep {
   /// The [step] will be executed with each iteration.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
-    var end = JsonClass.parseInt(tester.resolveVariable(this.end));
-    var start = JsonClass.parseInt(tester.resolveVariable(this.start), 0);
+    var end = JsonClass.parseInt(tester.resolveVariable(this.end))!;
+    var start = JsonClass.parseInt(tester.resolveVariable(this.start), 0)!;
     var step = tester.resolveVariable(this.step);
     String variableName =
         tester.resolveVariable(this.variableName) ?? '_iterateNum';
 
-    assert(end != null);
     assert(end > start);
 
     var name = "iterate('$start', '$end', '$variableName')";
@@ -80,10 +77,10 @@ class IterateStep extends TestRunnerStep {
       tester: tester,
     );
 
-    var testStep = TestStep.fromDynamic(step);
-    if (testStep == null) {
+    if (step == null) {
       throw Exception('iterate: failing due to no sub-step');
     }
+    var testStep = TestStep.fromDynamic(step);
 
     for (var i = start; i < end; i++) {
       if (cancelToken.cancelled == true) {

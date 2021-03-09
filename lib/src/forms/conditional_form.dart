@@ -17,7 +17,7 @@ class ConditionalForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     var translator = Translator.of(context);
@@ -40,7 +40,7 @@ class ConditionalForm extends TestStepForm {
               validators: [
                 RequiredValidator(),
               ],
-              values: values,
+              values: values!,
             ),
             SizedBox(height: 16.0),
             buildEditText(

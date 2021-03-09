@@ -1,6 +1,4 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that will always fail.
 class FailStep extends TestRunnerStep {
@@ -8,7 +6,7 @@ class FailStep extends TestRunnerStep {
     this.message,
   });
 
-  final String message;
+  final String? message;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -21,8 +19,8 @@ class FailStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static FailStep fromDynamic(dynamic map) {
-    FailStep result;
+  static FailStep? fromDynamic(dynamic map) {
+    FailStep? result;
 
     if (map != null) {
       result = FailStep(
@@ -36,9 +34,9 @@ class FailStep extends TestRunnerStep {
   /// Executes the step.  This will always fail.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var name = "fail('$message')";
     log(

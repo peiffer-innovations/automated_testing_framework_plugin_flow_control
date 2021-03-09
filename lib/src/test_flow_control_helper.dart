@@ -9,17 +9,14 @@ import 'package:static_translations/static_translations.dart';
 
 class TestFlowControlHelper {
   static Widget buildJsonEditText({
-    @required BuildContext context,
-    @required String id,
-    String defaultValue,
-    @required TranslationEntry label,
-    List<ValueValidator> validators,
-    @required Map<String, dynamic> values,
+    required BuildContext context,
+    required String id,
+    String? defaultValue,
+    required TranslationEntry label,
+    List<ValueValidator>? validators,
+    required Map<String, dynamic> values,
   }) {
-    assert(context != null);
-    assert(id?.isNotEmpty == true);
-    assert(label != null);
-    assert(values != null);
+    assert(id.isNotEmpty == true);
 
     if (values[id] == null && defaultValue != null) {
       values[id] = defaultValue;
@@ -30,7 +27,7 @@ class TestFlowControlHelper {
     var initialValue = values[id]?.toString();
     if (initialValue?.isNotEmpty == true) {
       try {
-        initialValue = encoder.convert(json.decode(initialValue));
+        initialValue = encoder.convert(json.decode(initialValue!));
       } catch (e) {
         // no-op
       }
@@ -58,7 +55,7 @@ class TestFlowControlHelper {
       onEditingComplete: () {},
       smartQuotesType: SmartQuotesType.disabled,
       validator: (value) => validators?.isNotEmpty == true
-          ? Validator(validators: validators).validate(
+          ? Validator(validators: validators!).validate(
               context: context,
               label: translator.translate(label),
               value: value,
@@ -69,7 +66,7 @@ class TestFlowControlHelper {
 
   /// Registers the test steps to the optional [registry].  If not set, the
   /// default [TestStepRegistry] will be used.
-  static void registerTestSteps([TestStepRegistry registry]) {
+  static void registerTestSteps([TestStepRegistry? registry]) {
     (registry ?? TestStepRegistry.instance).registerCustomSteps([
       TestStepBuilder(
         availableTestStep: AvailableTestStep(

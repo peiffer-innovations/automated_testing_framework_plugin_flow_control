@@ -1,20 +1,20 @@
 import 'dart:math' as math;
 
 import 'package:automated_testing_framework/automated_testing_framework.dart';
+import 'package:collection/collection.dart' show IterableExtension;
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that allows to execute all the steps from another [Test].
 class IncludeTestStep extends TestRunnerStep {
   IncludeTestStep({
     this.suiteName,
-    @required this.testName,
+    required this.testName,
     this.testVersion,
-  }) : assert(testName != null);
+  });
 
-  final String suiteName;
+  final String? suiteName;
   final String testName;
-  final String testVersion;
+  final String? testVersion;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -29,8 +29,8 @@ class IncludeTestStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static IncludeTestStep fromDynamic(dynamic map) {
-    IncludeTestStep result;
+  static IncludeTestStep? fromDynamic(dynamic map) {
+    IncludeTestStep? result;
 
     if (map != null) {
       result = IncludeTestStep(
@@ -53,12 +53,12 @@ class IncludeTestStep extends TestRunnerStep {
   /// failing the step.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
-    String suiteName = tester.resolveVariable(this.suiteName);
-    String testName = tester.resolveVariable(this.testName);
+    String? suiteName = tester.resolveVariable(this.suiteName);
+    String? testName = tester.resolveVariable(this.testName);
     var testVersion = JsonClass.parseInt(
       tester.resolveVariable(this.testVersion),
     );
@@ -76,9 +76,9 @@ class IncludeTestStep extends TestRunnerStep {
     );
 
     var namedTests = <PendingTest>[];
-    int version;
+    int? version;
 
-    suiteTests.forEach((test) {
+    suiteTests?.forEach((test) {
       if (test.name == testName) {
         namedTests.add(test);
         version = math.max(test.version, version ?? -1);
@@ -87,9 +87,8 @@ class IncludeTestStep extends TestRunnerStep {
 
     version = testVersion ?? version;
 
-    var pendingTest = namedTests.firstWhere(
+    var pendingTest = namedTests.firstWhereOrNull(
       (test) => test.version == version,
-      orElse: () => null,
     );
 
     if (pendingTest != null) {

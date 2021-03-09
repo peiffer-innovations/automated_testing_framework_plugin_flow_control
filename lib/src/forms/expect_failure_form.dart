@@ -16,7 +16,7 @@ class ExpectFailureForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     var translator = Translator.of(context);
@@ -36,8 +36,8 @@ class ExpectFailureForm extends TestStepForm {
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_step,
               ),
-              onStepChanged: (step) => values['step'] = step?.toJson(),
-              step: TestStep.fromDynamic(values['step']),
+              onStepChanged: (step) => values!['step'] = step?.toJson(),
+              step: TestStep.fromDynamic(values!['step']),
             ),
           ],
           minify: minify,

@@ -18,13 +18,13 @@ class MultiStepForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     /// If this line is removed, [values] will still have a reference to the
     /// original [steps] List, so modifying that here will modify it in the
     /// [TestStep] without confirmation.
-    values['steps'] = List.from(values['steps'] ?? []);
+    values!['steps'] = List.from(values['steps'] ?? []);
     return Column(
       children: [
         if (minify != true)
@@ -58,25 +58,25 @@ class MultiStepForm extends TestStepForm {
 }
 
 class _StepsEditor extends StatefulWidget {
-  _StepsEditor({@required this.values});
+  _StepsEditor({required this.values});
 
-  final Map<String, dynamic> values;
+  final Map<String, dynamic>? values;
 
   @override
   _StepsEditorState createState() => _StepsEditorState();
 }
 
 class _StepsEditorState extends State<_StepsEditor> {
-  ScrollController _scrollController;
-  List<TestStep> _steps;
-  Translator _translator;
+  ScrollController? _scrollController;
+  late List<TestStep?> _steps;
+  late Translator _translator;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
     _steps = JsonClass.fromDynamicList(
-          widget.values['steps'],
+          widget.values!['steps'],
           (map) => TestStep.fromDynamic(map),
         ) ??
         [];
@@ -92,7 +92,7 @@ class _StepsEditorState extends State<_StepsEditor> {
           width: double.infinity,
           decoration: BoxDecoration(
             border: Border.all(
-              color: IconTheme.of(context).color,
+              color: IconTheme.of(context).color!,
             ),
           ),
           child: _steps.isEmpty
@@ -120,7 +120,7 @@ class _StepsEditorState extends State<_StepsEditor> {
                               TestFlowControlTranslations.atf_flow_form_step,
                             ),
                             onStepChanged: (step) {
-                              widget.values['steps'][index] = step?.toJson();
+                              widget.values!['steps'][index] = step?.toJson();
                               setState(() {
                                 _steps[index] = step;
                               });
@@ -131,7 +131,7 @@ class _StepsEditorState extends State<_StepsEditor> {
                         IconButton(
                           icon: Icon(Icons.delete),
                           onPressed: () {
-                            (widget.values['steps'] as List).removeAt(index);
+                            (widget.values!['steps'] as List).removeAt(index);
                             setState(() {
                               _steps.removeAt(index);
                             });
@@ -148,13 +148,13 @@ class _StepsEditorState extends State<_StepsEditor> {
         ),
         IconButton(
           onPressed: () {
-            (widget.values['steps'] as List).add(null);
+            (widget.values!['steps'] as List).add(null);
             setState(() {
               _steps.add(null);
             });
-            SchedulerBinding.instance.addPostFrameCallback((_) {
-              _scrollController.jumpTo(
-                _scrollController.position.maxScrollExtent,
+            SchedulerBinding.instance!.addPostFrameCallback((_) {
+              _scrollController!.jumpTo(
+                _scrollController!.position.maxScrollExtent,
               );
             });
           },

@@ -1,16 +1,15 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that groups different [TestStep] to be executed
 /// as a block.
 class MultiStepStep extends TestRunnerStep {
   MultiStepStep({
     this.debugLabel,
-    @required this.steps,
-  }) : assert(steps != null);
+    required this.steps,
+  });
 
-  final String debugLabel;
+  final String? debugLabel;
   final List<dynamic> steps;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
@@ -25,8 +24,8 @@ class MultiStepStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static MultiStepStep fromDynamic(dynamic map) {
-    MultiStepStep result;
+  static MultiStepStep? fromDynamic(dynamic map) {
+    MultiStepStep? result;
 
     if (map != null) {
       var debugLabel = map['debugLabel'] ?? 'Default MultiStep';
@@ -48,9 +47,9 @@ class MultiStepStep extends TestRunnerStep {
   /// and will await the execution of each one.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     log(
       "multi_step('$debugLabel')",
@@ -64,14 +63,14 @@ class MultiStepStep extends TestRunnerStep {
       }
 
       var stepMap = tester.resolveVariable(rawStep);
-      var step = TestStep.fromDynamic(stepMap);
 
-      if (step == null) {
+      if (stepMap == null) {
         log(
           "multi_step('$debugLabel') step: [${stepMap['id']}] [${100 * stepNum ~/ steps.length}%] -- no step",
           tester: tester,
         );
       } else {
+        var step = TestStep.fromDynamic(stepMap);
         log(
           "multi_step('$debugLabel') step: [${stepMap['id']}] [${100 * stepNum ~/ steps.length}%] -- executing step",
           tester: tester,
@@ -97,7 +96,7 @@ class MultiStepStep extends TestRunnerStep {
   Map<String, dynamic> toJson() {
     return {
       'debugLabel': debugLabel,
-      'steps': JsonClass.toJsonList(steps),
+      'steps': JsonClass.toJsonList(steps as List<JsonClass>?),
     };
   }
 }

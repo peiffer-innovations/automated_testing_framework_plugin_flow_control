@@ -1,19 +1,17 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that will execute a sub-step based on whether the [variableName]
 /// does or does not equal [whenTrue] or [whenFalse].
 class ConditionalStep extends TestRunnerStep {
   ConditionalStep({
     this.value,
-    @required this.variableName,
+    required this.variableName,
     this.whenFalse,
     this.whenTrue,
   });
 
-  final String value;
-  final String variableName;
+  final String? value;
+  final String? variableName;
   final dynamic whenFalse;
   final dynamic whenTrue;
 
@@ -31,8 +29,8 @@ class ConditionalStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static ConditionalStep fromDynamic(dynamic map) {
-    ConditionalStep result;
+  static ConditionalStep? fromDynamic(dynamic map) {
+    ConditionalStep? result;
 
     if (map != null) {
       result = ConditionalStep(
@@ -52,12 +50,12 @@ class ConditionalStep extends TestRunnerStep {
   /// [whenFalse] step.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
-    String value = tester.resolveVariable(this.value);
-    String variableName = tester.resolveVariable(this.variableName);
+    String? value = tester.resolveVariable(this.value);
+    String? variableName = tester.resolveVariable(this.variableName);
     var whenFalse = tester.resolveVariable(this.whenFalse);
     var whenTrue = tester.resolveVariable(this.whenTrue);
     assert(variableName?.isNotEmpty == true);
@@ -72,7 +70,7 @@ class ConditionalStep extends TestRunnerStep {
     var result =
         value == resolved || (value?.toString() == resolved?.toString());
 
-    TestStep step;
+    TestStep? step;
     var resultStep = result == true ? whenTrue : whenFalse;
     if (resultStep != null) {
       step = TestStep.fromDynamic(resultStep);

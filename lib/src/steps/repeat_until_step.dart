@@ -1,7 +1,5 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that iterates from [start] to [end] - 1 and executes [step] with
 /// each iteration.  If set, tihs stores the current value in
@@ -9,16 +7,15 @@ import 'package:meta/meta.dart';
 /// not set.
 class RepeatUntilStep extends TestRunnerStep {
   RepeatUntilStep({
-    @required this.counterVariableName,
-    @required this.maxIterations,
-    @required this.step,
-    @required this.value,
-    @required this.variableName,
-  })  : assert(step != null),
-        assert(variableName != null);
+    required this.counterVariableName,
+    required this.maxIterations,
+    required this.step,
+    required this.value,
+    required this.variableName,
+  }) : assert(step != null);
 
   /// The counter variable name.
-  final String counterVariableName;
+  final String? counterVariableName;
 
   /// The maximum number of iterations.
   final dynamic maxIterations;
@@ -27,7 +24,7 @@ class RepeatUntilStep extends TestRunnerStep {
   final dynamic step;
 
   /// The value to look for.
-  final String value;
+  final String? value;
 
   /// The variable name.
   final String variableName;
@@ -47,8 +44,8 @@ class RepeatUntilStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static RepeatUntilStep fromDynamic(dynamic map) {
-    RepeatUntilStep result;
+  static RepeatUntilStep? fromDynamic(dynamic map) {
+    RepeatUntilStep? result;
 
     if (map != null) {
       result = RepeatUntilStep(
@@ -66,9 +63,9 @@ class RepeatUntilStep extends TestRunnerStep {
   ///
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var value = tester.resolveVariable(this.value)?.toString();
     var maxIterations =
@@ -78,8 +75,6 @@ class RepeatUntilStep extends TestRunnerStep {
         tester.resolveVariable(this.counterVariableName) ?? '_repeatNum';
     String variableName = tester.resolveVariable(this.variableName);
 
-    assert(variableName != null);
-
     var name =
         "repeat_until('$variableName', '$value', '$maxIterations', '$counterVariableName')";
     log(
@@ -87,10 +82,10 @@ class RepeatUntilStep extends TestRunnerStep {
       tester: tester,
     );
 
-    var testStep = TestStep.fromDynamic(step);
-    if (testStep == null) {
+    if (step == null) {
       throw Exception('repeat_until: failing due to no sub-step');
     }
+    var testStep = TestStep.fromDynamic(step);
     tester.setVariable(
       value: 0,
       variableName: counterVariableName,

@@ -1,16 +1,15 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Iterates through all active [Testable] widgets that have an id that matches
 /// the given [regEx], sets the id in [variableName] (or `_testableId` if no
 /// [variableName] is set) and calls the [step].
 class ForEachTestableStep extends TestRunnerStep {
   ForEachTestableStep({
-    @required this.step,
-    @required this.regEx,
-    @required this.variableName,
-  }) : assert(regEx != null);
+    required this.step,
+    required this.regEx,
+    required this.variableName,
+  });
 
   /// The step to execute with each iteration.
   final dynamic step;
@@ -19,7 +18,7 @@ class ForEachTestableStep extends TestRunnerStep {
   final String regEx;
 
   /// The variable name.
-  final String variableName;
+  final String? variableName;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -34,8 +33,8 @@ class ForEachTestableStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static ForEachTestableStep fromDynamic(dynamic map) {
-    ForEachTestableStep result;
+  static ForEachTestableStep? fromDynamic(dynamic map) {
+    ForEachTestableStep? result;
 
     if (map != null) {
       result = ForEachTestableStep(
@@ -53,15 +52,13 @@ class ForEachTestableStep extends TestRunnerStep {
   /// if no [variableName] is set) and calls the [step].
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
-    var regEx = tester.resolveVariable(this.regEx)?.toString();
+    var regEx = tester.resolveVariable(this.regEx).toString();
     String variableName =
         tester.resolveVariable(this.variableName) ?? '_testableId';
-
-    assert(variableName != null);
 
     var name = "for_each_testable('$regEx', '$variableName')";
     log(
@@ -69,7 +66,10 @@ class ForEachTestableStep extends TestRunnerStep {
       tester: tester,
     );
 
-    var testStep = TestStep.fromDynamic(step);
+    TestStep? testStep;
+    if (step != null) {
+      testStep = TestStep.fromDynamic(step);
+    }
     if (testStep == null) {
       throw Exception('for_each_testable: failing due to no sub-step');
     }
@@ -80,10 +80,10 @@ class ForEachTestableStep extends TestRunnerStep {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      var key = testable?.widget?.key;
+      var key = testable.widget.key;
       if (key is ValueKey) {
-        var id = key.value?.toString();
-        if (id?.isNotEmpty == true && regExp.hasMatch(id)) {
+        var id = key.value.toString();
+        if (id.isNotEmpty == true && regExp.hasMatch(id)) {
           log(
             'for_each_testable: testableId: [$id]',
             tester: tester,

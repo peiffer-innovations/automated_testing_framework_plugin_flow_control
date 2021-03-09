@@ -1,7 +1,5 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:automated_testing_framework_plugin_flow_control/automated_testing_framework_plugin_flow_control.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Looks for a function registered as [variableName].  The function must have
 /// a function signature of [TestVariableFunction].  The result of executing the
@@ -10,11 +8,11 @@ import 'package:meta/meta.dart';
 class ExecuteVariableFunctionStep extends TestRunnerStep {
   ExecuteVariableFunctionStep({
     this.resultVariableName,
-    @required this.variableName,
+    required this.variableName,
   }) : assert(variableName?.isNotEmpty == true);
 
-  final String resultVariableName;
-  final String variableName;
+  final String? resultVariableName;
+  final String? variableName;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -28,8 +26,8 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static ExecuteVariableFunctionStep fromDynamic(dynamic map) {
-    ExecuteVariableFunctionStep result;
+  static ExecuteVariableFunctionStep? fromDynamic(dynamic map) {
+    ExecuteVariableFunctionStep? result;
 
     if (map != null) {
       result = ExecuteVariableFunctionStep(
@@ -47,9 +45,9 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
   /// placed in the [resultVariableName], or `_functionResult` if omitted.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var resultVariableName =
         tester.resolveVariable(this.resultVariableName) ?? '_functionResult';

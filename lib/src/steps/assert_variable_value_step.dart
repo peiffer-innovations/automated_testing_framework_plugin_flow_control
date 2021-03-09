@@ -1,19 +1,15 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that asserts that the value within [variableName] equals (or does
 /// not equal) a specific [value].
 class AssertVariableValueStep extends TestRunnerStep {
   AssertVariableValueStep({
-    @required this.caseSensitive,
-    @required this.equals,
-    @required this.value,
-    @required this.variableName,
-  })  : assert(caseSensitive != null),
-        assert(equals != null),
-        assert(variableName?.isNotEmpty == true);
+    required this.caseSensitive,
+    required this.equals,
+    required this.value,
+    required this.variableName,
+  }) : assert(variableName?.isNotEmpty == true);
 
   /// Set to [true] if the comparison should be case sensitive.  Set to [false]
   /// to allow the comparison to be case insensitive.
@@ -25,10 +21,10 @@ class AssertVariableValueStep extends TestRunnerStep {
   final bool equals;
 
   /// The name of the variable to test.
-  final String variableName;
+  final String? variableName;
 
   /// The [value] to test againt when comparing the [Testable]'s value.
-  final String value;
+  final String? value;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -43,8 +39,8 @@ class AssertVariableValueStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [JsonClass.parseBool]
-  static AssertVariableValueStep fromDynamic(dynamic map) {
-    AssertVariableValueStep result;
+  static AssertVariableValueStep? fromDynamic(dynamic map) {
+    AssertVariableValueStep? result;
 
     if (map != null) {
       result = AssertVariableValueStep(
@@ -64,12 +60,12 @@ class AssertVariableValueStep extends TestRunnerStep {
   /// Executes the step.  This will
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var value = tester.resolveVariable(this.value)?.toString();
-    String variableName = tester.resolveVariable(this.variableName);
+    String? variableName = tester.resolveVariable(this.variableName);
     assert(variableName?.isNotEmpty == true);
 
     var name =
@@ -84,8 +80,8 @@ class AssertVariableValueStep extends TestRunnerStep {
     if (equals ==
         (caseSensitive == true
             ? (actual?.toString() == value)
-            : (actual?.toString()?.toLowerCase() ==
-                value?.toString()?.toLowerCase()))) {
+            : (actual?.toString().toLowerCase() ==
+                value?.toString().toLowerCase()))) {
       match = true;
     }
     if (match != true) {

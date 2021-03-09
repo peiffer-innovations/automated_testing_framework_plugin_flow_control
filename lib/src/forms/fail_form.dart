@@ -15,7 +15,7 @@ class FailForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     return Column(
@@ -34,7 +34,7 @@ class FailForm extends TestStepForm {
               context: context,
               id: 'message',
               label: TestFlowControlTranslations.atf_flow_form_message,
-              values: values,
+              values: values!,
             ),
           ],
           minify: minify,

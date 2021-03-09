@@ -1,20 +1,18 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that increments the value stored in [variableName].
 class IncrementValueStep extends TestRunnerStep {
   IncrementValueStep({
-    @required this.increment,
-    @required this.variableName,
+    required this.increment,
+    required this.variableName,
   }) : assert(variableName?.isNotEmpty == true);
 
   /// The value to increment the [variableName] by.
-  final String increment;
+  final String? increment;
 
   /// The variable name.
-  final String variableName;
+  final String? variableName;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -25,8 +23,8 @@ class IncrementValueStep extends TestRunnerStep {
   ///   "variableName": <String>
   /// }
   /// ```
-  static IncrementValueStep fromDynamic(dynamic map) {
-    IncrementValueStep result;
+  static IncrementValueStep? fromDynamic(dynamic map) {
+    IncrementValueStep? result;
 
     if (map != null) {
       result = IncrementValueStep(
@@ -43,9 +41,9 @@ class IncrementValueStep extends TestRunnerStep {
   /// then this will default to using 1.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var increment =
         JsonClass.parseInt(tester.resolveVariable(this.increment), 1);
@@ -64,7 +62,7 @@ class IncrementValueStep extends TestRunnerStep {
     if (value == null) {
       value = 0;
     } else {
-      value += increment;
+      value += increment!;
     }
 
     tester.setVariable(

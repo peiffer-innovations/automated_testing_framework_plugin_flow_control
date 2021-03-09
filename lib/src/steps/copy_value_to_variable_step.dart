@@ -1,27 +1,26 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that copies the value from the [Testable] to a variable identified
 /// with the [variableName].
 class CopyValueToVariableStep extends TestRunnerStep {
   CopyValueToVariableStep({
-    @required this.testableId,
-    @required this.variableName,
+    required this.testableId,
+    required this.variableName,
     this.timeout,
   })  : assert(testableId?.isNotEmpty == true),
         assert(variableName?.isNotEmpty == true);
 
   /// The id of the [Testable] widget to interact with.
-  final String testableId;
+  final String? testableId;
 
   /// The maximum amount of time this step will wait while searching for the
   /// [Testable] on the widget tree.
-  final Duration timeout;
+  final Duration? timeout;
 
   /// The variable name.
-  final String variableName;
+  final String? variableName;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -36,8 +35,8 @@ class CopyValueToVariableStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [JsonClass.parseDurationFromSeconds]
-  static CopyValueToVariableStep fromDynamic(dynamic map) {
-    CopyValueToVariableStep result;
+  static CopyValueToVariableStep? fromDynamic(dynamic map) {
+    CopyValueToVariableStep? result;
 
     if (map != null) {
       result = CopyValueToVariableStep(
@@ -54,12 +53,12 @@ class CopyValueToVariableStep extends TestRunnerStep {
   /// from the [Testable], then compare it against the set [value].
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
-    String testableId = tester.resolveVariable(this.testableId);
-    String variableName = tester.resolveVariable(this.variableName);
+    String? testableId = tester.resolveVariable(this.testableId);
+    String? variableName = tester.resolveVariable(this.variableName);
     assert(testableId?.isNotEmpty == true);
 
     var name = "copy_value_to_variable('$testableId', '$variableName')";
@@ -82,18 +81,18 @@ class CopyValueToVariableStep extends TestRunnerStep {
 
     var widgetFinder = finder.evaluate();
     var found = false;
-    if (widgetFinder?.isNotEmpty == true) {
-      StatefulElement element = widgetFinder.first;
+    if (widgetFinder.isNotEmpty == true) {
+      var element = widgetFinder.first as StatefulElement;
 
       var state = element.state;
       if (state is TestableState) {
         try {
-          var actual = state.onRequestValue();
+          var actual = state.onRequestValue!();
           found = true;
 
           tester.setVariable(
             value: actual,
-            variableName: variableName,
+            variableName: variableName!,
           );
         } catch (e) {
           found = false;

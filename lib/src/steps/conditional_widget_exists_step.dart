@@ -1,6 +1,5 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that will execute the [whenTrue] or [whenFalse] sub-step based on
 /// whether a Widget with a [ValueKey] with a value of [testableId] exists on
@@ -11,7 +10,7 @@ import 'package:meta/meta.dart';
 /// executing this.
 class ConditionalWidgetExistsStep extends TestRunnerStep {
   ConditionalWidgetExistsStep({
-    @required this.testableId,
+    required this.testableId,
     this.whenFalse,
     this.whenTrue,
   });
@@ -33,8 +32,8 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static ConditionalWidgetExistsStep fromDynamic(dynamic map) {
-    ConditionalWidgetExistsStep result;
+  static ConditionalWidgetExistsStep? fromDynamic(dynamic map) {
+    ConditionalWidgetExistsStep? result;
 
     if (map != null) {
       result = ConditionalWidgetExistsStep(
@@ -52,14 +51,14 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
   /// on the widget tree when this executes.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var whenFalse = tester.resolveVariable(this.whenFalse);
     var whenTrue = tester.resolveVariable(this.whenTrue);
     String testableId = tester.resolveVariable(this.testableId);
-    assert(testableId?.isNotEmpty == true);
+    assert(testableId.isNotEmpty == true);
 
     var name = "conditional_widget_exists('$testableId')";
     log(
@@ -67,10 +66,10 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
       tester: tester,
     );
 
-    TestStep step;
+    TestStep? step;
 
     var widgetExists =
-        find.byKey(Key(testableId)).evaluate()?.isNotEmpty == true;
+        find.byKey(ValueKey<String?>(testableId)).evaluate().isNotEmpty == true;
     var resultStep = widgetExists == true ? whenTrue : whenFalse;
     if (resultStep != null) {
       step = TestStep.fromDynamic(resultStep);

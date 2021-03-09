@@ -17,7 +17,7 @@ class ExecuteVariableFunctionForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     return Column(
@@ -39,7 +39,7 @@ class ExecuteVariableFunctionForm extends TestStepForm {
               validators: [
                 RequiredValidator(),
               ],
-              values: values,
+              values: values!,
             ),
             SizedBox(
               height: 16.0,

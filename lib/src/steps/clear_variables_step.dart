@@ -1,6 +1,4 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that asserts that the value equals (or does not equal) a specific
 /// value.
@@ -12,8 +10,8 @@ class ClearVariablesStep extends TestRunnerStep {
   /// {
   /// }
   /// ```
-  static ClearVariablesStep fromDynamic(dynamic map) {
-    ClearVariablesStep result;
+  static ClearVariablesStep? fromDynamic(dynamic map) {
+    ClearVariablesStep? result;
 
     if (map != null) {
       result = ClearVariablesStep();
@@ -25,9 +23,9 @@ class ClearVariablesStep extends TestRunnerStep {
   /// Executes the step.  This will
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var name = 'clear_variables()';
     log(

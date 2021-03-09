@@ -1,16 +1,14 @@
 import 'package:automated_testing_framework/automated_testing_framework.dart';
-import 'package:flutter/material.dart';
 import 'package:json_class/json_class.dart';
-import 'package:meta/meta.dart';
 
 /// Test step that will retry up to [retryCount] times when a sub-step fails.
 class RetryOnFailureStep extends TestRunnerStep {
   RetryOnFailureStep({
-    @required this.retryCount,
-    @required this.step,
+    required this.retryCount,
+    required this.step,
   }) : assert(step != null);
 
-  final String retryCount;
+  final String? retryCount;
   final dynamic step;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
@@ -25,8 +23,8 @@ class RetryOnFailureStep extends TestRunnerStep {
   ///
   /// See also:
   /// * [TestStep.fromDynamic]
-  static RetryOnFailureStep fromDynamic(dynamic map) {
-    RetryOnFailureStep result;
+  static RetryOnFailureStep? fromDynamic(dynamic map) {
+    RetryOnFailureStep? result;
 
     if (map != null) {
       result = RetryOnFailureStep(
@@ -42,9 +40,9 @@ class RetryOnFailureStep extends TestRunnerStep {
   /// sub-step and when executed, the sub-step throws an exception.
   @override
   Future<void> execute({
-    @required CancelToken cancelToken,
-    @required TestReport report,
-    @required TestController tester,
+    required CancelToken cancelToken,
+    required TestReport report,
+    required TestController tester,
   }) async {
     var retryCount =
         JsonClass.parseInt(tester.resolveVariable(this.retryCount), 1);
@@ -59,7 +57,7 @@ class RetryOnFailureStep extends TestRunnerStep {
     if (step == null) {
       throw Exception('retry_on_failure: failing due to no sub-step');
     } else {
-      for (var i = 0; i < retryCount; i++) {
+      for (var i = 0; i < retryCount!; i++) {
         if (cancelToken.cancelled == true) {
           throw Exception('[CANCELLED]: the step has been cancelled.');
         }
@@ -77,12 +75,12 @@ class RetryOnFailureStep extends TestRunnerStep {
         var runnerStep = tester.registry.getRunnerStep(
           id: testStep.id,
           values: testStep.values,
-        );
+        )!;
         if (tester.delays.preStep.inMilliseconds > 0) {
           await runnerStep.preStepSleep(tester.delays.preStep);
         }
 
-        report?.startStep(
+        report.startStep(
           testStep,
           subStep: true,
         );
@@ -94,7 +92,7 @@ class RetryOnFailureStep extends TestRunnerStep {
               tester: tester,
             );
           } finally {
-            report?.endStep(testStep);
+            report.endStep(testStep);
           }
 
           if (tester.delays.postStep.inMilliseconds > 0) {

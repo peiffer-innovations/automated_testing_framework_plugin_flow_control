@@ -7,7 +7,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'assert_variable_value',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, AssertVariableValueForm);
     expect(
@@ -27,7 +27,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'cancel_test',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, CancelTestForm);
     expect(
@@ -47,7 +47,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'clear_variables',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, ClearVariablesForm);
     expect(
@@ -67,7 +67,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'conditional',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, ConditionalForm);
     expect(
@@ -87,7 +87,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'conditional_widget_exists',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, ConditionalWidgetExistsForm);
     expect(
@@ -107,7 +107,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'copy_value_to_variable',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, CopyValueToVariableForm);
     expect(
@@ -127,7 +127,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'execute_variable_function',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, ExecuteVariableFunctionForm);
     expect(
@@ -147,7 +147,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'expect_failure',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, ExpectFailureForm);
     expect(
@@ -167,7 +167,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'include_test',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, IncludeTestForm);
     expect(
@@ -187,7 +187,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'increment_value',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, IncrementValueForm);
     expect(
@@ -207,7 +207,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'iterate',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, IterateForm);
     expect(
@@ -226,7 +226,7 @@ void main() {
     TestFlowControlHelper.registerTestSteps();
     var availStep = TestStepRegistry.instance.getAvailableTestStep(
       'multi_step',
-    );
+    )!;
 
     expect(availStep.form.runtimeType, MultiStepForm);
     expect(

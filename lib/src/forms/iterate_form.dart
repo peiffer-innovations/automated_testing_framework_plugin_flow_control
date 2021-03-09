@@ -18,7 +18,7 @@ class IterateForm extends TestStepForm {
   @override
   Widget buildForm(
     BuildContext context,
-    Map<String, dynamic> values, {
+    Map<String, dynamic>? values, {
     bool minify = false,
   }) {
     var translator = Translator.of(context);
@@ -43,7 +43,7 @@ class IterateForm extends TestStepForm {
                 RequiredValidator(),
                 NumberValidator(allowDecimal: false),
               ],
-              values: values,
+              values: values!,
             ),
             SizedBox(height: 16.0),
             buildEditText(
@@ -85,24 +85,24 @@ class IterateForm extends TestStepForm {
 class _EndValidator extends ValueValidator {
   _EndValidator(this.values);
 
-  final Map<String, dynamic> values;
+  final Map<String, dynamic>? values;
 
   @override
   Map<String, dynamic> toJson() => {};
 
   @override
-  String validate({
-    String label,
-    Translator translator,
-    String value,
+  String? validate({
+    String? label,
+    Translator? translator,
+    String? value,
   }) {
-    String error;
+    String? error;
 
-    var start = JsonClass.parseInt(values['start'], 0);
-    var end = JsonClass.parseInt(value);
+    var start = JsonClass.parseInt(values!['start'], 0)!;
+    var end = JsonClass.parseInt(value)!;
 
     if (start >= end) {
-      error = translator.translate(
+      error = translator!.translate(
         TestFlowControlTranslations.atf_flow_error_start_less_end,
       );
     }
