@@ -175,8 +175,7 @@ class _TestEditorState extends State<_TestEditor> {
           ),
         ),
         TypeAheadFormField(
-          // ignore: deprecated_member_use
-          autovalidate: true,
+          autovalidateMode: AutovalidateMode.always,
           hideOnEmpty: true,
           itemBuilder: (context, dynamic test) => ListTile(
             subtitle: Column(
