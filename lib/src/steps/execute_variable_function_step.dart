@@ -9,10 +9,20 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
   ExecuteVariableFunctionStep({
     this.resultVariableName,
     required this.variableName,
-  }) : assert(variableName?.isNotEmpty == true);
+  }) : assert(variableName.isNotEmpty == true);
+
+  static const id = 'execute_variable_function';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'execute the function defined in the `{{variableName}}` function.',
+        'execute the function defined in the `{{variableName}}` function and place the result in the `{{resultVariableName}}` variable.',
+      ]);
 
   final String? resultVariableName;
-  final String? variableName;
+  final String variableName;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -32,7 +42,7 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
     if (map != null) {
       result = ExecuteVariableFunctionStep(
         resultVariableName: map['resultVariableName'],
-        variableName: map['variableName'],
+        variableName: map['variableName']!,
       );
     }
 
@@ -51,8 +61,7 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
   }) async {
     var resultVariableName =
         tester.resolveVariable(this.resultVariableName) ?? '_functionResult';
-    var name =
-        "execute_variable_function('$variableName', '$resultVariableName')";
+    var name = "$id('$variableName', '$resultVariableName')";
 
     log(
       name,
@@ -74,8 +83,23 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
         variableName: resultVariableName,
       );
     } else {
-      throw Exception('execute_variable_function: failing due to no function');
+      throw Exception('$id: failing due to no function');
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = resultVariableName == null
+        ? behaviorDrivenDescriptions[0]
+        : behaviorDrivenDescriptions[1];
+
+    result = result.replaceAll(
+      '{{resultVariableName}}',
+      resultVariableName ?? 'null',
+    );
+    result = result.replaceAll('{{variableName}}', variableName);
+
+    return result;
   }
 
   /// Overidden to ignore the delay

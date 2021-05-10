@@ -13,6 +13,12 @@ class IterateStep extends TestRunnerStep {
   })   : assert(end != null),
         assert(step != null);
 
+  static const id = 'iterate';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'iterate from `{{start}}` to `{{end}}` using the variable named `{{variableName}}` while executing the substep #1.',
+      ]);
+
   /// The ending value.
   final dynamic end;
 
@@ -24,6 +30,9 @@ class IterateStep extends TestRunnerStep {
 
   /// The variable name.
   final String? variableName;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -71,7 +80,7 @@ class IterateStep extends TestRunnerStep {
 
     assert(end > start);
 
-    var name = "iterate('$start', '$end', '$variableName')";
+    var name = "$id('$start', '$end', '$variableName')";
     log(
       name,
       tester: tester,
@@ -105,6 +114,32 @@ class IterateStep extends TestRunnerStep {
     }
   }
 
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    result = result.replaceAll('{{start}}', start);
+    result = result.replaceAll('{{end}}', end);
+
+    TestRunnerStep? runnerStep;
+    try {
+      runnerStep = tester.registry.getRunnerStep(
+        id: step['id'],
+        values: step['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    var desc = runnerStep == null
+        ? 'nothing.'
+        : runnerStep.getBehaviorDrivenDescription(tester);
+
+    result += '\n1. Then I will execute the sub-step, $desc\n';
+
+    return result;
+  }
+
   /// Overidden to ignore the delay
   @override
   Future<void> postStepSleep(Duration duration) async {}
@@ -119,6 +154,7 @@ class IterateStep extends TestRunnerStep {
   Map<String, dynamic> toJson() => {
         'end': end,
         'start': start,
+        'step': step,
         'variableName': variableName,
       };
 }

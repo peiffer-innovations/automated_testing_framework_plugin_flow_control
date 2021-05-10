@@ -10,10 +10,19 @@ class ConditionalStep extends TestRunnerStep {
     this.whenTrue,
   });
 
+  static const id = 'conditional_step';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'compare `{{value}}` to the value inside of the `{{variableName}}` and execute #1 when they match and #2 when they do not.',
+      ]);
+
   final String? value;
-  final String? variableName;
+  final String variableName;
   final dynamic whenFalse;
   final dynamic whenTrue;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -35,7 +44,7 @@ class ConditionalStep extends TestRunnerStep {
     if (map != null) {
       result = ConditionalStep(
         value: map['value']?.toString(),
-        variableName: map['variableName'],
+        variableName: map['variableName']!,
         whenFalse: map['whenFalse'],
         whenTrue: map['whenTrue'],
       );
@@ -60,7 +69,7 @@ class ConditionalStep extends TestRunnerStep {
     var whenTrue = tester.resolveVariable(this.whenTrue);
     assert(variableName?.isNotEmpty == true);
 
-    var name = "conditional('$variableName', '$value')";
+    var name = "$id('$variableName', '$value')";
     log(
       name,
       tester: tester,
@@ -93,6 +102,50 @@ class ConditionalStep extends TestRunnerStep {
         subStep: true,
       );
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    result = result.replaceAll(
+      '{{value}}',
+      value ?? 'null',
+    );
+    result = result.replaceAll('{{variableName}}', variableName);
+
+    TestRunnerStep? whenFalseStep;
+    try {
+      whenFalseStep = tester.registry.getRunnerStep(
+        id: whenFalse['id'],
+        values: whenFalse['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    TestRunnerStep? whenTrueStep;
+    try {
+      whenTrueStep = tester.registry.getRunnerStep(
+        id: whenTrue['id'],
+        values: whenTrue['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    var trueDesc = whenTrueStep == null
+        ? 'nothing.'
+        : whenTrueStep.getBehaviorDrivenDescription(tester);
+    var falseDesc = whenFalseStep == null
+        ? 'nothing.'
+        : whenFalseStep.getBehaviorDrivenDescription(tester);
+    result += '\n1. When they match, I will $trueDesc';
+    result += '\n2. When they do not match, I will $falseDesc';
+
+    result += '\n';
+
+    return result;
   }
 
   /// Converts this to a JSON compatible map.  For a description of the format,

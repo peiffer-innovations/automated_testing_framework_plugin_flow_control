@@ -12,9 +12,21 @@ class IncludeTestStep extends TestRunnerStep {
     this.testVersion,
   });
 
+  static const id = 'include_test';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'include the test in the `{{suiteName}}` suite named `{{testName}}` using version number `{{testVersion}}`.',
+        'include the test named `{{testName}}` using version number `{{testVersion}}`.',
+        'include the test in the `{{suiteName}}` suite named `{{testName}}` using the latest version.',
+        'include the test named `{{testName}}` using the latest version.',
+      ]);
+
   final String? suiteName;
   final String testName;
   final String? testVersion;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -63,7 +75,7 @@ class IncludeTestStep extends TestRunnerStep {
       tester.resolveVariable(this.testVersion),
     );
 
-    var name = "include_test('$testName', '$testVersion', '$suiteName')";
+    var name = "$id('$testName', '$testVersion', '$suiteName')";
 
     log(
       name,
@@ -118,6 +130,32 @@ class IncludeTestStep extends TestRunnerStep {
         '${suiteName == null ? 'in any suite' : 'in suite $suiteName'}.',
       );
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    String result;
+
+    if (testVersion == null) {
+      if (suiteName == null) {
+        result = behaviorDrivenDescriptions[3];
+      } else {
+        result = behaviorDrivenDescriptions[2];
+      }
+    } else {
+      if (suiteName == null) {
+        result = behaviorDrivenDescriptions[1];
+      } else {
+        result = behaviorDrivenDescriptions[0];
+      }
+    }
+
+    result = result.replaceAll('{{suiteName}}', suiteName ?? 'null');
+    result = result.replaceAll('{{testName}}', testName);
+    result = result.replaceAll('{{testVersion}}', testVersion ?? 'null');
+    ;
+
+    return result;
   }
 
   /// Converts this to a JSON compatible map.  For a description of the format,

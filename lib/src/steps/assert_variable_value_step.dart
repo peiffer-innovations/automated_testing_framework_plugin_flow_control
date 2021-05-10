@@ -9,7 +9,13 @@ class AssertVariableValueStep extends TestRunnerStep {
     required this.equals,
     required this.value,
     required this.variableName,
-  }) : assert(variableName?.isNotEmpty == true);
+  }) : assert(variableName.isNotEmpty == true);
+
+  static const id = 'assert_variable_value';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'assert that the value in the variable `{{variableName}}` is `{{equals}}` to `{{value}}` using a case `{{caseSensitive}}` comparator.',
+      ]);
 
   /// Set to [true] if the comparison should be case sensitive.  Set to [false]
   /// to allow the comparison to be case insensitive.
@@ -21,16 +27,20 @@ class AssertVariableValueStep extends TestRunnerStep {
   final bool equals;
 
   /// The name of the variable to test.
-  final String? variableName;
+  final String variableName;
 
   /// The [value] to test againt when comparing the [Testable]'s value.
   final String? value;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
   ///
   /// ```json
   /// {
+  ///   "caseSensitive": <bool>,
   ///   "equals": <bool>,
   ///   "value": <String>,
   ///   "variableName": <String>
@@ -50,7 +60,7 @@ class AssertVariableValueStep extends TestRunnerStep {
         equals:
             map['equals'] == null ? true : JsonClass.parseBool(map['equals']),
         value: map['value']?.toString(),
-        variableName: map['variableName'],
+        variableName: map['variableName']!,
       );
     }
 
@@ -68,8 +78,7 @@ class AssertVariableValueStep extends TestRunnerStep {
     String? variableName = tester.resolveVariable(this.variableName);
     assert(variableName?.isNotEmpty == true);
 
-    var name =
-        "assert_variable_value('$variableName', '$value', '$equals', '$caseSensitive')";
+    var name = "$id('$variableName', '$value', '$equals', '$caseSensitive')";
     log(
       name,
       tester: tester,
@@ -89,6 +98,28 @@ class AssertVariableValueStep extends TestRunnerStep {
         'variableName: [$variableName] -- actualValue: [$actual] ${equals == true ? '!=' : '=='} [$value] (caseSensitive = [$caseSensitive]).',
       );
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    result = result.replaceAll(
+      '{{caseSensitive}}',
+      caseSensitive == true ? 'sensitive' : 'insensitive',
+    );
+    result = result.replaceAll(
+      '{{equals}}',
+      caseSensitive == true ? 'equal' : 'not equal',
+    );
+    result = result.replaceAll(
+      '{{variableName}}',
+      variableName,
+    );
+
+    result = result.replaceAll('{{value}}', value ?? 'null');
+
+    return result;
   }
 
   /// Overidden to ignore the delay

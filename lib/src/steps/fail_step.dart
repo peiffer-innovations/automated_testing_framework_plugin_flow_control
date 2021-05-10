@@ -6,7 +6,17 @@ class FailStep extends TestRunnerStep {
     this.message,
   });
 
+  static const id = 'fail';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'fail the test.',
+        'fail the test with the message "`{{message}}`".',
+      ]);
+
   final String? message;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -38,13 +48,24 @@ class FailStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var name = "fail('$message')";
+    var name = "$id('$message')";
     log(
       name,
       tester: tester,
     );
 
     throw Exception(message ?? '<no message>');
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = message == null
+        ? behaviorDrivenDescriptions[0]
+        : behaviorDrivenDescriptions[1];
+
+    result = result.replaceAll('{{message}}', message ?? 'null');
+
+    return result;
   }
 
   /// Overidden to ignore the delay

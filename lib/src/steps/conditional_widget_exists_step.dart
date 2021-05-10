@@ -15,9 +15,14 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
     this.whenTrue,
   });
 
+  static const id = 'conditional_widget_exists';
+
   final String testableId;
   final dynamic whenFalse;
   final dynamic whenTrue;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -60,7 +65,7 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
     String testableId = tester.resolveVariable(this.testableId);
     assert(testableId.isNotEmpty == true);
 
-    var name = "conditional_widget_exists('$testableId')";
+    var name = "$id('$testableId')";
     log(
       name,
       tester: tester,

@@ -4,6 +4,15 @@ import 'package:automated_testing_framework/automated_testing_framework.dart';
 
 /// Test step that will cancel the test and prevent future steps from executing.
 class CancelTestStep extends TestRunnerStep {
+  static const id = 'cancel_test';
+
+  @override
+  String get stepId => id;
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'cancel the test run.',
+      ]);
+
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
   ///
@@ -31,7 +40,7 @@ class CancelTestStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) {
-    var name = 'cancel_test()';
+    var name = '$id()';
     log(
       name,
       tester: tester,
@@ -40,6 +49,13 @@ class CancelTestStep extends TestRunnerStep {
     tester.cancelRunningTests();
 
     return Future.value(null);
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    return result;
   }
 
   /// Overidden to ignore the delay

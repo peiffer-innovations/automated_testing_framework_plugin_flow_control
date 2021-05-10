@@ -9,18 +9,28 @@ class CopyValueToVariableStep extends TestRunnerStep {
     required this.testableId,
     required this.variableName,
     this.timeout,
-  })  : assert(testableId?.isNotEmpty == true),
-        assert(variableName?.isNotEmpty == true);
+  })  : assert(testableId.isNotEmpty == true),
+        assert(variableName.isNotEmpty == true);
+
+  static const id = 'copy_value_to_variable';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'copy the value from the `{{testableId}}` widget to the variable named `{{variableName}}`.',
+        'copy the value from the `{{testableId}}` widget to the variable named `{{variableName}}` and fail if the widget is not found within {{timeout}} seconds.',
+      ]);
 
   /// The id of the [Testable] widget to interact with.
-  final String? testableId;
+  final String testableId;
 
   /// The maximum amount of time this step will wait while searching for the
   /// [Testable] on the widget tree.
   final Duration? timeout;
 
   /// The variable name.
-  final String? variableName;
+  final String variableName;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -40,9 +50,9 @@ class CopyValueToVariableStep extends TestRunnerStep {
 
     if (map != null) {
       result = CopyValueToVariableStep(
-        testableId: map['testableId'],
+        testableId: map['testableId']!,
         timeout: JsonClass.parseDurationFromSeconds(map['timeout']),
-        variableName: map['variableName'],
+        variableName: map['variableName']!,
       );
     }
 
@@ -61,7 +71,7 @@ class CopyValueToVariableStep extends TestRunnerStep {
     String? variableName = tester.resolveVariable(this.variableName);
     assert(testableId?.isNotEmpty == true);
 
-    var name = "copy_value_to_variable('$testableId', '$variableName')";
+    var name = "$id('$testableId', '$variableName')";
     log(
       name,
       tester: tester,
@@ -104,6 +114,22 @@ class CopyValueToVariableStep extends TestRunnerStep {
         'testableId: [$testableId] -- could not locate Testable with a functional [onRequestValue] method.',
       );
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = timeout == null
+        ? behaviorDrivenDescriptions[0]
+        : behaviorDrivenDescriptions[1];
+
+    result = result.replaceAll('{{testableId}}', testableId);
+    result = result.replaceAll(
+      '{{timeout}}',
+      timeout?.inSeconds.toString() ?? '0',
+    );
+    result = result.replaceAll('{{variableName}}', variableName);
+
+    return result;
   }
 
   /// Overidden to ignore the delay

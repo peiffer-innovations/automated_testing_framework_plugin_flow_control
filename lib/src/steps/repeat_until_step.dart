@@ -14,6 +14,15 @@ class RepeatUntilStep extends TestRunnerStep {
     required this.variableName,
   }) : assert(step != null);
 
+  static const id = 'repeat_until';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'repeat the substeps until the `{{variableName}}` variable equals `{{value}}` using `{{counterVariableName}}` as the increment variable and automatically fails after `{{maxIterations}}`.',
+        'repeat the substeps until the `{{variableName}}` variable equals `{{value}}` and automatically fails after `{{maxIterations}}`.',
+        'repeat the substeps until the `{{variableName}}` variable equals `{{value}}` using `{{counterVariableName}}` as the increment variable.',
+        'repeat the substeps until the `{{variableName}}` variable equals `{{value}}`.',
+      ]);
+
   /// The counter variable name.
   final String? counterVariableName;
 
@@ -28,6 +37,9 @@ class RepeatUntilStep extends TestRunnerStep {
 
   /// The variable name.
   final String variableName;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -60,7 +72,6 @@ class RepeatUntilStep extends TestRunnerStep {
     return result;
   }
 
-  ///
   @override
   Future<void> execute({
     required CancelToken cancelToken,
@@ -76,7 +87,7 @@ class RepeatUntilStep extends TestRunnerStep {
     String variableName = tester.resolveVariable(this.variableName);
 
     var name =
-        "repeat_until('$variableName', '$value', '$maxIterations', '$counterVariableName')";
+        "$id('$variableName', '$value', '$maxIterations', '$counterVariableName')";
     log(
       name,
       tester: tester,
@@ -103,12 +114,11 @@ class RepeatUntilStep extends TestRunnerStep {
         variableName: counterVariableName,
       );
       log(
-        'repeat_until: expected: [$value] -- actual: [$actual]',
+        '$id: expected: [$value] -- actual: [$actual]',
         tester: tester,
       );
       if (maxIterations != null && iterations >= maxIterations) {
-        throw Exception(
-            'repeat_until: Max Iteration Count exceeded: $maxIterations');
+        throw Exception('$id: Max Iteration Count exceeded: $maxIterations');
       }
 
       await tester.executeStep(
@@ -122,6 +132,45 @@ class RepeatUntilStep extends TestRunnerStep {
 
       iterations++;
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    if (counterVariableName == null && maxIterations != null) {
+      result = behaviorDrivenDescriptions[1];
+    } else if (counterVariableName != null && maxIterations == null) {
+      result = behaviorDrivenDescriptions[2];
+    } else if (counterVariableName == null && maxIterations == null) {
+      result = behaviorDrivenDescriptions[2];
+    }
+
+    TestRunnerStep? runnerStep;
+    try {
+      runnerStep = tester.registry.getRunnerStep(
+        id: step['id'],
+        values: step['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    result = result.replaceAll(
+      '{{counterVariableName}}',
+      counterVariableName ?? 'null',
+    );
+    result = result.replaceAll('{{maxIterations}}', maxIterations ?? 'null');
+    result = result.replaceAll('{{value}}', value ?? 'null');
+    result = result.replaceAll('{{variableName}}', variableName);
+
+    var desc = runnerStep == null
+        ? 'nothing.'
+        : runnerStep.getBehaviorDrivenDescription(tester);
+
+    result += '\n1. Then I will execute the sub-step, $desc\n';
+
+    return result;
   }
 
   /// Overidden to ignore the delay

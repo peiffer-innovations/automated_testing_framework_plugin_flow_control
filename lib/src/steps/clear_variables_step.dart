@@ -3,6 +3,15 @@ import 'package:automated_testing_framework/automated_testing_framework.dart';
 /// Test step that asserts that the value equals (or does not equal) a specific
 /// value.
 class ClearVariablesStep extends TestRunnerStep {
+  static const id = 'clear_variables';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'clear all custom variables from the registry.',
+      ]);
+
+  @override
+  String get stepId => id;
+
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
   ///
@@ -27,13 +36,20 @@ class ClearVariablesStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var name = 'clear_variables()';
+    var name = '$id()';
     log(
       name,
       tester: tester,
     );
 
     tester.clearVariables();
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    return result;
   }
 
   /// Overidden to ignore the delay

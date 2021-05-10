@@ -7,7 +7,16 @@ class ExpectFailureStep extends TestRunnerStep {
     this.step,
   });
 
+  static const id = 'expect_failure';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'expect the substep #1 to fail.',
+      ]);
+
   final dynamic step;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -42,7 +51,7 @@ class ExpectFailureStep extends TestRunnerStep {
   }) async {
     var step = tester.resolveVariable(this.step);
 
-    var name = 'expect_failure()';
+    var name = '$id()';
     log(
       name,
       tester: tester,
@@ -104,6 +113,29 @@ class ExpectFailureStep extends TestRunnerStep {
         throw Exception('expect_failure: failing lack of exception');
       }
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = behaviorDrivenDescriptions[0];
+
+    TestRunnerStep? runnerStep;
+    try {
+      runnerStep = tester.registry.getRunnerStep(
+        id: step['id'],
+        values: step['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    var desc = runnerStep == null
+        ? 'nothing.'
+        : runnerStep.getBehaviorDrivenDescription(tester);
+
+    result += '\n1. Then I will execute the sub-step, $desc\n';
+
+    return result;
   }
 
   /// Overidden to ignore the delay

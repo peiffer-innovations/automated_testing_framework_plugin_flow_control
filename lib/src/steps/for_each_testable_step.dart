@@ -11,6 +11,13 @@ class ForEachTestableStep extends TestRunnerStep {
     required this.variableName,
   });
 
+  static const id = 'for_each_testable';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'execute the #1 for each testable matching the regex "`{{regEx}}`".',
+        "execute the #1 for each testable matching the regex \"`{{regEx}}`\" and place the testable's id in the `{{variableName}}` variable.",
+      ]);
+
   /// The step to execute with each iteration.
   final dynamic step;
 
@@ -19,6 +26,9 @@ class ForEachTestableStep extends TestRunnerStep {
 
   /// The variable name.
   final String? variableName;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -60,7 +70,7 @@ class ForEachTestableStep extends TestRunnerStep {
     String variableName =
         tester.resolveVariable(this.variableName) ?? '_testableId';
 
-    var name = "for_each_testable('$regEx', '$variableName')";
+    var name = "$id('$regEx', '$variableName')";
     log(
       name,
       tester: tester,
@@ -101,6 +111,34 @@ class ForEachTestableStep extends TestRunnerStep {
         }
       }
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = variableName == null
+        ? behaviorDrivenDescriptions[0]
+        : behaviorDrivenDescriptions[1];
+
+    result = result.replaceAll('{{regEx}}', regEx);
+    result = result.replaceAll('{{variableName}}', variableName ?? 'null');
+
+    TestRunnerStep? runnerStep;
+    try {
+      runnerStep = tester.registry.getRunnerStep(
+        id: step['id'],
+        values: step['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    var desc = runnerStep == null
+        ? 'nothing.'
+        : runnerStep.getBehaviorDrivenDescription(tester);
+
+    result += '\n1. Then I will execute the sub-step, $desc\n';
+
+    return result;
   }
 
   /// Overidden to ignore the delay

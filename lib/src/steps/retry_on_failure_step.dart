@@ -8,8 +8,18 @@ class RetryOnFailureStep extends TestRunnerStep {
     required this.step,
   }) : assert(step != null);
 
+  static const id = 'retry_on_failure';
+
+  static List<String> get behaviorDrivenDescriptions => List.unmodifiable([
+        'retry the substep on failure.',
+        'retry the substep on failure up to {{retryCount}} times.',
+      ]);
+
   final String? retryCount;
   final dynamic step;
+
+  @override
+  String get stepId => id;
 
   /// Creates an instance from a JSON-like map structure.  This expects the
   /// following format:
@@ -48,14 +58,14 @@ class RetryOnFailureStep extends TestRunnerStep {
         JsonClass.parseInt(tester.resolveVariable(this.retryCount), 1);
     var step = tester.resolveVariable(this.step);
 
-    var name = "retry_on_failure('$retryCount')";
+    var name = "$id('$retryCount')";
     log(
       name,
       tester: tester,
     );
 
     if (step == null) {
-      throw Exception('retry_on_failure: failing due to no sub-step');
+      throw Exception('$id: failing due to no sub-step');
     } else {
       for (var i = 0; i < retryCount!; i++) {
         if (cancelToken.cancelled == true) {
@@ -102,7 +112,7 @@ class RetryOnFailureStep extends TestRunnerStep {
           break;
         } catch (e) {
           log(
-            'retry_on_failure: retry ${i + 1} / $retryCount.',
+            '$id: retry ${i + 1} / $retryCount.',
             tester: tester,
           );
           if (i == retryCount - 1) {
@@ -111,6 +121,33 @@ class RetryOnFailureStep extends TestRunnerStep {
         }
       }
     }
+  }
+
+  @override
+  String getBehaviorDrivenDescription(TestController tester) {
+    var result = retryCount == null
+        ? behaviorDrivenDescriptions[0]
+        : behaviorDrivenDescriptions[1];
+
+    TestRunnerStep? runnerStep;
+    try {
+      runnerStep = tester.registry.getRunnerStep(
+        id: step['id'],
+        values: step['values'],
+      );
+    } catch (e) {
+      // no-op
+    }
+
+    result = result.replaceAll('{{retryCount}}', retryCount ?? '1');
+
+    var desc = runnerStep == null
+        ? 'nothing.'
+        : runnerStep.getBehaviorDrivenDescription(tester);
+
+    result += '\n1. Then I will execute the sub-step, $desc\n';
+
+    return result;
   }
 
   /// Overidden to ignore the delay
@@ -125,6 +162,7 @@ class RetryOnFailureStep extends TestRunnerStep {
   /// see [fromDynamic].
   @override
   Map<String, dynamic> toJson() => {
+        'retryCount': retryCount,
         'step': step,
       };
 }
