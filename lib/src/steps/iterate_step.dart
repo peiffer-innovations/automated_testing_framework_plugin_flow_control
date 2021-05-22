@@ -10,7 +10,7 @@ class IterateStep extends TestRunnerStep {
     required this.start,
     required this.step,
     required this.variableName,
-  })   : assert(end != null),
+  })  : assert(end != null),
         assert(step != null);
 
   static const id = 'iterate';

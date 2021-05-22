@@ -58,7 +58,7 @@ class ConditionalForm extends TestStepForm {
                 TestFlowControlTranslations.atf_flow_form_when_false,
               ),
               onStepChanged: (step) => values['whenFalse'] = step?.toJson(),
-              step: TestStep.fromDynamic(values['whenFalse']),
+              step: TestStep.fromDynamicNullable(values['whenFalse']),
             ),
             SizedBox(height: 16.0),
             TestStepPicker(
@@ -66,7 +66,7 @@ class ConditionalForm extends TestStepForm {
                 TestFlowControlTranslations.atf_flow_form_when_true,
               ),
               onStepChanged: (step) => values['whenTrue'] = step?.toJson(),
-              step: TestStep.fromDynamic(values['whenTrue']),
+              step: TestStep.fromDynamicNullable(values['whenTrue']),
             ),
           ],
           minify: minify,

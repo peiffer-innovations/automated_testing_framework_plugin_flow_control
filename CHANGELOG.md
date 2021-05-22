@@ -1,3 +1,8 @@
+## [3.1.0] - May 21st, 2021
+
+* Null Safety Fixes
+
+
 ## [3.0.1] - April 19th, 2021
 
 * Added BDD values

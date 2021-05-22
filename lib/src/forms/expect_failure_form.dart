@@ -37,7 +37,7 @@ class ExpectFailureForm extends TestStepForm {
                 TestFlowControlTranslations.atf_flow_form_step,
               ),
               onStepChanged: (step) => values!['step'] = step?.toJson(),
-              step: TestStep.fromDynamic(values!['step']),
+              step: TestStep.fromDynamicNullable(values!['step']),
             ),
           ],
           minify: minify,

@@ -77,7 +77,7 @@ class _StepsEditorState extends State<_StepsEditor> {
     _scrollController = ScrollController();
     _steps = JsonClass.fromDynamicList(
           widget.values!['steps'],
-          (map) => TestStep.fromDynamic(map),
+          (map) => TestStep.fromDynamicNullable(map),
         ) ??
         [];
     _translator = Translator.of(context);
