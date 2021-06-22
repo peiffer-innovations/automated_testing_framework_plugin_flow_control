@@ -100,7 +100,7 @@ class CopyValueToVariableStep extends TestRunnerStep {
           var actual = state.onRequestValue!();
           found = true;
 
-          tester.setVariable(
+          tester.setTestVariable(
             value: actual,
             variableName: variableName!,
           );

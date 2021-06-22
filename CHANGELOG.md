@@ -1,3 +1,8 @@
+## [3.1.0+1] - June 22nd, 2021
+
+* Updated with the latest framework and removed deprecated references.
+
+
 ## [3.1.0] - May 21st, 2021
 
 * Null Safety Fixes

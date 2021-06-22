@@ -78,7 +78,7 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
         report,
       );
 
-      tester.setVariable(
+      tester.setTestVariable(
         value: result,
         variableName: resultVariableName,
       );

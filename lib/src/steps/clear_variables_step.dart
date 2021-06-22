@@ -42,7 +42,7 @@ class ClearVariablesStep extends TestRunnerStep {
       tester: tester,
     );
 
-    tester.clearVariables();
+    tester.clearTestVariables();
   }
 
   @override

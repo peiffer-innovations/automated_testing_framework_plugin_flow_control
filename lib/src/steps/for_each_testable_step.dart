@@ -98,7 +98,7 @@ class ForEachTestableStep extends TestRunnerStep {
             'for_each_testable: testableId: [$id]',
             tester: tester,
           );
-          tester.setVariable(
+          tester.setTestVariable(
             value: id,
             variableName: variableName,
           );

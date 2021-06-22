@@ -71,7 +71,7 @@ class RetryOnFailureStep extends TestRunnerStep {
         if (cancelToken.cancelled == true) {
           throw Exception('[CANCELLED]: the step has been cancelled.');
         }
-        tester.setVariable(
+        tester.setTestVariable(
           value: i,
           variableName: '_retryNum',
         );

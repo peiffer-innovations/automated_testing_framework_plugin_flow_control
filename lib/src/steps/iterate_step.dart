@@ -100,7 +100,7 @@ class IterateStep extends TestRunnerStep {
         name,
         tester: tester,
       );
-      tester.setVariable(
+      tester.setTestVariable(
         value: i,
         variableName: variableName,
       );

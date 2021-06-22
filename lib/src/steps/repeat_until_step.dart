@@ -97,7 +97,7 @@ class RepeatUntilStep extends TestRunnerStep {
       throw Exception('repeat_until: failing due to no sub-step');
     }
     var testStep = TestStep.fromDynamic(step);
-    tester.setVariable(
+    tester.setTestVariable(
       value: 0,
       variableName: counterVariableName,
     );
@@ -109,7 +109,7 @@ class RepeatUntilStep extends TestRunnerStep {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
 
-      tester.setVariable(
+      tester.setTestVariable(
         value: iterations,
         variableName: counterVariableName,
       );

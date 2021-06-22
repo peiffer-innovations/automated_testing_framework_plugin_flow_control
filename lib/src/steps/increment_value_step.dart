@@ -74,7 +74,7 @@ class IncrementValueStep extends TestRunnerStep {
       value += increment!;
     }
 
-    tester.setVariable(
+    tester.setTestVariable(
       value: value,
       variableName: variableName,
     );
