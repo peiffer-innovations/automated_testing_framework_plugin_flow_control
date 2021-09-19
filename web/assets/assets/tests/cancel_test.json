@@ -1,0 +1,31 @@
+{
+  "active": true,
+  "name": "Cancel Test",
+  "steps": [
+    {
+      "id": "tap",
+      "values": {
+        "testableId": "test_page_Numbers"
+      }
+    },
+    {
+      "id": "iterate",
+      "values": {
+        "start": "0",
+        "end": "40",
+        "step": {
+          "id": "conditional",
+          "values": {
+            "value": "0",
+            "variableName": "_iterateNum",
+            "whenTrue": {
+              "id": "cancel_test"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "suiteName": "Flow Control",
+  "version": 0
+}
