@@ -14,11 +14,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_typeahead: ^3.2.1
-  form_validation: ^2.0.0
-  json_class: ^2.0.0+1
-  json_theme: ">=2.1.1 <4.0.0"
+  form_validation: ^2.1.0
+  json_class: ^2.1.2+1
+  json_theme: ^3.2.1
   logging: ^1.0.2
-  static_translations: ^2.0.1
+  static_translations: ^2.1.0
 
 # dependency_overrides:
 #   automated_testing_framework:
