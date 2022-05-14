@@ -152,7 +152,7 @@ class _StepsEditorState extends State<_StepsEditor> {
             setState(() {
               _steps.add(null);
             });
-            SchedulerBinding.instance!.addPostFrameCallback((_) {
+            SchedulerBinding.instance.addPostFrameCallback((_) {
               _scrollController!.jumpTo(
                 _scrollController!.position.maxScrollExtent,
               );
