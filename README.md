@@ -1,3 +1,16 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**
+
+- [automated_testing_framework_plugin_flow_control](#automated_testing_framework_plugin_flow_control)
+  - [Table of Contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Live Example](#live-example)
+  - [Quick Start](#quick-start)
+  - [Reserved Variables](#reserved-variables)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 # automated_testing_framework_plugin_flow_control
 
 ## Table of Contents
