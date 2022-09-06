@@ -3,11 +3,11 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
-"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
-"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
-"canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"main.dart.js": "32cb72fc1b2dd6c6bf04161f9c2350df",
+  "canvaskit/canvaskit.js": "2bc454a691c631b07a9307ac4ca47797",
+"canvaskit/profiling/canvaskit.js": "38164e5a72bdad0faa4ce740c9b8e564",
+"canvaskit/profiling/canvaskit.wasm": "95a45378b69e77af5ed2bc72b2209b94",
+"canvaskit/canvaskit.wasm": "bf50631470eb967688cca13ee181af62",
+"main.dart.js": "cfac4ab2115e21964af564d9766ed57e",
 "assets/AssetManifest.json": "59ba68ab2eb1207ad22e7b109e46f83c",
 "assets/assets/tests/multi_step.json": "f59317b9ffef76560be2861278ae2cc5",
 "assets/assets/tests/multi_step_failure.json": "d3ad955f26ca018acb6f417aff85c05f",
@@ -25,6 +25,7 @@ const RESOURCES = {
 "assets/assets/tests/retry_on_failure.json": "b2f7b0aa9e1510b4e2d7849f49be46e0",
 "assets/assets/all_tests.json": "0a884a21eda8b0ee5269a717fd198592",
 "assets/fonts/MaterialIcons-Regular.otf": "95db9098c58fd6db106f1116bae85a0b",
+"assets/shaders/ink_sparkle.frag": "59f1e52ba59fd6c96cc822ff3e5a3de9",
 "assets/packages/automated_testing_framework_example/assets/tests/slidables.json": "0e6ecffce2e4fe788c9f7a00e1a7d4e7",
 "assets/packages/automated_testing_framework_example/assets/tests/double_tap.json": "35a920944da4cf2e2154bf1c138c2e34",
 "assets/packages/automated_testing_framework_example/assets/tests/failure.json": "8cefd140b688b564169ed2d304a52ce8",
@@ -41,10 +42,10 @@ const RESOURCES = {
 "assets/packages/automated_testing_framework_example/assets/tests/screenshot.json": "5a070f35d91e2c1cde99395809a1d876",
 "assets/packages/automated_testing_framework_example/assets/all_tests.json": "a7f872805bad1d3e33860470000d69e3",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
-"assets/NOTICES": "04f2073293739267931b2beacd3a56fb",
-"flutter.js": "eb2682e33f25cd8f1fc59011497c35f8",
-"index.html": "d09d05a14dfadeaa7cd4b74415ced74d",
-"/": "d09d05a14dfadeaa7cd4b74415ced74d",
+"assets/NOTICES": "b7593ebce45ee8ac710469d06543c12c",
+"flutter.js": "f85e6fb278b0fd20c349186fb46ae36d",
+"index.html": "456834ee441459a104b173067cb3fc2e",
+"/": "456834ee441459a104b173067cb3fc2e",
 "favicon.png": "6c20d3df6fcade9a3dbde24cd21fd0f7",
 "version.json": "949b37a9bcbe78c0e17df92dab1f3d2b",
 "manifest.json": "15f73b7e8a8209c2206210b3ac8dea1b",
@@ -57,7 +58,6 @@ const RESOURCES = {
 const CORE = [
   "main.dart.js",
 "index.html",
-"assets/NOTICES",
 "assets/AssetManifest.json",
 "assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
@@ -156,9 +156,11 @@ self.addEventListener("fetch", (event) => {
     .then((cache) =>  {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
-        // lazily populate the cache.
+        // lazily populate the cache only if the resource was successfully fetched.
         return response || fetch(event.request).then((response) => {
-          cache.put(event.request, response.clone());
+          if (response && Boolean(response.ok)) {
+            cache.put(event.request, response.clone());
+          }
           return response;
         });
       })
