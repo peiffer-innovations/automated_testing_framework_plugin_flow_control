@@ -110,7 +110,7 @@ class AssertVariableValueStep extends TestRunnerStep {
     );
     result = result.replaceAll(
       '{{equals}}',
-      caseSensitive == true ? 'equal' : 'not equal',
+      equals == true ? 'equal' : 'not equal',
     );
     result = result.replaceAll(
       '{{variableName}}',
