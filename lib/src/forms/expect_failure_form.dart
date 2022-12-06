@@ -19,7 +19,7 @@ class ExpectFailureForm extends TestStepForm {
     Map<String, dynamic>? values, {
     bool minify = false,
   }) {
-    var translator = Translator.of(context);
+    final translator = Translator.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[

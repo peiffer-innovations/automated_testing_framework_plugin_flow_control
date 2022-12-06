@@ -41,7 +41,7 @@ class CopyValueToVariableForm extends TestStepForm {
               ],
               values: values!,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               id: 'variableName',
@@ -50,7 +50,7 @@ class CopyValueToVariableForm extends TestStepForm {
               values: values,
             ),
             if (minify != true) ...[
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
               buildTimeoutSection(
                 context: context,
                 values: values,

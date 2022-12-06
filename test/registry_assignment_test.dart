@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   test('assert_variable_value', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'assert_variable_value',
     )!;
 
@@ -25,7 +25,7 @@ void main() {
 
   test('cancel_test', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'cancel_test',
     )!;
 
@@ -45,7 +45,7 @@ void main() {
 
   test('clear_variables', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'clear_variables',
     )!;
 
@@ -65,7 +65,7 @@ void main() {
 
   test('conditional', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'conditional',
     )!;
 
@@ -85,7 +85,7 @@ void main() {
 
   test('conditional_widget_exists', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'conditional_widget_exists',
     )!;
 
@@ -105,7 +105,7 @@ void main() {
 
   test('copy_value_to_variable', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'copy_value_to_variable',
     )!;
 
@@ -125,7 +125,7 @@ void main() {
 
   test('execute_variable_function', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'execute_variable_function',
     )!;
 
@@ -145,7 +145,7 @@ void main() {
 
   test('expect_failure', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'expect_failure',
     )!;
 
@@ -165,7 +165,7 @@ void main() {
 
   test('include_test', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'include_test',
     )!;
 
@@ -185,7 +185,7 @@ void main() {
 
   test('increment_value', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'increment_value',
     )!;
 
@@ -205,7 +205,7 @@ void main() {
 
   test('iterate', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'iterate',
     )!;
 
@@ -224,7 +224,7 @@ void main() {
   });
   test('multi_step', () {
     TestFlowControlHelper.registerTestSteps();
-    var availStep = TestStepRegistry.instance.getAvailableTestStep(
+    final availStep = TestStepRegistry.instance.getAvailableTestStep(
       'multi_step',
     )!;
 

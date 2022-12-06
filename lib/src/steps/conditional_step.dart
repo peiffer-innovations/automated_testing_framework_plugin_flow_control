@@ -63,24 +63,24 @@ class ConditionalStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    String? value = tester.resolveVariable(this.value);
-    String? variableName = tester.resolveVariable(this.variableName);
-    var whenFalse = tester.resolveVariable(this.whenFalse);
-    var whenTrue = tester.resolveVariable(this.whenTrue);
+    final value = tester.resolveVariable(this.value);
+    final variableName = tester.resolveVariable(this.variableName);
+    final whenFalse = tester.resolveVariable(this.whenFalse);
+    final whenTrue = tester.resolveVariable(this.whenTrue);
     assert(variableName?.isNotEmpty == true);
 
-    var name = "$id('$variableName', '$value')";
+    final name = "$id('$variableName', '$value')";
     log(
       name,
       tester: tester,
     );
 
-    var resolved = tester.resolveVariable('{{$variableName}}');
-    var result =
+    final resolved = tester.resolveVariable('{{$variableName}}');
+    final result =
         value == resolved || (value?.toString() == resolved?.toString());
 
     TestStep? step;
-    var resultStep = result == true ? whenTrue : whenFalse;
+    final resultStep = result == true ? whenTrue : whenFalse;
     if (resultStep != null) {
       step = TestStep.fromDynamic(resultStep);
     }
@@ -134,10 +134,10 @@ class ConditionalStep extends TestRunnerStep {
       // no-op
     }
 
-    var trueDesc = whenTrueStep == null
+    final trueDesc = whenTrueStep == null
         ? 'nothing.'
         : whenTrueStep.getBehaviorDrivenDescription(tester);
-    var falseDesc = whenFalseStep == null
+    final falseDesc = whenFalseStep == null
         ? 'nothing.'
         : whenFalseStep.getBehaviorDrivenDescription(tester);
     result += '\n1. When they match, I will $trueDesc';

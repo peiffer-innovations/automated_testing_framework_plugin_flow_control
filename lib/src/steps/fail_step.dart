@@ -48,7 +48,7 @@ class FailStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var name = "$id('$message')";
+    final name = "$id('$message')";
     log(
       name,
       tester: tester,

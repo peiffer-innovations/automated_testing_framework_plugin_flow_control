@@ -59,21 +59,21 @@ class ExecuteVariableFunctionStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var resultVariableName =
+    final resultVariableName =
         tester.resolveVariable(this.resultVariableName) ?? '_functionResult';
-    var name = "$id('$variableName', '$resultVariableName')";
+    final name = "$id('$variableName', '$resultVariableName')";
 
     log(
       name,
       tester: tester,
     );
-    var fun = tester.resolveVariable('{{$variableName}}');
+    final fun = tester.resolveVariable('{{$variableName}}');
 
     if (fun is TestVariableFunction) {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      var result = await fun(
+      final result = await fun(
         tester,
         report,
       );

@@ -36,8 +36,8 @@ class MultiStepStep extends TestRunnerStep {
     MultiStepStep? result;
 
     if (map != null) {
-      var debugLabel = map['debugLabel'] ?? 'Default MultiStep';
-      List stepsList = map['steps'] is List ? map['steps'] : [map['steps']];
+      final debugLabel = map['debugLabel'] ?? 'Default MultiStep';
+      final stepsList = map['steps'] is List ? map['steps'] : [map['steps']];
 
       result = MultiStepStep(
         debugLabel: debugLabel,
@@ -70,7 +70,7 @@ class MultiStepStep extends TestRunnerStep {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
 
-      var stepMap = tester.resolveVariable(rawStep);
+      final stepMap = tester.resolveVariable(rawStep);
 
       if (stepMap == null) {
         log(
@@ -78,7 +78,7 @@ class MultiStepStep extends TestRunnerStep {
           tester: tester,
         );
       } else {
-        var step = TestStep.fromDynamic(stepMap);
+        final step = TestStep.fromDynamic(stepMap);
         log(
           "multi_step('$debugLabel') step: [${stepMap['id']}] [${100 * stepNum ~/ steps.length}%] -- executing step",
           tester: tester,
@@ -114,7 +114,7 @@ class MultiStepStep extends TestRunnerStep {
         // no-op
       }
 
-      var desc = runnerStep == null
+      final desc = runnerStep == null
           ? 'nothing.'
           : runnerStep.getBehaviorDrivenDescription(tester);
 

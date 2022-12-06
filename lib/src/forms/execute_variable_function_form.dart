@@ -41,9 +41,7 @@ class ExecuteVariableFunctionForm extends TestStepForm {
               ],
               values: values!,
             ),
-            SizedBox(
-              height: 16.0,
-            ),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               id: 'resultVariableName',

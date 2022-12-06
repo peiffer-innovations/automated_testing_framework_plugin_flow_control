@@ -74,18 +74,18 @@ class AssertVariableValueStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var value = tester.resolveVariable(this.value)?.toString();
-    String? variableName = tester.resolveVariable(this.variableName);
+    final value = tester.resolveVariable(this.value)?.toString();
+    final variableName = tester.resolveVariable(this.variableName);
     assert(variableName?.isNotEmpty == true);
 
-    var name = "$id('$variableName', '$value', '$equals', '$caseSensitive')";
+    final name = "$id('$variableName', '$value', '$equals', '$caseSensitive')";
     log(
       name,
       tester: tester,
     );
 
     var match = false;
-    var actual = tester.resolveVariable('{{$variableName}}');
+    final actual = tester.resolveVariable('{{$variableName}}');
     if (equals ==
         (caseSensitive == true
             ? (actual?.toString() == value)

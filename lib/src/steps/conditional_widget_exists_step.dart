@@ -60,12 +60,12 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var whenFalse = tester.resolveVariable(this.whenFalse);
-    var whenTrue = tester.resolveVariable(this.whenTrue);
-    String testableId = tester.resolveVariable(this.testableId);
+    final whenFalse = tester.resolveVariable(this.whenFalse);
+    final whenTrue = tester.resolveVariable(this.whenTrue);
+    final testableId = tester.resolveVariable(this.testableId);
     assert(testableId.isNotEmpty == true);
 
-    var name = "$id('$testableId')";
+    final name = "$id('$testableId')";
     log(
       name,
       tester: tester,
@@ -73,9 +73,9 @@ class ConditionalWidgetExistsStep extends TestRunnerStep {
 
     TestStep? step;
 
-    var widgetExists =
+    final widgetExists =
         find.byKey(ValueKey<String?>(testableId)).evaluate().isNotEmpty == true;
-    var resultStep = widgetExists == true ? whenTrue : whenFalse;
+    final resultStep = widgetExists == true ? whenTrue : whenFalse;
     if (resultStep != null) {
       step = TestStep.fromDynamic(resultStep);
     }

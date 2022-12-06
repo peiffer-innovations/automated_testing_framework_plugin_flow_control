@@ -67,16 +67,16 @@ class CopyValueToVariableStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    String? testableId = tester.resolveVariable(this.testableId);
-    String? variableName = tester.resolveVariable(this.variableName);
+    final testableId = tester.resolveVariable(this.testableId);
+    final variableName = tester.resolveVariable(this.variableName);
     assert(testableId?.isNotEmpty == true);
 
-    var name = "$id('$testableId', '$variableName')";
+    final name = "$id('$testableId', '$variableName')";
     log(
       name,
       tester: tester,
     );
-    var finder = await waitFor(
+    final finder = await waitFor(
       testableId,
       cancelToken: cancelToken,
       tester: tester,
@@ -89,15 +89,15 @@ class CopyValueToVariableStep extends TestRunnerStep {
       tester: tester,
     );
 
-    var widgetFinder = finder.evaluate();
+    final widgetFinder = finder.evaluate();
     var found = false;
     if (widgetFinder.isNotEmpty == true) {
-      var element = widgetFinder.first as StatefulElement;
+      final element = widgetFinder.first as StatefulElement;
 
-      var state = element.state;
+      final state = element.state;
       if (state is TestableState) {
         try {
-          var actual = state.onRequestValue!();
+          final actual = state.onRequestValue!();
           found = true;
 
           tester.setTestVariable(

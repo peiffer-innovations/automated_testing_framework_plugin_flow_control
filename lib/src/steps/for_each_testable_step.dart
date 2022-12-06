@@ -66,11 +66,11 @@ class ForEachTestableStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var regEx = tester.resolveVariable(this.regEx).toString();
-    String variableName =
+    final regEx = tester.resolveVariable(this.regEx).toString();
+    final variableName =
         tester.resolveVariable(this.variableName) ?? '_testableId';
 
-    var name = "$id('$regEx', '$variableName')";
+    final name = "$id('$regEx', '$variableName')";
     log(
       name,
       tester: tester,
@@ -84,15 +84,15 @@ class ForEachTestableStep extends TestRunnerStep {
       throw Exception('for_each_testable: failing due to no sub-step');
     }
 
-    var regExp = RegExp(regEx);
-    var testables = find.byType(Testable).evaluate();
+    final regExp = RegExp(regEx);
+    final testables = find.byType(Testable).evaluate();
     for (var testable in testables) {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      var key = testable.widget.key;
+      final key = testable.widget.key;
       if (key is ValueKey) {
-        var id = key.value.toString();
+        final id = key.value.toString();
         if (id.isNotEmpty == true && regExp.hasMatch(id)) {
           log(
             'for_each_testable: testableId: [$id]',
@@ -132,7 +132,7 @@ class ForEachTestableStep extends TestRunnerStep {
       // no-op
     }
 
-    var desc = runnerStep == null
+    final desc = runnerStep == null
         ? 'nothing.'
         : runnerStep.getBehaviorDrivenDescription(tester);
 

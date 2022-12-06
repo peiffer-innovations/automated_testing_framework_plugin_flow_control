@@ -21,8 +21,8 @@ class TestFlowControlHelper {
       values[id] = defaultValue;
     }
 
-    var translator = Translator.of(context);
-    var encoder = JsonEncoder.withIndent('  ');
+    final translator = Translator.of(context);
+    final encoder = const JsonEncoder.withIndent('  ');
     var initialValue = values[id]?.toString();
     if (initialValue?.isNotEmpty == true) {
       try {
@@ -68,11 +68,11 @@ class TestFlowControlHelper {
   static void registerTestSteps([TestStepRegistry? registry]) {
     (registry ?? TestStepRegistry.instance).registerCustomSteps([
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: AssertVariableValueForm(),
           help: TestFlowControlTranslations.atf_flow_help_assert_variable_value,
           id: 'assert_variable_value',
-          keys: const {'caseSensitive', 'equals', 'value', 'variableName'},
+          keys: {'caseSensitive', 'equals', 'value', 'variableName'},
           quickAddValues: null,
           title:
               TestFlowControlTranslations.atf_flow_title_assert_variable_value,
@@ -82,12 +82,12 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: AssertVariableValueStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: CancelTestForm(),
           help: TestFlowControlTranslations.atf_flow_help_cancel_test,
           id: 'cancel_test',
-          keys: const {},
-          quickAddValues: const {},
+          keys: {},
+          quickAddValues: {},
           title: TestFlowControlTranslations.atf_flow_title_cancel_test,
           widgetless: true,
           type: null,
@@ -95,12 +95,12 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: CancelTestStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ClearVariablesForm(),
           help: TestFlowControlTranslations.atf_flow_help_clear_variables,
           id: 'clear_variables',
-          keys: const {},
-          quickAddValues: const {},
+          keys: {},
+          quickAddValues: {},
           title: TestFlowControlTranslations.atf_flow_title_clear_variables,
           widgetless: true,
           type: null,
@@ -108,11 +108,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: ClearVariablesStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ConditionalForm(),
           help: TestFlowControlTranslations.atf_flow_help_conditional,
           id: 'conditional',
-          keys: const {'value', 'variableName', 'whenFalse', 'whenTrue'},
+          keys: {'value', 'variableName', 'whenFalse', 'whenTrue'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_conditional,
           widgetless: true,
@@ -121,12 +121,12 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: ConditionalStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ConditionalWidgetExistsForm(),
           help: TestFlowControlTranslations
               .atf_flow_help_conditional_widget_exists,
           id: 'conditional_widget_exists',
-          keys: const {'testableId', 'whenFalse', 'whenTrue'},
+          keys: {'testableId', 'whenFalse', 'whenTrue'},
           quickAddValues: null,
           title: TestFlowControlTranslations
               .atf_flow_title_conditional_widget_exists,
@@ -136,12 +136,12 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: ConditionalWidgetExistsStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: CopyValueToVariableForm(),
           help:
               TestFlowControlTranslations.atf_flow_help_copy_value_to_variable,
           id: 'copy_value_to_variable',
-          keys: const {'testableId', 'timeout', 'variableName'},
+          keys: {'testableId', 'timeout', 'variableName'},
           quickAddValues: null,
           title:
               TestFlowControlTranslations.atf_flow_title_copy_value_to_variable,
@@ -151,12 +151,12 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: CopyValueToVariableStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ExecuteVariableFunctionForm(),
           help: TestFlowControlTranslations
               .atf_flow_help_execute_variable_function,
           id: 'execute_variable_function',
-          keys: const {'resultVariableName', 'variableName'},
+          keys: {'resultVariableName', 'variableName'},
           quickAddValues: null,
           title: TestFlowControlTranslations
               .atf_flow_title_execute_variable_function,
@@ -165,11 +165,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: ExecuteVariableFunctionStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ExpectFailureForm(),
           help: TestFlowControlTranslations.atf_flow_help_expect_failure,
           id: 'expect_failure',
-          keys: const {'step'},
+          keys: {'step'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_expect_failure,
           widgetless: true,
@@ -177,11 +177,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: ExpectFailureStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: FailForm(),
           help: TestFlowControlTranslations.atf_flow_help_fail,
           id: 'fail',
-          keys: const {'message'},
+          keys: {'message'},
           quickAddValues: {},
           title: TestFlowControlTranslations.atf_flow_title_fail,
           widgetless: true,
@@ -189,11 +189,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: FailStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: ForEachTestableForm(),
           help: TestFlowControlTranslations.atf_flow_help_for_each_testable,
           id: 'for_each_testable',
-          keys: const {'regEx', 'step', 'variableName'},
+          keys: {'regEx', 'step', 'variableName'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_for_each_testable,
           widgetless: true,
@@ -213,11 +213,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: IncludeTestStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: IncrementValueForm(),
           help: TestFlowControlTranslations.atf_flow_help_increment_value,
           id: 'increment_value',
-          keys: const {'increment', 'variableName'},
+          keys: {'increment', 'variableName'},
           quickAddValues: {},
           title: TestFlowControlTranslations.atf_flow_title_increment_value,
           widgetless: true,
@@ -225,11 +225,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: IncrementValueStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: IterateForm(),
           help: TestFlowControlTranslations.atf_flow_help_iterate,
           id: 'iterate',
-          keys: const {'end', 'start', 'step', 'variableName'},
+          keys: {'end', 'start', 'step', 'variableName'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_iterate,
           widgetless: true,
@@ -237,11 +237,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: IterateStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: MultiStepForm(),
           help: TestFlowControlTranslations.atf_flow_help_multi_step,
           id: 'multi_step',
-          keys: const {'debugLabel', 'steps'},
+          keys: {'debugLabel', 'steps'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_multi_step,
           type: null,
@@ -250,11 +250,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: MultiStepStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: RepeatUntilForm(),
           help: TestFlowControlTranslations.atf_flow_help_repeat_until,
           id: 'repeat_until',
-          keys: const {
+          keys: {
             'counterVariableName',
             'maxIterations',
             'step',
@@ -269,11 +269,11 @@ class TestFlowControlHelper {
         testRunnerStepBuilder: RepeatUntilStep.fromDynamic,
       ),
       TestStepBuilder(
-        availableTestStep: AvailableTestStep(
+        availableTestStep: const AvailableTestStep(
           form: RetryOnFailureForm(),
           help: TestFlowControlTranslations.atf_flow_help_retry_on_failure,
           id: 'retry_on_failure',
-          keys: const {'retryCount', 'step'},
+          keys: {'retryCount', 'step'},
           quickAddValues: null,
           title: TestFlowControlTranslations.atf_flow_title_retry_on_failure,
           type: null,

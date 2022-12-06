@@ -41,7 +41,7 @@ void main() async {
     );
   }
 
-  var allTests = List<String>.from(
+  final allTests = List<String>.from(
     json.decode(
       await rootBundle.loadString(
         'assets/all_tests.json',
@@ -70,7 +70,7 @@ void main() async {
         variables: {
           'fun42': (_, __) async => 42,
           'funDelayed': (_, __) async {
-            await Future.delayed(Duration(seconds: 5));
+            await Future.delayed(const Duration(seconds: 5));
             return 'delayed';
           }
         }),

@@ -20,7 +20,7 @@ class ConditionalForm extends TestStepForm {
     Map<String, dynamic>? values, {
     bool minify = false,
   }) {
-    var translator = Translator.of(context);
+    final translator = Translator.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -42,7 +42,7 @@ class ConditionalForm extends TestStepForm {
               ],
               values: values!,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               id: 'value',
@@ -52,7 +52,7 @@ class ConditionalForm extends TestStepForm {
               ],
               values: values,
             ),
-            SizedBox(height: 24.0),
+            const SizedBox(height: 24.0),
             TestStepPicker(
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_when_false,
@@ -60,7 +60,7 @@ class ConditionalForm extends TestStepForm {
               onStepChanged: (step) => values['whenFalse'] = step?.toJson(),
               step: TestStep.fromDynamicNullable(values['whenFalse']),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TestStepPicker(
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_when_true,

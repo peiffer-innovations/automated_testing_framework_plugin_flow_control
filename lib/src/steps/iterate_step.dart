@@ -72,15 +72,15 @@ class IterateStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var end = JsonClass.parseInt(tester.resolveVariable(this.end))!;
-    var start = JsonClass.parseInt(tester.resolveVariable(this.start), 0)!;
-    var step = tester.resolveVariable(this.step);
-    String variableName =
+    final end = JsonClass.parseInt(tester.resolveVariable(this.end))!;
+    final start = JsonClass.parseInt(tester.resolveVariable(this.start), 0)!;
+    final step = tester.resolveVariable(this.step);
+    final variableName =
         tester.resolveVariable(this.variableName) ?? '_iterateNum';
 
     assert(end > start);
 
-    var name = "$id('$start', '$end', '$variableName')";
+    final name = "$id('$start', '$end', '$variableName')";
     log(
       name,
       tester: tester,
@@ -89,13 +89,13 @@ class IterateStep extends TestRunnerStep {
     if (step == null) {
       throw Exception('iterate: failing due to no sub-step');
     }
-    var testStep = TestStep.fromDynamic(step);
+    final testStep = TestStep.fromDynamic(step);
 
     for (var i = start; i < end; i++) {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      var name = "iterate('$start', '$end', '$variableName', '$i')";
+      final name = "iterate('$start', '$end', '$variableName', '$i')";
       log(
         name,
         tester: tester,
@@ -131,7 +131,7 @@ class IterateStep extends TestRunnerStep {
       // no-op
     }
 
-    var desc = runnerStep == null
+    final desc = runnerStep == null
         ? 'nothing.'
         : runnerStep.getBehaviorDrivenDescription(tester);
 

@@ -49,9 +49,9 @@ class ExpectFailureStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var step = tester.resolveVariable(this.step);
+    final step = tester.resolveVariable(this.step);
 
-    var name = '$id()';
+    final name = '$id()';
     log(
       name,
       tester: tester,
@@ -64,9 +64,9 @@ class ExpectFailureStep extends TestRunnerStep {
       // that provides no way to keep the sub-step from triggering an error.
       // So instead, the logic from the controller is copied to ensure the
       // report has the step but failures are treated as successes.
-      var testStep = TestStep.fromDynamic(step);
+      final testStep = TestStep.fromDynamic(step);
 
-      var runnerStep = tester.registry.getRunnerStep(
+      final runnerStep = tester.registry.getRunnerStep(
         id: testStep.id,
         values: testStep.values,
       )!;
@@ -129,7 +129,7 @@ class ExpectFailureStep extends TestRunnerStep {
       // no-op
     }
 
-    var desc = runnerStep == null
+    final desc = runnerStep == null
         ? 'nothing.'
         : runnerStep.getBehaviorDrivenDescription(tester);
 

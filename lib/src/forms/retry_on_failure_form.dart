@@ -19,7 +19,7 @@ class RetryOnFailureForm extends TestStepForm {
     Map<String, dynamic>? values, {
     bool minify = false,
   }) {
-    var translator = Translator.of(context);
+    final translator = Translator.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -38,7 +38,7 @@ class RetryOnFailureForm extends TestStepForm {
               label: TestFlowControlTranslations.atf_flow_form_retry_count,
               values: values!,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TestStepPicker(
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_step,

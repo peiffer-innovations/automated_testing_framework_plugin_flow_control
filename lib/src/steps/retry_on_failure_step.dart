@@ -54,11 +54,11 @@ class RetryOnFailureStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var retryCount =
+    final retryCount =
         JsonClass.parseInt(tester.resolveVariable(this.retryCount), 1);
-    var step = tester.resolveVariable(this.step);
+    final step = tester.resolveVariable(this.step);
 
-    var name = "$id('$retryCount')";
+    final name = "$id('$retryCount')";
     log(
       name,
       tester: tester,
@@ -80,9 +80,9 @@ class RetryOnFailureStep extends TestRunnerStep {
         // that provides no way to keep the sub-step from triggering an error.
         // So instead, the logic from the controller is copied to ensure the
         // report has the step but failures are treated as successes.
-        var testStep = TestStep.fromDynamic(step);
+        final testStep = TestStep.fromDynamic(step);
 
-        var runnerStep = tester.registry.getRunnerStep(
+        final runnerStep = tester.registry.getRunnerStep(
           id: testStep.id,
           values: testStep.values,
         )!;
@@ -141,7 +141,7 @@ class RetryOnFailureStep extends TestRunnerStep {
 
     result = result.replaceAll('{{retryCount}}', retryCount ?? '1');
 
-    var desc = runnerStep == null
+    final desc = runnerStep == null
         ? 'nothing.'
         : runnerStep.getBehaviorDrivenDescription(tester);
 

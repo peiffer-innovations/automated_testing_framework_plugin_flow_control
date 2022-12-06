@@ -21,7 +21,7 @@ class IterateForm extends TestStepForm {
     Map<String, dynamic>? values, {
     bool minify = false,
   }) {
-    var translator = Translator.of(context);
+    final translator = Translator.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -45,7 +45,7 @@ class IterateForm extends TestStepForm {
               ],
               values: values!,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               defaultValue: '1',
@@ -58,7 +58,7 @@ class IterateForm extends TestStepForm {
               ],
               values: values,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TestStepPicker(
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_step,
@@ -66,7 +66,7 @@ class IterateForm extends TestStepForm {
               onStepChanged: (step) => values['step'] = step?.toJson(),
               step: TestStep.fromDynamicNullable(values['step']),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               id: 'variableName',
@@ -98,8 +98,8 @@ class _EndValidator extends ValueValidator {
   }) {
     String? error;
 
-    var start = JsonClass.parseInt(values!['start'], 0)!;
-    var end = JsonClass.parseInt(value)!;
+    final start = JsonClass.parseInt(values!['start'], 0)!;
+    final end = JsonClass.parseInt(value)!;
 
     if (start >= end) {
       error = translator!.translate(

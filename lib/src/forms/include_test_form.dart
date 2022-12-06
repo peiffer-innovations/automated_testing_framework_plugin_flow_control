@@ -74,8 +74,8 @@ class _TestEditorState extends State<_TestEditor> {
 
   Future<void> _initAvailableTests() async {
     _availableTests = [];
-    var runner = TestRunner.of(context)!;
-    var tests = await runner.controller!.loadTests(context);
+    final runner = TestRunner.of(context)!;
+    final tests = await runner.controller!.loadTests(context);
     tests?.forEach(
       (test) => _availableTests.add(test),
     );
@@ -114,8 +114,8 @@ class _TestEditorState extends State<_TestEditor> {
     int limit = 4,
     required String editedTestName,
   }) {
-    var highestVersions = <String, PendingTest>{};
-    var patternInText = ({
+    final highestVersions = <String, PendingTest>{};
+    final patternInText = ({
       required String pattern,
       required String text,
     }) =>
@@ -125,7 +125,7 @@ class _TestEditorState extends State<_TestEditor> {
 
     _availableTests.forEach((test) {
       if (patternInText(pattern: editedTestName, text: test.name)) {
-        var key = '${test.name}-${test.suiteName}';
+        final key = '${test.name}-${test.suiteName}';
         highestVersions.putIfAbsent(
           key,
           () => test,
@@ -137,7 +137,7 @@ class _TestEditorState extends State<_TestEditor> {
       }
     });
 
-    var result = highestVersions.values.take(limit).toList();
+    final result = highestVersions.values.take(limit).toList();
     return result;
   }
 
@@ -157,13 +157,13 @@ class _TestEditorState extends State<_TestEditor> {
 
   @override
   Widget build(BuildContext context) {
-    var translatedSuiteName = _translator.translate(
+    final translatedSuiteName = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_suite_name,
     );
-    var translatedTestName = _translator.translate(
+    final translatedTestName = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_test_name,
     );
-    var translatedTestVersion = _translator.translate(
+    final translatedTestVersion = _translator.translate(
       TestFlowControlTranslations.atf_flow_form_test_version,
     );
     return Column(

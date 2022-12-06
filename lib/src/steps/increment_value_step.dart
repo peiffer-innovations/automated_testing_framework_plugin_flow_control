@@ -54,11 +54,11 @@ class IncrementValueStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var increment =
+    final increment =
         JsonClass.parseInt(tester.resolveVariable(this.increment), 1);
-    String variableName = tester.resolveVariable(this.variableName);
+    final variableName = tester.resolveVariable(this.variableName);
 
-    var name = "$id('$increment', '$variableName')";
+    final name = "$id('$increment', '$variableName')";
     log(
       name,
       tester: tester,

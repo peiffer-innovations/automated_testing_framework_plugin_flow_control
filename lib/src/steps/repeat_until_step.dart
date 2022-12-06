@@ -78,15 +78,15 @@ class RepeatUntilStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    var value = tester.resolveVariable(this.value)?.toString();
-    var maxIterations =
+    final value = tester.resolveVariable(this.value)?.toString();
+    final maxIterations =
         JsonClass.parseInt(tester.resolveVariable(this.maxIterations), 100);
-    var step = tester.resolveVariable(this.step);
-    String counterVariableName =
+    final step = tester.resolveVariable(this.step);
+    final counterVariableName =
         tester.resolveVariable(this.counterVariableName) ?? '_repeatNum';
-    String variableName = tester.resolveVariable(this.variableName);
+    final variableName = tester.resolveVariable(this.variableName);
 
-    var name =
+    final name =
         "$id('$variableName', '$value', '$maxIterations', '$counterVariableName')";
     log(
       name,
@@ -96,7 +96,7 @@ class RepeatUntilStep extends TestRunnerStep {
     if (step == null) {
       throw Exception('repeat_until: failing due to no sub-step');
     }
-    var testStep = TestStep.fromDynamic(step);
+    final testStep = TestStep.fromDynamic(step);
     tester.setTestVariable(
       value: 0,
       variableName: counterVariableName,
@@ -164,7 +164,7 @@ class RepeatUntilStep extends TestRunnerStep {
     result = result.replaceAll('{{value}}', value ?? 'null');
     result = result.replaceAll('{{variableName}}', variableName);
 
-    var desc = runnerStep == null
+    final desc = runnerStep == null
         ? 'nothing.'
         : runnerStep.getBehaviorDrivenDescription(tester);
 

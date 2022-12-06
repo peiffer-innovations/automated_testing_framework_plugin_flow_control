@@ -20,7 +20,7 @@ class ForEachTestableForm extends TestStepForm {
     Map<String, dynamic>? values, {
     bool minify = false,
   }) {
-    var translator = Translator.of(context);
+    final translator = Translator.of(context);
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
@@ -42,7 +42,7 @@ class ForEachTestableForm extends TestStepForm {
               ],
               values: values!,
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             TestStepPicker(
               label: translator.translate(
                 TestFlowControlTranslations.atf_flow_form_step,
@@ -50,7 +50,7 @@ class ForEachTestableForm extends TestStepForm {
               onStepChanged: (step) => values['step'] = step?.toJson(),
               step: TestStep.fromDynamicNullable(values['step']),
             ),
-            SizedBox(height: 16.0),
+            const SizedBox(height: 16.0),
             buildEditText(
               context: context,
               id: 'variableName',

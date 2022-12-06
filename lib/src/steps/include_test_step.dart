@@ -69,25 +69,25 @@ class IncludeTestStep extends TestRunnerStep {
     required TestReport report,
     required TestController tester,
   }) async {
-    String? suiteName = tester.resolveVariable(this.suiteName);
-    String? testName = tester.resolveVariable(this.testName);
-    var testVersion = JsonClass.parseInt(
+    final suiteName = tester.resolveVariable(this.suiteName);
+    final testName = tester.resolveVariable(this.testName);
+    final testVersion = JsonClass.parseInt(
       tester.resolveVariable(this.testVersion),
     );
 
-    var name = "$id('$testName', '$testVersion', '$suiteName')";
+    final name = "$id('$testName', '$testVersion', '$suiteName')";
 
     log(
       name,
       tester: tester,
     );
 
-    var suiteTests = await tester.loadTests(
+    final suiteTests = await tester.loadTests(
       null,
       suiteName: suiteName,
     );
 
-    var namedTests = <PendingTest>[];
+    final namedTests = <PendingTest>[];
     int? version;
 
     suiteTests?.forEach((test) {
@@ -99,7 +99,7 @@ class IncludeTestStep extends TestRunnerStep {
 
     version = testVersion ?? version;
 
-    var pendingTest = namedTests.firstWhereOrNull(
+    final pendingTest = namedTests.firstWhereOrNull(
       (test) => test.version == version,
     );
 
@@ -107,7 +107,7 @@ class IncludeTestStep extends TestRunnerStep {
       if (cancelToken.cancelled == true) {
         throw Exception('[CANCELLED]: the step has been cancelled.');
       }
-      var test = await pendingTest.loader.load(ignoreImages: true);
+      final test = await pendingTest.loader.load(ignoreImages: true);
       for (var step in test.steps) {
         if (cancelToken.cancelled == true) {
           throw Exception('[CANCELLED]: the step has been cancelled.');

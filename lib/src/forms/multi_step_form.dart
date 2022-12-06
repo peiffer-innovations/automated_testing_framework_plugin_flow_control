@@ -44,7 +44,7 @@ class MultiStepForm extends TestStepForm {
                     .atf_flow_form_multi_step_debug_label,
                 values: values,
               ),
-              SizedBox(height: 16.0),
+              const SizedBox(height: 16.0),
             ],
             _StepsEditor(
               values: values,
@@ -129,7 +129,7 @@ class _StepsEditorState extends State<_StepsEditor> {
                           ),
                         ),
                         IconButton(
-                          icon: Icon(Icons.delete),
+                          icon: const Icon(Icons.delete),
                           onPressed: () {
                             (widget.values!['steps'] as List).removeAt(index);
                             setState(() {
@@ -158,7 +158,7 @@ class _StepsEditorState extends State<_StepsEditor> {
               );
             });
           },
-          icon: Icon(Icons.add),
+          icon: const Icon(Icons.add),
         ),
       ],
     );
