@@ -45,9 +45,9 @@ const RESOURCES = {
 "assets/NOTICES": "b4d550e24c25c2cacb185b91e3a9b4e4",
 "assets/fonts/MaterialIcons-Regular.otf": "e7069dfd19b331be16bed984668fe080",
 "assets/AssetManifest.json": "59ba68ab2eb1207ad22e7b109e46f83c",
-"index.html": "684b385f3f934920fb1fbdad9014f621",
-"/": "684b385f3f934920fb1fbdad9014f621",
-"main.dart.js": "baec190a51c7ae90d5bbbd6ba5adcb7a",
+"index.html": "19c1cd35250afd3bac2b0de1f7f40742",
+"/": "19c1cd35250afd3bac2b0de1f7f40742",
+"main.dart.js": "46e450908277529c8f85e7a811da6db0",
 "icons/Icon-512.png": "92639d6c9e086f7ffdd3e51200b302f9",
 "icons/Icon-192.png": "0eb3bc31a33f96c536b2b90bd01589d9"
 };
